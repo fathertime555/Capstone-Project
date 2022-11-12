@@ -1,0 +1,48 @@
+.login{
+    font-size: 20px;
+	font-family: Times New Roman;
+    text-align: center;
+	margin-top: 250px;
+	margin-left: 500px;
+	margin-right: 500px;
+	
+	/*
+	-> Testing Margins
+	margin: 500px auto;
+	padding-left: 10px;
+	padding-right: 10px;
+	
+	background-color: black;
+	color: white;
+	*/
+}
+
+.login-form{
+    font-size: 22px;
+}
+
+.input-title{
+	margin-bottom: 0px;
+	/*color: white;*/
+}
+
+.login-button{
+	margin-top: 10px;
+}
+
+.forgot-password{
+	font-size: 10px;
+	font-style: underline;
+	font-style: bold;
+}
+
+.sign-up{
+	font-style: underline;
+	font-size: 20px;
+}
+
+/*
+.need-account{
+	font-size: 15px;
+}
+*/
