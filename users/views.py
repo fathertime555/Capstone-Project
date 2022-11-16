@@ -10,7 +10,7 @@ def register(request):
 		form = Register_Form(request.POST)
 		if form.is_valid():
 			form.save()
-			return redirect("")
+			return redirect("/")
 	else:
 		form = Register_Form()
 
