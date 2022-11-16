@@ -31,6 +31,9 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    "users.apps.UsersConfig",
+    "crispy_forms",
+    "crispy_tailwind",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -73,15 +76,19 @@ WSGI_APPLICATION = "SpiffoList.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
-# For local use
-# "default": {
-#     "ENGINE": "django.db.backends.sqlite3",
-#     "NAME"  : BASE_DIR / "db.sqlite3",
-# }
+
 
 
 DATABASES = {
-    'default': {
+
+    # For local use mysqlite3
+    "default": {
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME"  : BASE_DIR / "db.sqlite3",
+    },
+
+    # for mysql database
+    'mysql_database': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'mydb',
         'USER': 'root',
@@ -132,3 +139,7 @@ STATIC_URL = "static/"
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+CRISPY_ALLOWED_TEMPLATE_PACKS = "tailwind"
+
+CRISPY_TEMPLATE_PACK = "tailwind"
