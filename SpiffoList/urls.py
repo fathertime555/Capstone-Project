@@ -21,5 +21,5 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("register/", user_views.register, name="register"),
     path("", user_views.home, name="home"),
-    path("__reload__/", include("django_browser_reload.urls")),
+    path("__reload__/", include("django_browser_reload.urls")), # for tailwind
 ]
