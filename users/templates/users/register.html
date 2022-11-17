@@ -3,13 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    {load crispy_forms_tags%}
     {% load static %}
 </head>
 <body>
 
 <form method="POST">
     {% csrf_token %}
-    {{ form }}
+    {{ form | crispy }}
     <button type="submit" class="btn btn-success"> Register now </button>
 
 </form>

@@ -35,9 +35,6 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     # added by group
     "users.apps.UsersConfig",
-    "crispy_forms",
-    "crispy_tailwind",
-    "django_browser_reload",
     # came with base django
     "django.contrib.admin",
     "django.contrib.auth",
@@ -144,6 +141,3 @@ STATIC_URL = "static/"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-CRISPY_ALLOWED_TEMPLATE_PACKS = "tailwind"
-
-CRISPY_TEMPLATE_PACK = "tailwind"
