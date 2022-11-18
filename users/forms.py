@@ -10,10 +10,10 @@ input_attribute = {"class":"textinput border rounded-lg leading-normal focus:out
 
 class RegisterForm(UserCreationForm):
 
-	username = forms.CharField(widget = forms.TextInput(attrs= input_attribute))
-	email = forms.EmailField(widget = forms.EmailInput(attrs = input_attribute))
-	password1 = forms.CharField(widget = forms.PasswordInput(attrs = input_attribute))
-	password2 = forms.CharField(widget = forms.PasswordInput(attrs = input_attribute))
+	# username = forms.CharField(widget = forms.TextInput(attrs= input_attribute))
+	# email = forms.EmailField(widget = forms.EmailInput(attrs = input_attribute))
+	# password1 = forms.CharField(widget = forms.PasswordInput(attrs = input_attribute))
+	# password2 = forms.CharField(widget = forms.PasswordInput(attrs = input_attribute))
 
 	class Meta:
 		model = User

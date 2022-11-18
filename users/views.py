@@ -10,7 +10,7 @@ from .forms import RegisterForm, ProfileForm
 
 class ProfileView(LoginRequiredMixin,View):
 	# if we get a get request i.e visted the page.
-	def get (self, request, *args, **kwargs):
+	def get(self, request, *args, **kwargs):
 
 		form = ProfileForm(instance = request.user)
 		return render(request, "users/profile.html", {"form": form})
@@ -22,22 +22,22 @@ class ProfileView(LoginRequiredMixin,View):
 		else:
 			return render(request, "users/profile.html", {"form": form})
 
-
-def register(request):
-
-	if request.method == "POST":
-		# new user
+class RegisterProfileView(View):
+	def get(self,request, *args, **kwargs):
+		form = RegisterForm()
+		return render(request, "users/register.html",{"form":form})
+	def post(self,request, *args, **kwargs):
 		form = RegisterForm(request.POST)
 		if form.is_valid():
 			form.save()
-			return redirect("/")
-	else:
-		form = RegisterForm()
+			return redirect("login")
+		else:
+			return render(request, "users/register.html",{"form":form})
+class WelcomePage(View):
 
-	return render(request, "users/register.html", {"form": form})
-
-def home(request):
-	return HttpResponse("<h1> Home <h1> <a href=\"register/\">Register Here</a>")
-
+	def get(self,request, *args, **kwargs):
+		return render(request, "users/welcome.html")
+	def post(self,request, *args, **kwargs):
+		return render(request, "users/welcome.html")
 
 
