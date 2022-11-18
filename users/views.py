@@ -1,4 +1,3 @@
-from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
@@ -14,6 +13,7 @@ class ProfileView(LoginRequiredMixin,View):
 
 		form = ProfileForm(instance = request.user)
 		return render(request, "users/profile.html", {"form": form})
+	# if the form is submitted
 	def post(self,request, *args, **kwargs):
 		form = ProfileForm(request.POST, request.FILES, instance = request.user)
 		if form.is_valid():
