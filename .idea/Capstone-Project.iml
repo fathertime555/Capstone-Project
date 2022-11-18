@@ -27,6 +27,7 @@
       <list>
         <option value="$MODULE_DIR$/SpiffoList/templates" />
         <option value="$MODULE_DIR$/users/templates" />
+        <option value="$MODULE_DIR$/listings/templates" />
       </list>
     </option>
   </component>

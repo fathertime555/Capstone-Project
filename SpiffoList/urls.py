@@ -21,5 +21,5 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("accounts/", include("django.contrib.auth.urls")),
     path("accounts/", include("users.urls")),
-    path("", user_views.home, name="home"),
+    path("", include("users.urls")),  # will be the home page for now
 ]
