@@ -1,0 +1,30 @@
+{% extends 'main/base.html' %}
+
+{% block title %}
+Add Event
+
+{% endblock %}
+
+
+{% block content %}
+
+
+<div>
+		<form action="" method=POST>
+			{% csrf_token %}
+
+			{{ form.as_p }}
+
+			<input type="submit" value="Submit" class="btn btn-secondary">
+
+		</form>
+</div>
+
+<br/><br/>	
+
+
+
+<!--<a href="">Login Here</a>-->
+
+
+{% endblock %}

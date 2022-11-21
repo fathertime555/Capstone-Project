@@ -1,0 +1,52 @@
+<!--# Sale (Listing) creation -->
+
+{% extends 'main/base.html' %}
+
+{% block title %}
+	Listing Creation
+{% endblock %}
+
+{% block content %}
+	<!-- <div>
+		<h3>Listing Name</h3>
+		<input type="text" name="listname" maxlength="100"><br>
+		<h3>Address</h3>
+		<input type="text" name="address"><br>
+		<h3>Info</h3>
+		<input type="text" name="lsinfo"><br>
+		<h3>Description</h3>
+		<input type="text" name="description" placeholder="Provide a description of the listing" maxlength="300" size="100"><br>
+	
+		<button type="submit", name="save">Create New</button>
+	</div>
+	<br><br><br> -->
+	<!-- <div>
+		<form method="post" action="#">
+			{% csrf_token %}
+			
+			{{form.as_p}}
+
+			<button type="submit" ,name="save", value="save">Save</button>
+		<input type="text" name="new">
+		<button type="submit" ,name="newItem", value="newItem">Add Item</button>
+		</form>
+	</div>-->
+
+
+	<div>
+		<form method="post" action="#">
+			{% csrf_token %}
+			
+			{{ form.as_p }}
+
+			<input type="submit">
+		</form>
+	</div>
+{% endblock %}
+
+# Listing Name
+# Listing info (address, phone number, date)
+# 
+# Sale Description
+# Add address button
+# Save button
