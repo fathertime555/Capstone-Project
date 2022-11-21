@@ -9,7 +9,7 @@ from users.models import AppUser
 
 class RegisterForm(UserCreationForm):
 	class Meta:
-		model = User
+		model = AppUser
 		fields = ["username", "email", "password1", "password2"]
 
 class ProfileForm(ModelForm):
