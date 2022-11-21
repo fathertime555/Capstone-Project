@@ -16,7 +16,7 @@ class RegisterForm(UserCreationForm):
 	password2 = forms.CharField(widget = forms.PasswordInput(attrs = input_attribute))
 
 	class Meta:
-		model = User
+		model = AppUser
 
 		fields = ["username", "email", "password1", "password2"]
 
