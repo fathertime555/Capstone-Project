@@ -31,7 +31,8 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    # added by group
+    "listings",
+    # added by group for CSS
     "users.apps.UsersConfig",
     "tailwind",
     "theme",

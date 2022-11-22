@@ -2,9 +2,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.views import View
-
 from .forms import RegisterForm, ProfileForm
-# Create your views here.
 
 
 class ProfileView(LoginRequiredMixin,View):
@@ -18,7 +16,7 @@ class ProfileView(LoginRequiredMixin,View):
 		form = ProfileForm(request.POST, request.FILES, instance = request.user)
 		if form.is_valid():
 			form.save()
-			return redirect("profile")
+			return redirect("users/profile.html")
 		else:
 			return render(request, "users/profile.html", {"form": form})
 

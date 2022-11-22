@@ -17,9 +17,12 @@ from django.contrib import admin
 from users import views as user_views # imprted from users app
 from django.urls import include, path
 
+
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("accounts/", include("django.contrib.auth.urls")),
     path("accounts/", include("users.urls")),
+    path("users/", include("users.urls")),
+    path("listings/", include("listings.urls")),
     path("", include("users.urls")),  # will be the home page for now
 ]
