@@ -7,8 +7,12 @@ from django.contrib.auth.models import AbstractUser
 class AppUser (AbstractUser):
 
 	# This will add these feilds to the database under the User I called in AppUser
-	profile_picture = models.FileField(upload_to = "uploads/")
+	profile_picture = models.FileField(upload_to = "uploads/users/")
 	address = models.TextField()
 	phone_number = models.TextField()
+	listings = models.ForeignKey(
+		"Listing", on_delete = models.CASCADE,
+	)
+
 
 
