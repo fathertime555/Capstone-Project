@@ -27,5 +27,5 @@ to your connection param.
 </div>
 
 
-run usertable_create.sql to create test table.
+run database_create.sql to create test table.
 then run all the other sql script in the sql folder to add stored procedure to your test database.
