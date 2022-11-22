@@ -17,9 +17,10 @@ class Addresstable(models.Model):
     zip = models.CharField(max_length=45, blank=True, null=True)
     uid = models.IntegerField(blank=True, null=True)
     type = models.IntegerField(blank=True, null=True)
+    lat = models.CharField(max_length=45, blank=True, null=True)
+    lng = models.CharField(max_length=45, blank=True, null=True)
 
     class Meta:
-        managed = False
         db_table = 'addresstable'
 
 
@@ -144,11 +145,10 @@ class Garagesaletable(models.Model):
     starttime = models.DateTimeField(blank=True, null=True)
     endtime = models.DateTimeField(blank=True, null=True)
     aid = models.IntegerField(blank=True, null=True)
-    description = models.TextField(blank=True, null=True)
+    field_description = models.TextField(db_column='_description', blank=True, null=True)  # Field renamed because it started with '_'.
     imageid = models.IntegerField(blank=True, null=True)
 
     class Meta:
-        managed = False
         db_table = 'garagesaletable'
 
 
@@ -158,9 +158,9 @@ class Imagetable(models.Model):
     src = models.CharField(max_length=255, blank=True, null=True)
     uid = models.IntegerField(blank=True, null=True)
     type = models.IntegerField(blank=True, null=True)
+    main = models.IntegerField(blank=True, null=True)
 
     class Meta:
-        managed = False
         db_table = 'imagetable'
 
 
@@ -171,7 +171,6 @@ class Itemlisttable(models.Model):
     itid = models.IntegerField(blank=True, null=True)
 
     class Meta:
-        managed = False
         db_table = 'itemlisttable'
 
 
@@ -191,7 +190,6 @@ class Itemtable(models.Model):
     display = models.IntegerField(blank=True, null=True)
 
     class Meta:
-        managed = False
         db_table = 'itemtable'
 
 
@@ -208,18 +206,9 @@ class Ordertable(models.Model):
     cid = models.CharField(max_length=45, blank=True, null=True)
 
     class Meta:
-        managed = False
         db_table = 'ordertable'
 
 
-class Testtable(models.Model):
-    itid = models.IntegerField(db_column='ITID', primary_key=True)  # Field name made lowercase.
-    name = models.CharField(max_length=45, blank=True, null=True)
-    price = models.CharField(max_length=45, blank=True, null=True)
-
-    class Meta:
-        managed = False
-        db_table = 'testtable'
 
 
 class Usertable(models.Model):
@@ -234,5 +223,4 @@ class Usertable(models.Model):
     profilepicture = models.CharField(max_length=255, blank=True, null=True)
 
     class Meta:
-        managed = False
         db_table = 'usertable'
