@@ -16,8 +16,8 @@ class navbar{
         dropdownli.append($('<a a class="nav-link dropdown-toggle text-white" href="#" id="dropdown10" data-bs-toggle="dropdown" aria-expanded="false">').text('Setting'));
         var dropdownul=$('<ul class="dropdown-menu" aria-labelledby="dropdown10">');
         dropdownul.append($('<li>').append($('<a class="dropdown-item" href="/login">').text('Account')));
-        dropdownul.append($('<li>').append($('<a class="dropdown-item" href="/additem">').text('contact us')));
-        dropdownul.append($('<li>').append($('<a class="dropdown-item" href="">').text('about us')));
+        dropdownul.append($('<li>').append($('<a class="dropdown-item" href="/additem">').text('create form')));
+        dropdownul.append($('<li>').append($('<a class="dropdown-item" href="/newmap">').text('map demo')));
         dropdownli.append(dropdownul);
         ul.append(dropdownli);
         
