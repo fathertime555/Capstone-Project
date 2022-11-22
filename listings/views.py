@@ -4,7 +4,6 @@ from django.views import View
 from django.views.generic import TemplateView
 from .forms import ListingCreationForm
 from django.http import HttpResponse
-
 from .models import Listing
 
 
@@ -19,18 +18,14 @@ class ListingCreationView(LoginRequiredMixin, View):
 		else:
 			return redirect("accounts/login/")
 
-
 	# when the listing creation form is submitted we need to verify it.
 	def post (self, request, *args, **kwargs):
 		if request.user.is_authenticated:
-
 			listing = Listing(owner = request.user) # init a new listings instance
 			form = ListingCreationForm(request.POST, request.FILES, instance = listing)
-
 			if form.is_valid():
 				form.save()
 				return render(request, "users/profile.html", {"form":form})
-
 			else:
 				return render(request, "listings/listingCreation.html", {"form": form})
 		else:
@@ -38,6 +33,15 @@ class ListingCreationView(LoginRequiredMixin, View):
 
 class ListingUserViewAll(LoginRequiredMixin,View):
 
+	def get (self, request, *args, **kwargs):
+		if request.user.is_authenticated:
+			all_listings = Listing.objects.all().values_list()
+			return render(request, "listings/listingList.html",{"all_listings":all_listings})
+		else:
+			return redirect("accounts/login/")
+
+	def post (self, request, *args, **kwargs):
+		return HttpResponse("<h1>Testing The Listing Page</h1>")
 
 class TestListing(LoginRequiredMixin,View):
 
