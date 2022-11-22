@@ -7,25 +7,22 @@ pip install mysqlclient
 </div>
 
 <div>
+<p></p>
+
 <p>change setting.py</p>
 
 <div>
-DATABASES = {
-    # "default": {
-    #     "ENGINE": "django.db.backends.sqlite3",
-    #     "NAME": BASE_DIR / "db.sqlite3",
-    # }
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME':'test4',
-        'USER':'root',
-        'PASSWORD':'20160402dD!',
-        'HOST':'127.0.0.1',
-        'PORT':'3306',
-    }
-}
+<p>DATABASES = {</p>
+<p>    'default': {</p>
+<p>        'ENGINE': 'django.db.backends.mysql',</p>
+<p>        'NAME':'test4',</p>
+<p>        'USER':'root',</p>
+<p>        'PASSWORD':'20160402dD!',</p>
+<p>        'HOST':'127.0.0.1',</p>
+<p>        'PORT':'3306',</p>
+<p>    }</p>
+<p>}</p>
 </div>
-
 to your connection param.
 </div>
 
