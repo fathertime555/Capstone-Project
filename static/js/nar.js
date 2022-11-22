@@ -10,7 +10,7 @@ class navbar{
         this.logo.text("project")
         var ul=$('<ul class="nav col-12 col-lg-auto my-2 justify-content-center my-md-0 text-small">')
         var body=$('<div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">');
-        ul.append($('<li>').append($('<a href="/map" class="nav-link text-white">').text('Garage sale near by')));
+        ul.append($('<li>').append($('<a href="/newmap" class="nav-link text-white">').text('Garage sale near by')));
         ul.append($('<li>').append($('<a href="/" class="nav-link text-white">').text('Watch List')));
         var dropdownli=$('<li class="nav-item dropdown">');
         dropdownli.append($('<a a class="nav-link dropdown-toggle text-white" href="#" id="dropdown10" data-bs-toggle="dropdown" aria-expanded="false">').text('Setting'));
