@@ -20,6 +20,7 @@ CREATE TABLE `usertable` (
   UNIQUE KEY `email_UNIQUE` (`email`)
 );
 
+
 insert into usertable (firstname,lastname,email,phone,password,registertime,username,profilepicture) values ("Cary","Doe","Cary.doe@gamil.com","4254254225","123456",NOW(),"user123","");
 insert into usertable (firstname,lastname,email,phone,password,registertime,username,profilepicture) values ("Jason","Davis","Jason.Davis@gamil.com","4254254225","123456",NOW(),"user124","");
 insert into usertable (firstname,lastname,email,phone,password,registertime,username,profilepicture) values ("Corey","Reese","Corey.Reese@gamil.com","4254254225","123456",NOW(),"user125","");

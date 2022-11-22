@@ -1,0 +1,34 @@
+<html>
+    <head>
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+
+    </head>
+<body>
+<div id="map" style="width:100%;height:100%;background:green"></div>
+<script>
+function initMap() {
+  // The location of Uluru
+  const uluru = { lat: 47.5413731, lng: -122.1270583 };
+  const uluru2 = { lat: 47.5839952, lng: -122.1476725 };
+  // The map, centered at Uluru
+  const map = new google.maps.Map(document.getElementById("map"), {
+    zoom: 12,
+    center: uluru,
+  });
+  // The marker, positioned at Uluru
+  const marker = new google.maps.Marker({
+    position: uluru,
+    map: map,
+  });
+  const marker2 = new google.maps.Marker({
+    position: uluru2,
+    map: map,
+  });
+}
+
+window.initMap = initMap;
+
+</script>
+<script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA0DZnzUceQi8G8bH-4CFl4XD6jawq91Ws&callback=initMap"></script>
+</body>
+</html>

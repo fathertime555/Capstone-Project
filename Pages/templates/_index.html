@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en" class="h-100">
+
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@2.41.0/dist/full.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.tailwindcss.com"></script>  
+    <script src="static/js/jquery-3.6.1.min.js"></script>
+    <script src="static/js/card.js"></script>
+    <style>
+
+    </style>
+    
+</head>
+
+<body>
+    <div class="navbar bg-base-100">
+        <div class="flex-1">
+          <a class="btn btn-ghost normal-case text-xl">daisyUI</a>
+        </div>
+        <div class="flex-none gap-2">
+          <div class="form-control">
+            <input type="text" placeholder="Search" class="input input-bordered" />
+          </div>
+          <div class="dropdown dropdown-end">
+            <label tabindex="0" class="btn btn-ghost btn-circle avatar">
+              <div class="w-10 rounded-full">
+                <img src="https://placeimg.com/80/80/people" />
+              </div>
+            </label>
+            <ul tabindex="0" class="mt-3 p-2 shadow menu menu-compact dropdown-content bg-base-100 rounded-box w-52">
+              <li>
+                <a class="justify-between">
+                  Profile
+                  <span class="badge">New</span>
+                </a>
+              </li>
+              <li><a>Settings</a></li>
+              <li><a>Logout</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    <button class="btn" id="btn">Button</button>
+    <div class="container mx-auto">
+        <div class="grid place-content-center grid-flow-row-dense grid-cols-3 grid-rows-3 gap-6" id="co">
+    </div>
+    </div>
+        
+    
+    <script>
+        var x=$("#result");
+        $("#btn").click(function(e){
+            $.get('./database/data', { account: 1 }, function (data) {
+            x.text(data);
+            console.log(data);
+            data.forEach(element => {
+              card12=new card1(element);
+                $('#co').append(card12.body);
+            });
+          })
+        })
+      </script>
+</body>

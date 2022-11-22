@@ -1,0 +1,226 @@
+<!doctype html>
+<html lang="en" class="h-100">
+
+<head>
+  <link href="../static/css/bootstrap.min.css" rel="stylesheet">
+  <script src="../static/js/bootstrap.bundle.min.js"></script>
+  <script src="../static/js/jquery-3.6.1.min.js"></script>
+  <script src="../static/js/createitemform.js"></script>
+  <script src="../static/js/card.js"></script>
+  <script src="../static/js/tab.js"></script>
+  <script src="../static/js/display.js"></script>
+  <script src="../static/js/showgarage.js"></script>
+  <script>
+    $((function(){
+      $('#gsub').click(function(){
+        $.get('/database/newgaragesale',{
+          street:$('#street').val(),
+          city:$('#city').val(),
+          states:$('#states').val(),
+          zip:$('#zip').val(),
+          description:$('#description1').val(),
+          start:$('#start').val(),
+          end:$('#end').val(),
+          uid:1
+        },function(data){
+          console.log(data);
+          $('#gs').text(data[0]);
+        })
+        var s=$('#list-tab');
+
+
+
+      })
+        var gs=new showgarage();
+        $('#gsdisplay').append(gs.ul);
+        $('#gsdisplay').append(gs.div);
+      
+    }))
+  </script>
+  <style>
+    img.up {
+      max-height: 50px;
+      overflow: auto;
+    }
+    </style>
+</head>
+
+
+<body>
+  <form>
+    <div class="mb-3">
+      <label for="street" class="form-label">street</label>
+      <input type="text" class="form-control" id="street">
+    </div>
+    <div class="mb-3">
+      <label for="city" class="form-label">city</label>
+      <input type="text" class="form-control" id="city">
+    </div>
+    <div class="mb-3">
+      <label for="zip" class="form-label">zip</label>
+      <input type="text" class="form-control" id="zip">
+    </div>
+    <div class="mb-3 form-check">
+      <label for="states" class="form-label">states</label>
+      <input type="text" class="form-control" id="states">
+    </div>
+    <div class="mb-3 form-check">
+      <label for="start" class="form-label">start</label>
+      <input type="date" class="form-control" id="start">
+    </div>
+    <div class="mb-3 form-check">
+      <label for="end" class="form-label">end</label>
+      <input type="date" class="form-control" id="end">
+    </div>
+    <div class="mb-3">
+      <label for="description1" class="form-label">description</label>
+      <textarea class="form-control" id="description1" rows="3"></textarea>
+    </div>
+    <a class="btn btn-primary" id="gsub">Submit</a>
+  </form>
+  <div>
+    <p>gsid:</p>
+    <p id="gs"></p>
+  </div>
+  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+    Launch static backdrop modal
+  </button>
+
+<div id="gsdisplay">
+
+<!-- </div>
+  <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+    <li class="nav-item" role="presentation">
+      <button class="nav-link active" id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home" aria-selected="true">Home</button>
+    </li>
+    <li class="nav-item" role="presentation">
+      <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">Profile</button>
+    </li>
+    <li class="nav-item" role="presentation">
+      <button class="nav-link" id="pills-contact-tab" data-bs-toggle="pill" data-bs-target="#pills-contact" type="button" role="tab" aria-controls="pills-contact" aria-selected="false">Contact</button>
+    </li>
+  </ul>
+  <div class="tab-content" id="pills-tabContent">
+    <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">...</div>
+    <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">...</div>
+    <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">...</div>
+  </div> -->
+
+
+
+  <!-- Modal -->
+  <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="staticBackdropLabel">Create New Item</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Submit</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    var x=new itemform();
+    $('.modal-body').append(x.body);
+  </script>
+  <!-- <form action="/database/data">
+    <div class="mb-3">
+      <label for="itemname" class="form-label">itemname</label>
+      <input type="text" class="form-control" id="itemname">
+
+    </div>
+    <div class="mb-3">
+      <label for="brand" class="form-label">brand</label>
+      <input type="text" class="form-control" id="brand">
+    </div>
+    <div class="mb-3">
+      <label for="module" class="form-label">module</label>
+      <input type="text" class="form-control" id="module">
+    </div>
+    <div class="mb-3">
+      <label for="Qty" class="form-label">Qty</label>
+      <input type="text" class="form-control" id="Qty">
+    </div>
+    <div class="mb-3">
+      <label for="Price" class="form-label">Price</label>
+      <input type="text" class="form-control" id="Price">
+    </div>
+    <div class="mb-3">
+      <label for="description" class="form-label">description</label>
+      <textarea class="form-control" id="description" rows="3"></textarea>
+    </div>
+    <a id="up" class="btn btn-primary">addimage</a>
+    <a id="btn" class="btn btn-primary">Submit</a>
+  </form>
+  <label id="result"></label>
+  <div class="row row-cols-1 row-cols-md-3 mb-3 text-center">
+    <div class="col" id="co">
+    </div>
+  </div>
+  <div id='image'></div>
+  <script>
+    var files=[];
+    var x = $("#image");
+    var upload = $('<input class="form-control" type="file" id="formFile">')
+    upload.on('change', function (ev) {
+      var f = ev.target.files[0];
+      if (f) {
+        var r = new FileReader();
+        r.onload = function (e) {
+          $('#image').append($('<img class=up>').attr('src', e.target.result))
+          // var fd = new FormData();
+          // fd.append('FILES',e.target.result)
+          // $.ajax({
+          //   url: '../database/image_request/', // point to server-side controller method
+          //   dataType: 'text', // what to expect back from the server
+          //   cache: false,
+          //   contentType: false,
+          //   processData: false,
+          //   data: fd,
+          //   type: 'post',
+          //   success: function (response) {
+          //     $('#msg').html(response); // display success response from the server
+          //   },
+          //   error: function (response) {
+          //     $('#msg').html(response); // display error response from the server
+          //   }
+          // });
+          files.push(e.target.result);
+          console.log(files);
+        };
+        r.readAsDataURL(f);
+
+      } else {
+        console.log("failed");
+      }
+
+    })
+    $('#up').click(function () {
+      upload.click();
+    })
+    $("#btn").click(function (e) {
+      $.get('../database/createitem',
+        {
+          itemname: $('#itemname').val(),
+          brand: $('#brand').val(),
+          mnumber: $('#module').val(),
+          description: $('#description').val(),
+          price: $('#Price').val(),
+          qty: $('#Qty').val(),
+          gsid: 1,
+          imageid: 1,
+          uid: 1,
+          display: 1
+        }, function (data) {
+          console.log(data);
+        })
+    })
+  </script> -->
+</body>

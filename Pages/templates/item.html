@@ -14,7 +14,7 @@
 
 
   <!-- Bootstrap core CSS -->
-  <link href="static/css/bootstrap.min.css" rel="stylesheet">
+  <link href="../static/css/bootstrap.min.css" rel="stylesheet">
 
   <style>
     .bd-placeholder-img {
@@ -33,91 +33,66 @@
   </style>
 
 
-  <!-- Custom styles for this template -->
-  <link href="static/css/sticky-footer-navbar.css" rel="stylesheet">
-  <link href="static/css/pricing.css" rel="stylesheet">
-  <link href="static/css/headers.css" rel="stylesheet">
+  <link href="../static/css/sticky-footer-navbar.css" rel="stylesheet">
+  <link href="../static/css/pricing.css" rel="stylesheet">
+  <link href="../static/css/headers.css" rel="stylesheet">
+  <script src="../static/js/jquery-3.6.1.min.js"></script>
+  <script src="../static/js/nar.js"></script>
+  <script src="../static/js/card.js"></script>
+  <script>
+    function getUrlVars()
+{
+var vars = [], hash;
+var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+for(var i = 0; i < hashes.length; i++)
+{
+hash = hashes[i].split('=');
+vars.push(hash[0]);
+vars[hash[0]] = hash[1];
+}
+return vars;
+}
+    $(function(){
+      $(function () {
+        $.get('../database/getitem',{itid:getUrlVars()['itid']},function(data){
+          console.log(data);
+          $('#cardbody').append($('<h5 class="card-title">').text(data.item[0].itemname));
+          $('#cardbody').append($('<p class="card-text">').text(data.item[0].brand));
+          $('#cardbody').append($('<p class="card-text">').text(data.item[0].mnumber));
+          $('#cardbody').append($('<p class="card-text">').text(data.item[0].description));
+          $('#cardbody').append($('<p class="card-text">').text(data.item[0].price));
+          
+          data.image.forEach(e=>{
+            if(e.main==1){
+              $('#slide').append($('<div class="carousel-item active">').append($('<img class="d-block w-100">').attr('src','../'+e.src)))
+
+            }else{
+              $('#slide').append($('<div class="carousel-item">').append($('<img class="d-block w-100">').attr('src','../'+e.src)))
+
+            }
+          })
+          $('#carouselExampleControls').append($('<button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev"><span class="carousel-control-prev-icon" aria-hidden="true"></span><span class="visually-hidden">Previous</span></button>'))
+          $('#carouselExampleControls').append($('<button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next"><span class="carousel-control-next-icon" aria-hidden="true"></span><span class="visually-hidden">Next</span></button>'))
+        })
+      $.get('../database/data', { account: 1 }, function (data) {
+        var i=0;
+        data.forEach(element => {
+          if(i<3){
+            var card = new cardbootstrap(element);
+            $('#sim').append($('<div class="col">').append(card.body));
+              i++;
+          }
+        });
+      });
+    })
+    })
+  </script>
 </head>
 
 <body class="d-flex flex-column h-100">
 
   <header>
-    <div class="px-3 py-2 bg-dark text-white">
-      <div class="container">
-        <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-          <a href="/" class="d-flex align-items-center my-2 my-lg-0 me-lg-auto text-white text-decoration-none">
-            <image class="bi me-2" width="40" height="32"src="static/src/bootstrap-stack.png"/></image>
-          Logo
-          </a>
-
-          <ul class="nav col-12 col-lg-auto my-2 justify-content-center my-md-0 text-small">
-
-            <li>
-              <a href="/map" class="nav-link text-white">
-                Garage sale near by
-              </a>
-            </li>
-            <li>
-              <a href="/" class="nav-link text-white">
-                Watch List
-              </a>
-            </li>
-            <li class="nav-item dropdown">
-              <a a class="nav-link dropdown-toggle text-white" href="#" id="dropdown10" data-bs-toggle="dropdown" aria-expanded="false">
-                Setting
-              </a>
-              <ul class="dropdown-menu" aria-labelledby="dropdown10">
-                <li><a class="dropdown-item" href="/login">Account</a></li>
-                <li><a class="dropdown-item" href="#">contact us</a></li>
-                <li><a class="dropdown-item" href="#">About us</a></li>
-              </ul>
-            </li>
-
-          </ul>
-        </div>
-      </div>
-    </div>
-    <div class="px-3 py-2 border-bottom mb-3">
-      <div class="container">
-        <div class=" d-flex flex-wrap justify-content-center">
-        <nav aria-label="breadcrumb" class="col-12 col-lg-auto mb-2 mb-lg-0 me-lg-auto col-md-3">
-          <ol class="breadcrumb">
-            <li class="breadcrumb-item dropdown">
-              <a a class="nav-link dropdown-toggle" href="#" id="dropdown10" data-bs-toggle="dropdown" aria-expanded="false">
-                category
-              </a>
-              <ul class="dropdown-menu" aria-labelledby="dropdown10">
-                <li><a class="dropdown-item" href="">other category</a></li>
-                <li><a class="dropdown-item" href="#">other category</a></li>
-                <li><a class="dropdown-item" href="#">other category</a></li>
-              </ul>
-            </li>
-            <li class="breadcrumb-item dropdown">
-              <a a class="nav-link dropdown-toggle" href="#" id="dropdown10" data-bs-toggle="dropdown" aria-expanded="false">
-                category l1
-              </a>
-              <ul class="dropdown-menu" aria-labelledby="dropdown10">
-                <li><a class="dropdown-item" href="">other category</a></li>
-                <li><a class="dropdown-item" href="#">other category us</a></li>
-                <li><a class="dropdown-item" href="#">other category us</a></li>
-              </ul>
-            </li>
-            <li class="breadcrumb-item active" aria-current="page">category L2</li>
-          </ol>
-        </nav>
-
- 
-          <div class="col-md-3 text-end">
-                    <input type="text" class="form-control input-sm" placeholder="" aria-label="" aria-describedby="basic-addon1">
-        </div>
-          <div class="input-group-prepend">
-            <button class="btn btn-outline-secondary" type="button">Search</button>
-          </div>
-        
-        </div>
-        
-      </div>
-    </div>
+    
   </header>
 
   <!-- Begin page content -->
@@ -126,16 +101,36 @@
     <div class="card mb-3 text-right">
       <div class="row no-gutters">
         <div class="col-md-4">
-          <img src="static/src/1.jpg" class="card-img" alt="...">
+          <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner" id="slide">
+              <!-- <div class="carousel-item active">
+                <img src="../static/src/1.jpg" class="d-block w-100" alt="...">
+              </div>
+              <div class="carousel-item">
+                <img src="../static/src/2.jpg" class="d-block w-100" alt="...">
+              </div>
+              <div class="carousel-item">
+                <img src="../static/src/3.jpg" class="d-block w-100" alt="...">
+              </div> -->
+            </div> 
+            <!-- <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Next</span>
+            </button> -->
+          </div>
         </div>
         <div class="col-md-8 ">
-          <div class="card-body ">
-            <h5 class="card-title">Item name</h5>
+          <div class="card-body" id="cardbody">
+            <!-- <h5 class="card-title">Item name</h5>
             <p class="card-text">Tag</p>
             <p class="card-text">Price</p>
             <p class="card-text">Info</p>
             <p class="card-text">Info</p>
-            <p class="card-text">Info</p>
+            <p class="card-text">Info</p> -->
             
           </div>
           <div class="row justify-content-end ">
@@ -153,54 +148,9 @@
     <h2>
       Simalier item
     </h2>
-    <div class="row row-cols-1 row-cols-md-3 mb-3 text-center">
-      <div class="col">
-        <div class="card mb-4 rounded-3 shadow-sm">
-          <div class="card-header py-3">
-            <img src="static/src/4.jpg" class="rounded img-fluid">
-          </div>
-          <div class="card-body">
-            <h1 class="card-title pricing-card-title">Item Name</h1>
-            <ul class="list-unstyled mt-3 mb-4">
-              <li>Some Tag</li>
-              <li>Some introduction</li>
-              <li>Price</li>
-            </ul>
-            </ul>
-          </div>
-        </div>
-      </div>
-      <div class="col">
-        <div class="card mb-4 rounded-3 shadow-sm">
-          <div class="card-header py-3">
-            <img src="static/src/5.jpg" class="rounded img-fluid">
-          </div>
-          <div class="card-body">
-            <h1 class="card-title pricing-card-title">Item Name</h1>
-            <ul class="list-unstyled mt-3 mb-4">
-              <li>Some Tag</li>
-              <li>Some introduction</li>
-              <li>Price</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-      <div class="col">
-        <div class="card mb-4 rounded-3 shadow-sm">
-          <div class="card-header py-3">
-            <img src="static/src/6.jpg" class="rounded img-fluid">
-          </div>
-          <div class="card-body">
-            <h1 class="card-title pricing-card-title">Item Name</h1>
-            <ul class="list-unstyled mt-3 mb-4">
-              <li>Some Tag</li>
-              <li>Some introduction</li>
-              <li>Price</li>
-            </ul>
-            </ul>
-          </div>
-        </div>
-      </div>
+    <div class="row row-cols-1 row-cols-md-3 mb-3 text-center" id="sim">
+      
+    
     </div>
   </div>
   </main>
@@ -212,7 +162,7 @@
   </footer>
 
 
-  <script src="static/js/bootstrap.bundle.min.js"></script>
+  <script src="../static/js/bootstrap.bundle.min.js"></script>
 
 
 </body>
