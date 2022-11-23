@@ -149,6 +149,6 @@ INTERNAL_IPS = [
 
 AUTH_USER_MODEL = "users.AppUser"
 
-LOGIN_REDIRECT_URL = "/users/profile"
+LOGIN_REDIRECT_URL = "/accounts/profile"
 
 
