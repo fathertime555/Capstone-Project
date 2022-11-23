@@ -24,9 +24,9 @@ class ListingCreationView(LoginRequiredMixin, View):
 			form = ListingCreationForm(request.POST, request.FILES, instance = listing)
 			if form.is_valid():
 				form.save()
-				return render(request, 'users/profile.html', {'form': form})
+				return render(request, 'users/welcome.html', {'form': form})
 			else:
-				return render(request, 'listings/listingCreation.html', {'form': form})
+				return render(request, 'users/welcome.html', {'form': form})
 		else:
 			return redirect('users:login')
 

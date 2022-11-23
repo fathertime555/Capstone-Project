@@ -1,5 +1,4 @@
 from django.urls import path
-from listings.views import ListingCreationView
 from . import views
 
 app_name = 'listings'
