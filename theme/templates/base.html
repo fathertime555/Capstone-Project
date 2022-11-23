@@ -10,7 +10,7 @@
 </head>
 
 <body class="bg-gray-50 font-serif leading-normal tracking-normal">
-<div class="p-2 container mx-auto h-screen">
+<div class="p-2 container mx-auto">
     <div class="navbar bg-base-100 shadow-xl rounded-box">
         <div class="flex-1">
             <a href="{% url "welcome" %}" class="btn btn-ghost normal-case text-xl">Home</a>
@@ -20,7 +20,7 @@
     </div>
         <div class="flex-none">
             <ul class="menu menu-horizontal p-0">
-                <li><a>Listing Builder</a></li>
+                <li><a href="{% url "listings:create" %}">Listing Builder</a></li>
                 <li tabindex="0">
                     <a>
                         MyList
@@ -31,17 +31,32 @@
                         <li><a>Submenu 2</a></li>
                     </ul>
                 </li>
-                <li><a>Item 3</a></li>
+                 <li tabindex="0">
+                    <a>
+                        Account
+                        <svg class="fill-current" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z"/></svg>
+                    </a>
+                    <ul class="p-2 bg-base-100">
+                        <li><a href="{% url "login"  %}">Login</a></li>
+                        <li><a href="{% url "logout" %}">Logout</a></li>
+                        <li><a href="{% url "users:profile" %}">Edit Profile</a></li>
+                        <li><a href="{% url "listings:index" %}">View My Listings</a></li>
+                        <li><a href="{% url "users:register" %}">Register</a></li>
+                    </ul>
+                </li>
                 <li>
 
                 </li>
             </ul>
         </div>
+
     </div>
+
+       <div>
     {% block content %}
-
-
     {% endblock %}
+    </div>
+
 </div>
 </body>
 </html>
