@@ -15,13 +15,19 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import include, path
-from .views import WelcomePage
+from django.contrib import admin
+from django.urls import path, include
+from rest_framework import routers
+from users import views
 
+router = routers.DefaultRouter()
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('api_users/', include("users.urls")),
+    path('api_listings/', include("listings.urls" )),
+    ###
     path('accounts/', include('django.contrib.auth.urls')),
     path('accounts/', include('users.urls')),
     path('listings/', include('listings.urls')),
-    path('', WelcomePage.as_view(), name='welcome')
-]
+    ]

@@ -32,10 +32,10 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     "listings",
+    'corsheaders',
+    'rest_framework',
     # added by group for CSS
     "users.apps.UsersConfig",
-    "tailwind",
-    "theme",
     # came with base django
     "django.contrib.admin",
     "django.contrib.auth",
@@ -54,6 +54,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    'corsheaders.middleware.CorsMiddleware',
 ]
 
 ROOT_URLCONF = "SpiffoList.urls"
@@ -150,5 +151,9 @@ INTERNAL_IPS = [
 AUTH_USER_MODEL = "users.AppUser"
 
 LOGIN_REDIRECT_URL = "/accounts/profile"
+
+CORS_ORIGIN_WHITELIST = [
+     'http://localhost:3000'
+]
 
 
