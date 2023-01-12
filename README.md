@@ -6,9 +6,13 @@ Group 5 - 2022
 - step 1: Open a terminal in the main project folder.
 - step 2: run- poetry update
 - step 3 run- poetry install
-- step 4: run- python manage.py runserver
+- step 4: run- python manage.py runserver (Backend)
+- step 5: cd into frontend
+- step 6: run- npm start
+- step 7: done
 
-Most likely you should only need to just do step 4
+Most likely you should only need to just do steps 4 - 7.
+run- means run in your terminal.
 
 Make sure you read this doc in particular so you know how to make a superuser for yourself.
 https://docs.djangoproject.com/en/4.1/topics/auth/default/
