@@ -1,17 +1,38 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, redirect
 from django.views import View
+from django.views.decorators.csrf import csrf_exempt
+
 from .forms import RegisterForm, ProfileForm
 from django.shortcuts import render
-from rest_framework import viewsets
-from .serializers import AppUserSerializer
+from .serializers import UserSerializer
 from .models import AppUser
+from rest_framework import mixins
+from rest_framework import generics
 
-# Create your views here.
 
-class AppUserView(viewsets.ModelViewSet):
-    serializer_class = AppUserSerializer
+class UserList(mixins.ListModelMixin, mixins.CreateModelMixin, generics.GenericAPIView):
     queryset = AppUser.objects.all()
+    serializer_class = UserSerializer
+
+    def get(self, request, *args, **kwargs):
+        return self.list(request, *args, **kwargs)
+
+    def post(self, request, *args, **kwargs):
+        return self.create(request, *args, **kwargs)
+
+
+class UserDetail(mixins.RetrieveModelMixin, mixins.UpdateModelMixin, mixins.DestroyModelMixin, generics.GenericAPIView):
+    queryset = AppUser.objects.all()
+    serializer_class = UserSerializer
+    def get(self, request, *args, **kwargs):
+        return self.retrieve(request, *args, **kwargs)
+
+    def put(self, request, *args, **kwargs):
+        return self.update(request, *args, **kwargs)
+
+    def delete(self, request, *args, **kwargs):
+        return self.destroy(request, *args, **kwargs)
 
 #
 # class ProfileView(LoginRequiredMixin, View):

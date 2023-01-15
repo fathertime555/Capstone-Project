@@ -20,7 +20,6 @@ from django.urls import path, include
 from rest_framework import routers
 from users import views
 
-router = routers.DefaultRouter()
 
 urlpatterns = [
     path('admin/', admin.site.urls),
