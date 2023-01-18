@@ -81,8 +81,20 @@ optional = false
 python-versions = ">=3.8"
 
 [[package]]
+name = "pymysql"
+version = "1.0.2"
+description = "Pure Python MySQL Driver"
+category = "main"
+optional = false
+python-versions = ">=3.6"
+
+[package.extras]
+ed25519 = ["PyNaCl (>=1.4.0)"]
+rsa = ["cryptography"]
+
+[[package]]
 name = "pytz"
-version = "2022.7"
+version = "2022.7.1"
 description = "World timezone definitions, modern and historical"
 category = "main"
 optional = false
@@ -107,7 +119,7 @@ python-versions = ">=2"
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.10"
-content-hash = "56feae26de21408832cf761b6c23f22dc4387f25a9d77851056099ae1890008d"
+content-hash = "c9918a8f728d31feb74b483cc34d6741e5895a716ad3e1a65a01c61e7b03cd55"
 
 [metadata.files]
 asgiref = [
@@ -164,9 +176,13 @@ numpy = [
     {file = "numpy-1.24.1-pp38-pypy38_pp73-win_amd64.whl", hash = "sha256:cfa1161c6ac8f92dea03d625c2d0c05e084668f4a06568b77a25a89111621566"},
     {file = "numpy-1.24.1.tar.gz", hash = "sha256:2386da9a471cc00a1f47845e27d916d5ec5346ae9696e01a8a34760858fe9dd2"},
 ]
+pymysql = [
+    {file = "PyMySQL-1.0.2-py3-none-any.whl", hash = "sha256:41fc3a0c5013d5f039639442321185532e3e2c8924687abe6537de157d403641"},
+    {file = "PyMySQL-1.0.2.tar.gz", hash = "sha256:816927a350f38d56072aeca5dfb10221fe1dc653745853d30a216637f5d7ad36"},
+]
 pytz = [
-    {file = "pytz-2022.7-py2.py3-none-any.whl", hash = "sha256:93007def75ae22f7cd991c84e02d434876818661f8df9ad5df9e950ff4e52cfd"},
-    {file = "pytz-2022.7.tar.gz", hash = "sha256:7ccfae7b4b2c067464a6733c6261673fdb8fd1be905460396b97a073e9fa683a"},
+    {file = "pytz-2022.7.1-py2.py3-none-any.whl", hash = "sha256:78f4f37d8198e0627c5f1143240bb0206b8691d8d7ac6d78fee88b78733f8c4a"},
+    {file = "pytz-2022.7.1.tar.gz", hash = "sha256:01a0681c4b9684a28304615eba55d1ab31ae00bf68ec157ec3708a8182dbbcd0"},
 ]
 sqlparse = [
     {file = "sqlparse-0.4.3-py3-none-any.whl", hash = "sha256:0323c0ec29cd52bceabc1b4d9d579e311f3e4961b98d174201d5622a23b85e34"},

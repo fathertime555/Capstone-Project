@@ -23,7 +23,7 @@ from users import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api_users/', include("users.urls")),
+    path('users/', include("users.urls")),
     path('api_listings/', include("listings.urls" )),
     ###
     path('accounts/', include('django.contrib.auth.urls')),
