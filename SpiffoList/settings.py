@@ -34,6 +34,7 @@ INSTALLED_APPS = [
     "listings",
     'corsheaders',
     'rest_framework',
+    "rest_framework.authtoken",
     # added by group for CSS
     "users.apps.UsersConfig",
     # came with base django

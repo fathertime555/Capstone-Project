@@ -1,24 +1,32 @@
 from rest_framework.authentication import TokenAuthentication
+from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from .serializers import CreateUserSerializer
 from .models import AppUser
-from rest_framework import mixins
+from rest_framework import mixins, viewsets
 from rest_framework import generics
+from rest_framework.authtoken.models import Token
 
-
-
-class TestView(APIView):
-    authentication_classes = [TokenAuthentication]
+class UserViewSet(viewsets.ModelViewSet):
+    queryset = AppUser.objects.all()
+    serializer_class = CreateUserSerializer
     permission_classes = [IsAuthenticated]
 
-    def get(self, request, format=None):
-        content = {
-            'user': str(request.AppUser),  # `django.contrib.auth.User` instance.
-            'email': str(request.email),  # None
-        }
-        return Response(content)
+class UserLogIn(ObtainAuthToken):
+    def post(self, request, *args, **kwargs):
+        serializer = self.serializer_class(data=request.data,
+                                           context={'request': request})
+        serializer.is_valid(raise_exception=True)
+        user = serializer.validated_data['user']
+        token = Token.objects.get(user=user)
+        return Response({
+            'token': token.key,
+            'id': user.pk,
+            'username': user.username
+        })
+
 
 class UserList(mixins.ListModelMixin, mixins.CreateModelMixin, generics.GenericAPIView):
     #permission_classes = [IsAuthenticated]
