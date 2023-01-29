@@ -1,10 +1,18 @@
 from django.urls import path
-from . import views
-from users import views
+from .views import UserViewSet,LoginView, LogoutView, CheckAuthenticatedView
+from rest_framework import routers
+#
+# router = routers.SimpleRouter()
+# router.register(r"register/", UserViewSet)
 
-app_name = 'users'
+app_name = "users"
 urlpatterns = [
-	#path('', views.AppUserView, name = "users"),
-	# path('profile/', views.ProfileView.as_view(), name='profile'),
-	# path('register/', views.RegisterProfileView.as_view(), name='register')
+    path('authenticated/', CheckAuthenticatedView.as_view()),
+    path('register/', UserViewSet.as_view({'post': 'create'})),
+    path('login/', LoginView.as_view()),
+    path('logout/', LogoutView.as_view()),
+
+    #path('delete/', DeleteAccountView.as_view()),
+    #path('csrf_cookie/', GetCSRFToken.as_view())
+
 ]

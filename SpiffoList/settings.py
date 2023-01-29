@@ -31,10 +31,12 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    # apps
+
     "listings",
+    # packages
     'corsheaders',
     'rest_framework',
-    # added by group for CSS
     "users.apps.UsersConfig",
     # came with base django
     "django.contrib.admin",
@@ -90,14 +92,14 @@ DATABASES = {
     },
 
     # for mysql database
-    'mysql_database': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'mydb',
-        'USER': 'root',
-        'PASSWORD': 'admin',
-        'HOST':'localhost',
-        'PORT':'3306',
-    }
+#     'mysql_database': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': 'mydb',
+#         'USER': 'root',
+#         'PASSWORD': 'admin',
+#         'HOST':'localhost',
+#         'PORT':'3306',
+#     }
 }
 
 
@@ -142,18 +144,26 @@ STATIC_URL = "static/"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-TAILWIND_APP_NAME = "theme"
-
 INTERNAL_IPS = [
     "127.0.0.1",
 ]
 
 AUTH_USER_MODEL = "users.AppUser"
 
-LOGIN_REDIRECT_URL = "/accounts/profile"
+LOGIN_REDIRECT_URL = "/users/login"
 
 CORS_ORIGIN_WHITELIST = [
      'http://localhost:3000'
 ]
+
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticated',
+    ],
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.SessionAuthentication',
+    ]
+}
+
 
 

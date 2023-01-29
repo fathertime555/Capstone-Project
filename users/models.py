@@ -1,7 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 
-# Create your models here.
 
 # since we want to only add to the User class we use AbstractUser
 class AppUser (AbstractUser):
