@@ -7,8 +7,12 @@ class AppUser (AbstractUser):
 
 	# This will add these feilds to the database under the User I called in AppUser
 	profile_picture = models.FileField(upload_to = "uploads/users/")
-	address = models.TextField()
-	phone_number = models.TextField()
+	address_line_1 = models.CharField(max_length = 200, default = "None")
+	address_line_2 = models.CharField(max_length = 200,default = "None")
+	city = models.CharField(max_length = 30,default = "None")
+	state = models.CharField(max_length = 2,default = "None")
+	address = models.CharField(max_length = 16,default = "None")
+	phone_number = models.CharField(max_length = 16,default = "None")
 
 
 

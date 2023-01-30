@@ -112,7 +112,6 @@ class LogoutView(APIView):
 class UserRegistration(viewsets.ViewSet):
     permission_classes = (permissions.AllowAny,)
     def create (self, request, format=None):
-        permission_classes = permissions.AllowAny
         data = self.request.data
 
         username = data['username']
@@ -129,7 +128,7 @@ class UserRegistration(viewsets.ViewSet):
                     else:
                         user = AppUser.objects.create_user(username=username, password=password)
 
-                        user = AppUser.objects.get(id=user.id)
+                        AppUser.objects.get(id=user.id)
                         return Response({ 'success': 'User created successfully' })
             else:
                 return Response({ 'error': 'Passwords do not match' })
