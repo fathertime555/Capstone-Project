@@ -26,31 +26,7 @@ class CheckAuthenticatedView(APIView):
 @method_decorator(ensure_csrf_cookie, name='dispatch')
 @method_decorator(csrf_protect, name='dispatch')
 class UserViewSet(viewsets.ViewSet, mixins.ListModelMixin):
-    permission_classes = (permissions.AllowAny,)
-    def create (self, request, format=None):
-
-        data = self.request.data
-
-        username = data['username']
-        password = data['password']
-        re_password  = data['re_password']
-
-        try:
-            if password == re_password:
-                if AppUser.objects.filter(username=username).exists():
-                    return Response({ 'error': 'Username already exists' })
-                else:
-                    if len(password) < 6:
-                        return Response({ 'error': 'Password must be at least 6 characters' })
-                    else:
-                        user = AppUser.objects.create_user(username=username, password=password)
-
-                        user = AppUser.objects.get(id=user.id)
-                        return Response({ 'success': 'User created successfully' })
-            else:
-                return Response({ 'error': 'Passwords do not match' })
-        except:
-            return Response({ 'error': 'Something went wrong when registering account' })
+    #permission_classes = (permissions.BasePermission,)
     def delete(self, request, format=None):
         user = self.request.user
         try:
@@ -62,15 +38,21 @@ class UserViewSet(viewsets.ViewSet, mixins.ListModelMixin):
             return Response({ 'success': 'User deleted successfully' })
         except:
             return Response({ 'error': 'Something went wrong when trying to delete user' })
+
+    # pk is what is passed into the url
     def retrieve(self,request,pk=None):
         user = self.request.user
-
         try:
+            if int(user.id) != int(pk):
+                print("PK = ", pk)
+                print("User ID = ", user.id)
+                return Response({"incorrect id"})
+
             isAuthenticated = user.is_authenticated
 
             if isAuthenticated:
-                queryset = AppUser.objects.all()
-                user_data = get_object_or_404(queryset, pk = pk)
+                queryset = AppUser.objects.filter(id = user.id)
+                user_data = get_object_or_404(queryset, pk = user.id)
                 serializer = MainUserSerializer(user_data)
                 return Response(serializer.data)
                 #return Response({'isAuthenticated': 'success'})
@@ -80,8 +62,16 @@ class UserViewSet(viewsets.ViewSet, mixins.ListModelMixin):
             return Response({'error': 'Something went wrong when checking authentication status'})
 
     def list (self, *args, **kwargs):
-        queryset = AppUser.objects.all()
-        return Response({"Doomed"})
+        user = self.request.user
+        try:
+            isAuthenticated = user.is_authenticated
+            if isAuthenticated:
+                User.objects.filter(id = user.id)
+            else:
+                return Response({'isAuthenticated': 'error'})
+        except:
+            queryset = AppUser.objects.all()
+            return Response({"Doomed"})
 
 
 @method_decorator(ensure_csrf_cookie, name='dispatch')
@@ -109,11 +99,41 @@ class LoginView(APIView):
 @method_decorator(ensure_csrf_cookie, name='dispatch')
 @method_decorator(csrf_protect, name='dispatch')
 class LogoutView(APIView):
+    permission_classes = (permissions.IsAuthenticated)
     def post(self, request, format=None):
         try:
             auth.logout(request)
             return Response({ 'success': 'Loggout Out' })
         except:
             return Response({ 'error': 'Something went wrong when logging out' })
+
+@method_decorator(ensure_csrf_cookie, name='dispatch')
+@method_decorator(csrf_protect, name='dispatch')
+class UserRegistration(viewsets.ViewSet):
+    permission_classes = (permissions.AllowAny,)
+    def create (self, request, format=None):
+        permission_classes = permissions.AllowAny
+        data = self.request.data
+
+        username = data['username']
+        password = data['password']
+        re_password  = data['re_password']
+
+        try:
+            if password == re_password:
+                if AppUser.objects.filter(username=username).exists():
+                    return Response({ 'error': 'Username already exists' })
+                else:
+                    if len(password) < 6:
+                        return Response({ 'error': 'Password must be at least 6 characters' })
+                    else:
+                        user = AppUser.objects.create_user(username=username, password=password)
+
+                        user = AppUser.objects.get(id=user.id)
+                        return Response({ 'success': 'User created successfully' })
+            else:
+                return Response({ 'error': 'Passwords do not match' })
+        except:
+            return Response({ 'error': 'Something went wrong when registering account' })
 
 
