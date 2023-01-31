@@ -25,8 +25,8 @@ class CheckAuthenticatedView(APIView):
 
 @method_decorator(ensure_csrf_cookie, name='dispatch')
 @method_decorator(csrf_protect, name='dispatch')
-class UserViewSet(viewsets.ViewSet, mixins.ListModelMixin):
-    #permission_classes = (permissions.BasePermission,)
+class UserViewSet(viewsets.ViewSet, mixins.ListModelMixin, mixins.UpdateModelMixin):
+    permission_classes = (permissions.IsAuthenticated,)
     def delete(self, request, format=None):
         user = self.request.user
         try:
@@ -72,6 +72,30 @@ class UserViewSet(viewsets.ViewSet, mixins.ListModelMixin):
         except:
             queryset = AppUser.objects.all()
             return Response({"Doomed"})
+
+    def update(self, request, *args, **kwargs):
+
+        user = self.request.user
+        data = self.request.data
+        print(data)
+        username = data["username"]
+        first_name = data ['first_name']
+        last_name = data ['last_name']
+        phone_number = data ['phone_number']
+        address_line_1 = data["address_line_1"]
+        address_line_2 = data["address_line_2"]
+        state = data["state"]
+        city = data['city']
+        zip_code = data["zip_code"]
+        print("before change")
+
+        AppUser.objects.filter(id = user.id).update(username = username, first_name = first_name,
+                                                 last_name = last_name,phone_number = phone_number,
+                                                 address_line_1 = address_line_1, address_line_2 = address_line_2,
+                                                 city = city, state= state, zip_code = zip_code)
+        print("After change")
+
+        return Response({'profile updated'})
 
 
 @method_decorator(ensure_csrf_cookie, name='dispatch')
