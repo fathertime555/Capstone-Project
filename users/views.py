@@ -12,7 +12,6 @@ from django.utils.decorators import method_decorator
 class CheckAuthenticatedView(APIView):
     def get(self, request, format=None):
         user = self.request.user
-
         try:
             isAuthenticated = user.is_authenticated
 
@@ -81,16 +80,18 @@ class UserViewSet(viewsets.ViewSet, mixins.ListModelMixin, mixins.UpdateModelMix
         username = data["username"]
         first_name = data ['first_name']
         last_name = data ['last_name']
-        phone_number = data ['phone_number']
+        email = data["email"]
         address_line_1 = data["address_line_1"]
         address_line_2 = data["address_line_2"]
+        city = data ['city']
         state = data["state"]
-        city = data['city']
         zip_code = data["zip_code"]
+        phone_number = data ['phone_number']
+
         print("before change")
 
         AppUser.objects.filter(id = user.id).update(username = username, first_name = first_name,
-                                                 last_name = last_name,phone_number = phone_number,
+                                                 last_name = last_name,email = email, phone_number = phone_number,
                                                  address_line_1 = address_line_1, address_line_2 = address_line_2,
                                                  city = city, state= state, zip_code = zip_code)
         print("After change")
@@ -102,16 +103,12 @@ class UserViewSet(viewsets.ViewSet, mixins.ListModelMixin, mixins.UpdateModelMix
 @method_decorator(csrf_protect, name='dispatch')
 class LoginView(APIView):
     permission_classes = (permissions.AllowAny, )
-
     def post(self, request, format=None):
         data = self.request.data
-
         username = data['username']
         password = data['password']
-
         try:
             user = auth.authenticate(username=username, password=password)
-
             if user is not None:
                 auth.login(request, user)
                 return Response({ 'success': 'User authenticated' })
@@ -123,7 +120,7 @@ class LoginView(APIView):
 @method_decorator(ensure_csrf_cookie, name='dispatch')
 @method_decorator(csrf_protect, name='dispatch')
 class LogoutView(APIView):
-    permission_classes = (permissions.IsAuthenticated)
+    #permission_classes = (permissions.IsAuthenticated) # not working at the moment.
     def post(self, request, format=None):
         try:
             auth.logout(request)
