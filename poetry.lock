@@ -76,8 +76,6 @@ python-versions = ">=2"
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.11"
-
-content-hash = "f61e231e10cc01b18aab016b45d084532104e38627c33f0be1122f27f7ea2fe8"
 =======
 content-hash = "2bddd663ac7d1f8f24f5f6dffa602ead221f6150cdd50aa177cc0fc707ae4f80"
 
