@@ -63,6 +63,17 @@ class ListListings(generics.GenericAPIView, mixins.ListModelMixin):
 
 @method_decorator(ensure_csrf_cookie, name='dispatch')
 @method_decorator(csrf_protect, name='dispatch')
+class ListItems(generics.GenericAPIView, mixins.ListModelMixin):
+    permission_classes = (permissions.AllowAny,)
+    queryset = Item.objects.filter(pk__range = [1,20])
+    lookup_field = 'pk'
+    serializer_class = ItemSerializerPost  
+    def get(self, request, *args, **kwargs):
+        return self.list(request, *args, **kwargs)
+        
+
+@method_decorator(ensure_csrf_cookie, name='dispatch')
+@method_decorator(csrf_protect, name='dispatch')
 class ListingDelete(generics.GenericAPIView, mixins.DestroyModelMixin, mixins.RetrieveModelMixin):
     permission_classes = (permissions.IsAuthenticated, )
     queryset = Listing.objects.all()
