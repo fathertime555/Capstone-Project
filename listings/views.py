@@ -63,17 +63,6 @@ class ListListings(generics.GenericAPIView, mixins.ListModelMixin):
 
 @method_decorator(ensure_csrf_cookie, name='dispatch')
 @method_decorator(csrf_protect, name='dispatch')
-class ListItems(generics.GenericAPIView, mixins.ListModelMixin):
-    permission_classes = (permissions.AllowAny,)
-    queryset = Item.objects.filter(pk__range = [1,20])
-    lookup_field = 'pk'
-    serializer_class = ItemSerializerPost  
-    def get(self, request, *args, **kwargs):
-        return self.list(request, *args, **kwargs)
-        
-
-@method_decorator(ensure_csrf_cookie, name='dispatch')
-@method_decorator(csrf_protect, name='dispatch')
 class ListingDelete(generics.GenericAPIView, mixins.DestroyModelMixin, mixins.RetrieveModelMixin):
     permission_classes = (permissions.IsAuthenticated, )
     queryset = Listing.objects.all()
@@ -187,7 +176,7 @@ class SpecificItem(generics.GenericAPIView, mixins.RetrieveModelMixin):
 
     def get (self, request, *args, **kwargs):
         if Item.objects.get(pk=self.kwargs['itempk']).listing == self.kwargs['listpk']:           
-                return self.retrieve(request, *args, **kwargs)
+            return self.retrieve(request, *args, **kwargs)
         return Response({'error': 'Listing does not contain given item'})
 
 #Need to add in caveats for if keys entered into url exist
