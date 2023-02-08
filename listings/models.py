@@ -8,6 +8,8 @@ class Listing(models.Model):
 	listing_main_photo = models.FileField(null = True, blank = True, upload_to = "uploads/listings/")
 	description = models.TextField()
 	location = models.CharField(max_length = 150)
+	lat = models.CharField(max_length = 20)
+	lng = models.CharField(max_length = 20)
 	owner = models.CharField(max_length = 150)
 
 class Item(models.Model):
