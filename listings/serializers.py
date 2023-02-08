@@ -6,6 +6,7 @@ class ListingSerializer(serializers.ModelSerializer):
     class Meta:
         model = Listing
         fields = [
+            'pk',
             'title',
             'listing_main_photo',
             'description',
@@ -16,6 +17,7 @@ class ItemSerializer(serializers.ModelSerializer):
    class Meta:
         model = Item
         fields = [
+            'pk',
             'name',
             'item_main_photo',
             'description',
