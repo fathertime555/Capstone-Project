@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'corsheaders',
     'rest_framework',
     "users.apps.UsersConfig",
+    'drf_yasg',
     # came with base django
     "django.contrib.admin",
     "django.contrib.auth",
