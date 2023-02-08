@@ -2,10 +2,10 @@ from django.contrib.auth.models import User
 from .models import AppUser
 from django.shortcuts import get_object_or_404
 from rest_framework.views import APIView
-from rest_framework import permissions, viewsets, mixins,generics
+from rest_framework import permissions, viewsets, mixins
 from django.contrib import auth
 from rest_framework.response import Response
-from .serializers import MainUserSerializer, UserRegistrationSerializer
+from .serializers import MainUserSerializer
 from django.views.decorators.csrf import ensure_csrf_cookie, csrf_protect
 from django.utils.decorators import method_decorator
 
@@ -24,9 +24,8 @@ class CheckAuthenticatedView(APIView):
 
 @method_decorator(ensure_csrf_cookie, name='dispatch')
 @method_decorator(csrf_protect, name='dispatch')
-class UserViewSet(viewsets.ViewSet, mixins.ListModelMixin, mixins.UpdateModelMixin,generics.GenericAPIView):
+class UserViewSet(viewsets.ViewSet, mixins.ListModelMixin, mixins.UpdateModelMixin):
     permission_classes = (permissions.IsAuthenticated,)
-    serializer_class = MainUserSerializer
     def delete(self, request, format=None):
         user = self.request.user
         try:
@@ -102,9 +101,8 @@ class UserViewSet(viewsets.ViewSet, mixins.ListModelMixin, mixins.UpdateModelMix
 
 @method_decorator(ensure_csrf_cookie, name='dispatch')
 @method_decorator(csrf_protect, name='dispatch')
-class LoginView(generics.GenericAPIView):
+class LoginView(APIView):
     permission_classes = (permissions.AllowAny, )
-    serializer_class = MainUserSerializer
     def post(self, request, format=None):
         data = self.request.data
         username = data['username']
@@ -121,8 +119,8 @@ class LoginView(generics.GenericAPIView):
 
 @method_decorator(ensure_csrf_cookie, name='dispatch')
 @method_decorator(csrf_protect, name='dispatch')
-class LogoutView(generics.GenericAPIView):
-    serializer_class = MainUserSerializer
+class LogoutView(APIView):
+    #permission_classes = (permissions.IsAuthenticated) # not working at the moment.
     def post(self, request, format=None):
         try:
             auth.logout(request)
@@ -132,9 +130,8 @@ class LogoutView(generics.GenericAPIView):
 
 @method_decorator(ensure_csrf_cookie, name='dispatch')
 @method_decorator(csrf_protect, name='dispatch')
-class UserRegistration(viewsets.ViewSet,generics.GenericAPIView):
+class UserRegistration(viewsets.ViewSet):
     permission_classes = (permissions.AllowAny,)
-    serializer_class = UserRegistrationSerializer
     def create (self, request, format=None):
         data = self.request.data
 
