@@ -176,7 +176,7 @@ class SpecificItem(generics.GenericAPIView, mixins.RetrieveModelMixin):
 
     def get (self, request, *args, **kwargs):
         if Item.objects.get(pk=self.kwargs['itempk']).listing == self.kwargs['listpk']:           
-                return self.retrieve(request, *args, **kwargs)
+            return self.retrieve(request, *args, **kwargs)
         return Response({'error': 'Listing does not contain given item'})
 
 #Need to add in caveats for if keys entered into url exist

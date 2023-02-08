@@ -12,7 +12,27 @@ from django.utils.decorators import method_decorator
 
 @method_decorator(ensure_csrf_cookie, name='dispatch')
 @method_decorator(csrf_protect, name='dispatch')
-class Homepage(generics.GenericAPIView, mixins.ListModelMixin):
+class ListItems(generics.GenericAPIView, mixins.ListModelMixin):
+    permission_classes = (permissions.AllowAny,)
+    queryset = Item.objects.filter(pk__range = [1,20])
+    lookup_field = 'pk'
+    serializer_class = ItemSerializerPost  
+    def get(self, request, *args, **kwargs):
+        return self.list(request, *args, **kwargs)
+
+@method_decorator(ensure_csrf_cookie, name='dispatch')
+@method_decorator(csrf_protect, name='dispatch')
+class ListListings(generics.GenericAPIView, mixins.ListModelMixin):
+    permission_classes = (permissions.AllowAny,)
+    queryset = Listing.objects.filter(pk__range = [1,20])
+    lookup_field = 'pk'
+    serializer_class = ListingSerializerPost  
+    def get(self, request, *args, **kwargs):
+        return self.list(request, *args, **kwargs)
+        
+@method_decorator(ensure_csrf_cookie, name='dispatch')
+@method_decorator(csrf_protect, name='dispatch')
+class ListBoth(generics.GenericAPIView, mixins.ListModelMixin):
     permission_classes = (permissions.AllowAny,)
     queryset = Listing.objects.all()
     serializer_class = ListingSerializerPost 
