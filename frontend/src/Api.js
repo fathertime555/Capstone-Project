@@ -92,11 +92,13 @@ export default (function Api() {
 
     /////////////////////////////////////////////
 
-    var _getdata = () => {
-        return axiosApi.get('/data')
+    var _getlist = () => {
+        return axiosApi.get('/data/listings')
     }
 
-
+    var _getitems=()=>{
+        return axiosApi.get('/data/items')
+    }
 
 
 
@@ -133,8 +135,9 @@ export default (function Api() {
             delete: item_delete,
             get: item_read
         },
-        homepage:{
-            getdata:_getdata
+        data:{
+            getlist:_getlist,
+            getitems:_getitems
         },
         test: {
             getlodingdata: getdata,
