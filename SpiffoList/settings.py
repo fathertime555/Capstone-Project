@@ -31,11 +31,12 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    #'django.contrib.staticfiles',  # required for serving swagger ui's css/js files
+    'drf_yasg',
     # apps
     "chat",
     "listings",
     # packages
-    'rest_framework_swagger',
     'corsheaders',
     'rest_framework',
     "users.apps.UsersConfig",

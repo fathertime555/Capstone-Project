@@ -1,6 +1,8 @@
 from django.urls import path
 from .views import UserRegistration, LoginView, LogoutView, CheckAuthenticatedView
 
+
+
 app_name = "users"
 urlpatterns = [
     path('authenticated/', CheckAuthenticatedView.as_view()), # for testing
