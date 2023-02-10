@@ -32,9 +32,10 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     # apps
-
+    "chat",
     "listings",
     # packages
+    'rest_framework_swagger',
     'corsheaders',
     'rest_framework',
     "users.apps.UsersConfig",

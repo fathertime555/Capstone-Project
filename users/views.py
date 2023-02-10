@@ -122,7 +122,7 @@ class LoginView(generics.GenericAPIView):
 @method_decorator(ensure_csrf_cookie, name='dispatch')
 @method_decorator(csrf_protect, name='dispatch')
 class LogoutView(generics.GenericAPIView):
-    serializer_class = MainUserSerializer
+    # serializer_class = MainUserSerializer
     def post(self, request, format=None):
         try:
             auth.logout(request)
