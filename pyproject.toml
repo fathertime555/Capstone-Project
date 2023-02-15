@@ -1,16 +1,19 @@
 [tool.poetry]
-name = "sl-drf-sa"
+name = "capstone-project"
 version = "0.1.0"
 description = ""
 authors = ["lambdacore <jonathanwh93@gmail.com>"]
 readme = "README.md"
-packages = [{include = "sl_drf_sa"}]
+packages = [{include = "capstone_project"}]
 
 [tool.poetry.dependencies]
 python = "^3.11"
-django = "^4.1.5"
+django = "^4.1.6"
 djangorestframework = "^3.14.0"
+django-channels = "^0.7.0"
 django-cors-headers = "^3.13.0"
+channels = "^4.0.0"
+drf-yasg = "^1.21.5"
 
 
 [build-system]
