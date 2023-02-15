@@ -27,11 +27,9 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-
 # Application definition
 
 INSTALLED_APPS = [
-    #'django.contrib.staticfiles',  # required for serving swagger ui's css/js files
     'drf_yasg',
     # apps
     "chat",
@@ -167,5 +165,10 @@ REST_FRAMEWORK = {
     ]
 }
 
-
-
+# channels settings
+ASGI_APPLICATION = "chat.routing.application" #routing.py will handle the ASGI
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': "channels.layers.InMemoryChannelLayer"
+        }
+    }

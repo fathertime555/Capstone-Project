@@ -9,6 +9,7 @@ from .serializers import MainUserSerializer, UserRegistrationSerializer
 from django.views.decorators.csrf import ensure_csrf_cookie, csrf_protect
 from django.utils.decorators import method_decorator
 
+
 class CheckAuthenticatedView(APIView):
     def get(self, request, format=None):
         user = self.request.user
@@ -21,6 +22,7 @@ class CheckAuthenticatedView(APIView):
                 return Response({ 'isAuthenticated': 'error' })
         except:
             return Response({ 'error': 'Something went wrong when checking authentication status' })
+
 
 @method_decorator(ensure_csrf_cookie, name='dispatch')
 @method_decorator(csrf_protect, name='dispatch')
@@ -55,7 +57,6 @@ class UserViewSet(viewsets.ViewSet, mixins.ListModelMixin, mixins.UpdateModelMix
                 user_data = get_object_or_404(queryset, pk = user.id)
                 serializer = MainUserSerializer(user_data)
                 return Response(serializer.data)
-                #return Response({'isAuthenticated': 'success'})
             else:
                 return Response({'isAuthenticated': 'error'})
         except:
@@ -70,7 +71,6 @@ class UserViewSet(viewsets.ViewSet, mixins.ListModelMixin, mixins.UpdateModelMix
             else:
                 return Response({'isAuthenticated': 'error'})
         except:
-            queryset = AppUser.objects.all()
             return Response({"Doomed"})
 
     def update(self, request, *args, **kwargs):
@@ -89,14 +89,10 @@ class UserViewSet(viewsets.ViewSet, mixins.ListModelMixin, mixins.UpdateModelMix
         zip_code = data["zip_code"]
         phone_number = data ['phone_number']
 
-        print("before change")
-
         AppUser.objects.filter(id = user.id).update(username = username, first_name = first_name,
                                                  last_name = last_name,email = email, phone_number = phone_number,
                                                  address_line_1 = address_line_1, address_line_2 = address_line_2,
                                                  city = city, state= state, zip_code = zip_code)
-        print("After change")
-
         return Response({'profile updated'})
 
 

@@ -21,12 +21,14 @@ class MainUserSerializer(serializers.ModelSerializer):
             "phone_number",
         ]
 
+
 # User for only registration
 class UserRegistrationSerializer(serializers.ModelSerializer):
     # write only since we are not saving it to the database
     re_password = serializers.CharField(allow_blank = False, write_only = True)
-    first_name = serializers.CharField(allow_blank = True)
-    last_name = serializers.CharField(allow_blank = True)
+    email = serializers.EmailField(allow_blank = False)
+    # first_name = serializers.CharField(allow_blank = True)
+    # last_name = serializers.CharField(allow_blank = True)
     class Meta:
         model = AppUser
         fields = [
