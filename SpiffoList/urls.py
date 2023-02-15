@@ -55,7 +55,7 @@ urlpatterns = [
     path('listings/', include('listings.urls')),
     path('api-auth/', include('rest_framework.urls')),
     path('users/', include('users.urls')),
-    path('', include('homepage.urls')),
+    path('data/', include('data.urls'))
 ]
 
 urlpatterns += router.urls

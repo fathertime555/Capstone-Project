@@ -2,7 +2,12 @@ from rest_framework import serializers
 from listings.models import Listing, Item
 
 
-class ListingSerializer(serializers.ModelSerializer):
+class ListingSerializerPost(serializers.ModelSerializer):
+    class Meta:
+        model = Listing
+        fields = "__all__"
+
+class ListingSerializerGet(serializers.ModelSerializer):
     class Meta:
         model = Listing
         fields = [
@@ -10,10 +15,18 @@ class ListingSerializer(serializers.ModelSerializer):
             'title',
             'listing_main_photo',
             'description',
-            'location'
+            'location',
+            'lat',
+            'lng'
         ]
 
-class ItemSerializer(serializers.ModelSerializer):
+
+class ItemSerializerPost(serializers.ModelSerializer):
+   class Meta:
+        model = Item
+        fields = "__all__"
+
+class ItemSerializerGet(serializers.ModelSerializer):
    class Meta:
         model = Item
         fields = [

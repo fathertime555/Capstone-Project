@@ -6,7 +6,7 @@ from rest_framework.views import APIView
 from rest_framework import permissions, mixins, generics
 from django.contrib import auth
 from rest_framework.response import Response
-from listings.serializers import ListingSerializer, ItemSerializer
+from listings.serializers import ListingSerializerPost, ListingSerializerGet, ItemSerializerGet, ItemSerializerPost
 from django.views.decorators.csrf import ensure_csrf_cookie, csrf_protect
 from django.utils.decorators import method_decorator
 
@@ -15,7 +15,7 @@ from django.utils.decorators import method_decorator
 class SpecificListing(generics.GenericAPIView):
     permission_classes = (permissions.AllowAny, )
     queryset = Listing.objects.all()
-    serializer_class = ListingSerializer 
+    serializer_class = ListingSerializerPost 
     def get (self, request, *args, **kwargs):    
         queryset_a = Listing.objects.get(pk=self.kwargs['pk'])
         queryset_b = Item.objects.filter(listing=self.kwargs['pk'])
@@ -29,9 +29,9 @@ class SpecificListing(generics.GenericAPIView):
         for entry in results_list:
             item_type = entry.__class__.__name__.lower()
             if isinstance(entry, Listing):
-                serializer = ListingSerializer(entry)
+                serializer = ListingSerializerPost(entry)
             if isinstance(entry, Item):
-                serializer = ItemSerializer(entry)
+                serializer = ItemSerializerPost(entry)
             results.append(serializer.data)
 
         return Response(results)
@@ -41,7 +41,7 @@ class SpecificListing(generics.GenericAPIView):
 class ListingCreation(generics.GenericAPIView, mixins.CreateModelMixin):
     permission_classes = (permissions.IsAuthenticated, )
     queryset = Listing.objects.all()
-    serializer_class = ListingSerializer 
+    serializer_class = ListingSerializerGet
 
     def post(self, request, *args, **kwargs):
         return self.create(request, *args, **kwargs)
@@ -52,15 +52,13 @@ class ListingCreation(generics.GenericAPIView, mixins.CreateModelMixin):
 @method_decorator(ensure_csrf_cookie, name='dispatch')
 @method_decorator(csrf_protect, name='dispatch')
 class ListListings(generics.GenericAPIView, mixins.ListModelMixin):
-    permission_classes = (permissions.IsAuthenticated,)
+    permission_classes = (permissions.AllowAny,)
     queryset = Listing.objects.all()
     lookup_field = 'owner'
-    serializer_class = ListingSerializer  
+    serializer_class = ListingSerializerPost  
     def get(self, request, *args, **kwargs):
         if AppUser.objects.filter(username=self.kwargs['owner']).exists():
-            if self.request.user.username == self.kwargs['owner']:
-                return self.list(request, *args, **kwargs)
-            return Response({ 'error': 'Not logged in to the correct account'})
+            return self.list(request, *args, **kwargs)
         return Response({ 'error': 'Username does not exist'})
 
 @method_decorator(ensure_csrf_cookie, name='dispatch')
@@ -69,7 +67,7 @@ class ListingDelete(generics.GenericAPIView, mixins.DestroyModelMixin, mixins.Re
     permission_classes = (permissions.IsAuthenticated, )
     queryset = Listing.objects.all()
     lookup_field = 'pk'
-    serializer_class = ListingSerializer
+    serializer_class = ListingSerializerPost
 
     def get (self, request, *args, **kwargs):
         if self.request.user.username == Listing.objects.get(pk=self.kwargs['pk']).owner:
@@ -89,7 +87,7 @@ class ListingUpdate(generics.GenericAPIView, mixins.UpdateModelMixin, mixins.Ret
     permission_classes = (permissions.IsAuthenticated, )
     queryset = Listing.objects.all()
     lookup_field = 'pk'
-    serializer_class = ListingSerializer
+    serializer_class = ListingSerializerGet
 
     def get (self, request, *args, **kwargs):
         if self.request.user.username == Listing.objects.get(pk=self.kwargs['pk']).owner:
@@ -106,7 +104,7 @@ class ListingUpdate(generics.GenericAPIView, mixins.UpdateModelMixin, mixins.Ret
 class ItemCreation(generics.GenericAPIView, mixins.CreateModelMixin):
     permission_classes = (permissions.IsAuthenticated, )
     queryset = Item.objects.all()
-    serializer_class = ItemSerializer
+    serializer_class = ItemSerializerGet
 
     def post(self, request, *args, **kwargs):
         if self.request.user.username == Listing.objects.get(pk=self.kwargs['pk']).owner:
@@ -126,7 +124,7 @@ class ItemDelete(generics.GenericAPIView, mixins.DestroyModelMixin, mixins.Retri
     queryset = Item.objects.all()
     lookup_field = 'pk'
     lookup_url_kwarg = 'itempk'
-    serializer_class = ItemSerializer
+    serializer_class = ItemSerializerPost
 
     def get (self, request, *args, **kwargs):
         if self.request.user.username == Listing.objects.get(pk=self.kwargs['listpk']).owner:    
@@ -151,7 +149,7 @@ class ItemUpdate(generics.GenericAPIView, mixins.UpdateModelMixin, mixins.Retrie
     queryset = Item.objects.all()
     lookup_field = 'pk'
     lookup_url_kwarg = 'itempk'
-    serializer_class = ItemSerializer
+    serializer_class = ItemSerializerGet
 
     def get (self, request, *args, **kwargs):
         if self.request.user.username == Listing.objects.get(pk=self.kwargs['listpk']).owner:
@@ -174,11 +172,11 @@ class SpecificItem(generics.GenericAPIView, mixins.RetrieveModelMixin):
     queryset = Item.objects.all()
     lookup_field = 'pk'
     lookup_url_kwarg = 'itempk'
-    serializer_class = ItemSerializer
+    serializer_class = ItemSerializerPost
 
     def get (self, request, *args, **kwargs):
         if Item.objects.get(pk=self.kwargs['itempk']).listing == self.kwargs['listpk']:           
-                return self.retrieve(request, *args, **kwargs)
+            return self.retrieve(request, *args, **kwargs)
         return Response({'error': 'Listing does not contain given item'})
 
 #Need to add in caveats for if keys entered into url exist
