@@ -10,15 +10,15 @@ export default (function Api() {
     /**
      * @param {data type of data} param name - description of param.
      */
-    var user_register = async (data,callback) => {
-        return axiosApi.post('/users/register/', data).then(res=>{callback(res)})
+    var user_register = async (data, callback) => {
+        return axiosApi.post('/users/register/', data).then(res => { callback(res) })
     }
 
     var user_login = async (data, callback) => {
-        return axiosApi.post('/users/login/', data).then(res=>{callback(res)})
+        return axiosApi.post('/users/login/', data).then(res => { callback(res) })
     }
-    var user_logout = async () => {
-        return axiosApi.post('/users/logout/', {})
+    var user_logout = async (callback) => {
+        return axiosApi.post('/users/logout/').then(res => { callback(res) })
     }
     /**
      * @param {data type of data} param User-.
@@ -29,15 +29,8 @@ export default (function Api() {
     }
     ////////////////////////////////////////////////////
     // listings
-    var listings_create = async (_data,callback) => {
-        var data = {
-            title: _data.title,
-            description: _data.description,
-            location: _data.location,
-            lat: _data.lat,
-            lng: _data.lng
-        }
-        return axiosApi.post('/listings/create', data).then(res=>{callback(res)})
+    var listings_create = async (data, callback) => {
+        return axiosApi.post('/listings/create', data).then(res => { callback(res) })
     }
 
     var listings_delete = async (listingsPK) => {
@@ -76,7 +69,7 @@ export default (function Api() {
         return axiosApi.post('/listings/' + listingspk + '/createitem', data)
     }
 
-    var item_delete = async (listingspk, itempk,callback) => {
+    var item_delete = async (listingspk, itempk, callback) => {
         return axiosApi.delete('/listings/' + listingspk + '/' + itempk + '/delete')
     }
     var item_update = async (_item, listingspk, itempk) => {
@@ -115,7 +108,13 @@ export default (function Api() {
     var testlogout = async () => {
         return axiosApi.get('/logout')
     }
+    ////////////////////////////////////////////////////////////////////////
+    // map
+    var getgeo = async (path, data, callback) => {
+        return axiosApi.get(path, data).then(res => { callback(res) })
+    }
 
+    /////////////////////////////////////////////////////////////////////
     var Api = {
         user: {
             register: user_register,
@@ -143,6 +142,9 @@ export default (function Api() {
             getlodingdata: getdata,
             login: testlogin,
             logout: testlogout
+        },
+        map: {
+            getgeo: getgeo
         }
     }
 
