@@ -10,15 +10,15 @@ export default (function Api() {
     /**
      * @param {data type of data} param name - description of param.
      */
-    var user_register = async (email, password, re_password) => {
-        return axiosApi.post('/users/register', { email: email, password: password, re_password: re_password })
+    var user_register = async (data,callback) => {
+        return axiosApi.post('/users/register/', data).then(res=>{callback(res)})
     }
 
     var user_login = async (email, password) => {
-        return axiosApi.post('/users/login', { email: email, password: password })
+        return axiosApi.post('/users/login/', { email: email, password: password })
     }
     var user_logout = async () => {
-        return axiosApi.post('/users/logout', {})
+        return axiosApi.post('/users/logout/', {})
     }
     /**
      * @param {data type of data} param User-.
@@ -29,7 +29,7 @@ export default (function Api() {
     }
     ////////////////////////////////////////////////////
     // listings
-    var listings_create = async (_data) => {
+    var listings_create = async (_data,callback) => {
         var data = {
             title: _data.title,
             description: _data.description,
@@ -37,7 +37,7 @@ export default (function Api() {
             lat: _data.lat,
             lng: _data.lng
         }
-        return axiosApi.post('/listings/create', data)
+        return axiosApi.post('/listings/create', data).then(res=>{callback(res)})
     }
 
     var listings_delete = async (listingsPK) => {
@@ -76,7 +76,7 @@ export default (function Api() {
         return axiosApi.post('/listings/' + listingspk + '/createitem', data)
     }
 
-    var item_delete = async (listingspk, itempk) => {
+    var item_delete = async (listingspk, itempk,callback) => {
         return axiosApi.delete('/listings/' + listingspk + '/' + itempk + '/delete')
     }
     var item_update = async (_item, listingspk, itempk) => {
@@ -92,12 +92,12 @@ export default (function Api() {
 
     /////////////////////////////////////////////
 
-    var _getlist = () => {
-        return axiosApi.get('/data/listings')
+    var _getlist = (callback) => {
+        return axiosApi.get('/data/listings').then(res => { callback(res) })
     }
 
-    var _getitems=()=>{
-        return axiosApi.get('/data/items')
+    var _getitems = (callback) => {
+        return axiosApi.get('/data/items').then(res => { callback(res) })
     }
 
 
@@ -135,9 +135,9 @@ export default (function Api() {
             delete: item_delete,
             get: item_read
         },
-        data:{
-            getlist:_getlist,
-            getitems:_getitems
+        data: {
+            getlist: _getlist,
+            getitems: _getitems
         },
         test: {
             getlodingdata: getdata,

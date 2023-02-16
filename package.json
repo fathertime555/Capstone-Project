@@ -1,0 +1,7 @@
+{
+    "scripts": {
+        "start": "cd frontend && npm run start",
+        "django": "py manage.py runserver",
+        "load":"cd frontend && npm i"
+    }
+}
