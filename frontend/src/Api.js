@@ -14,8 +14,8 @@ export default (function Api() {
         return axiosApi.post('/users/register/', data).then(res=>{callback(res)})
     }
 
-    var user_login = async (email, password) => {
-        return axiosApi.post('/users/login/', { email: email, password: password })
+    var user_login = async (data, callback) => {
+        return axiosApi.post('/users/login/', data).then(res=>{callback(res)})
     }
     var user_logout = async () => {
         return axiosApi.post('/users/logout/', {})
