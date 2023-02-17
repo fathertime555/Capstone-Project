@@ -30,11 +30,11 @@ export default (function Api() {
     ////////////////////////////////////////////////////
     // listings
     var listings_create = async (data, callback) => {
-        return axiosApi.post('/listings/create', data).then(res => { callback(res) })
+        return axiosApi.post('/listings/create/', data).then(res => { callback(res) })
     }
 
-    var listings_delete = async (listingsPK) => {
-        return axiosApi.delete('/listings/' + listingsPK + '/delete')
+    var listings_delete = async (listingsPK, callback) => {
+        return axiosApi.delete('/listings/' + listingsPK + '/delete').then(res => callback(res))
     }
 
     var listings_update = async (_data) => {
@@ -85,7 +85,7 @@ export default (function Api() {
 
     /////////////////////////////////////////////
 
-    var _getlist = (callback) => {
+    var _getlist = async (callback) => {
         return axiosApi.get('/data/listings').then(res => { callback(res) })
     }
 
@@ -111,7 +111,7 @@ export default (function Api() {
     ////////////////////////////////////////////////////////////////////////
     // map
     var getgeo = async (path, data, callback) => {
-        return axiosApi.get(path, data).then(res => { callback(res) })
+        return axiosApi.get(path, { params: data }).then(res => { callback(res) })
     }
 
     /////////////////////////////////////////////////////////////////////
