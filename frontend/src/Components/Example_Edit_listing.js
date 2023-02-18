@@ -7,12 +7,17 @@ export default function ListingEdit(prop) {
     const [data, setdata] = useState(prop.data)
     const [updatetable, setupdatetable] = useState(prop.updatetable)
     const [props, setprops] = useState(prop)
+    const [title,settitle]=useState('');
+    const [description,setdescription]=useState('');
+    const [location,setlocation]=useState('');
 
     useEffect(() => {
         setprops(prop)
     }, [prop])
+
     useEffect(() => {
         setdata(props.data);
+        settitle(props.data.title)
         setupdatetable(props.setupdatetable);
     }, [props])
 
@@ -94,6 +99,13 @@ export default function ListingEdit(prop) {
         })
     }
 
+    var onchange = (event, keys) => {
+        console.log(event.target.value)
+        let a = data;
+        a[keys] = event.target.value
+        setdata(a);
+    }
+
     return (<Card>
         <Card.Header>
             <Row>
@@ -118,7 +130,7 @@ export default function ListingEdit(prop) {
                     <Col>
                         <Form.Group className="mb-3" controlId="create_listing_title">
                             <Form.Label>Title</Form.Label>
-                            <Form.Control value={data.title} required={true} ref={inputs.listing_title} type="input" placeholder="Enter Title" />
+                            <Form.Control onChange={(e) => onchange(e, 'title')} value={title} required={true} ref={inputs.listing_title} type="input" placeholder="Enter Title" />
                         </Form.Group>
                     </Col>
                 </Row>
@@ -126,7 +138,7 @@ export default function ListingEdit(prop) {
                     <Col>
                         <Form.Group className="mb-3" controlId="create_listing_description">
                             <Form.Label>description</Form.Label>
-                            <Form.Control value={data.description} required={true} ref={inputs.listing_description} type="input" placeholder="Enter description" />
+                            <Form.Control onChange={(e) => onchange(e, 'description')} value={description} required={true} ref={inputs.listing_description} type="input" placeholder="Enter description" />
                         </Form.Group>
                     </Col>
                 </Row>
@@ -143,7 +155,7 @@ export default function ListingEdit(prop) {
                         <Form.Group className="mb-3" controlId="create_listing_location">
                             <Form.Label>Location</Form.Label>
                             <InputGroup className="mb-3">
-                                <Form.Control value={data.location} required={true} ref={inputs.listing_location} type="input" placeholder="Enter Location" />
+                                <Form.Control onChange={(e) => onchange(e, 'location')} value={location} required={true} ref={inputs.listing_location} type="input" placeholder="Enter Location" />
                                 <Button variant="outline-secondary" id="button-addon2">
                                     Get coordinate
                                 </Button>
