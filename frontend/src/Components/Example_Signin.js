@@ -2,7 +2,7 @@ import { Card, Row, Col, Form, Button } from 'react-bootstrap'
 import { useRef, useState } from 'react'
 import Api from '../Api'
 
-export default function Signin() {
+export default function Signin(props) {
     const [disabled, setdisabled] = useState(false)
     const [result, setresult] = useState('null')
     var inputs = {
@@ -19,6 +19,10 @@ export default function Signin() {
         console.log(data)
         Api.user.signin(data, (res) => {
             console.log(res);
+            if (res.data.success !== undefined) {
+                props.changeuser(inputs.username.current.value);
+            }
+
             setresult(JSON.stringify(res.data))
             setdisabled(true)
         })
@@ -59,7 +63,7 @@ export default function Signin() {
                 </Form>
             </Row>
             <Row>
-            <Col>{'result:' + result}</Col>
+                <Col>{'result:' + result}</Col>
             </Row>
         </Card.Body>
         <Card.Footer>

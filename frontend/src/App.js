@@ -32,89 +32,118 @@ function App() {
   const [mount, setmount] = useState(false);
   const [result, setresult] = useState('null')
 
+  const [currentuser, setcurrentuser] = useState('no login');
 
-  var updatetable = () => {
-    Api.data.getuser((res) => {
-      setuserdata(res.data);
-    })
+
+  var updatelisttable = () => {
     Api.data.getlist((res) => {
       setlistdata(res.data)
       setcurrentlist(res.data[0])
     })
+
+  }
+  var updateitemtable = () => {
     Api.data.getitems((res) => {
       setitemdata(res.data);
+      setcurrentitem(res.data[0])
     })
   }
 
-
-  // var changetable = (callback) => {
-  //   callback(newdata);
-  // }
-
-
-
   useEffect(() => {
     if (!mount) {
-      updatetable();
+      updatelisttable();
+      updateitemtable();
       setmount(true);
     }
   })
 
-
-  useEffect(() => {
-    if (itemdata.length > 0)
-      setitemtable(<ItemTable setitem={changeitem} data={itemdata} />)
-  }, [itemdata])
+  //when the list of listdata updated, update list table.
   useEffect(() => {
     if (listdata.length > 0)
       settable(<ListingTable setlisting={changelisting} data={listdata} />)
   }, [listdata])
-  useEffect(() => {
-    setusetable(<Usertable setuser={changeuser} data={userdata} />)
-  }, [userdata])
 
-
-  useEffect(() => {
-
-  }, [usertable])
-  useEffect(() => {
-    if (currentlist !== undefined)
-      setlistediter(<ListingEdit updatetable={updatetable} data={currentlist} />)
-  }, [currentlist])
-  useEffect(() => {
-    if (currentitem !== undefined)
-      setitemediter(<ItemEdit data={currentitem} updatetable={updatetable} />)
-  }, [currentitem])
-  // var changeediter = () => {
-  //   setlistediter(<ListingEdit key={count} updatetable={updatetable} data={currentlist} />)
-  // }
-
-
+  //pass to ListingTable, use to update current list that clicked in list table.
   var changelisting = (data) => {
     setcurrentlist(currentlist => data)
   }
 
+  // update list editer after current list has been change by click on the list table
+  useEffect(() => {
+    if (currentlist !== undefined)
+      setlistediter(<ListingEdit updatetable={updatelisttable} data={currentlist} />)
+  }, [currentlist])
+
+
+
+
+  //when the list of itemdata updated, update item table
+  useEffect(() => {
+    if (itemdata.length > 0)
+      setitemtable(<ItemTable setitem={changeitem} data={itemdata} />)
+  }, [itemdata])
+
+  // pass to ItemTable, use to update current item that clicked in item table
   var changeitem = (data) => {
     setcurrentitem(data);
   }
-  var changeuser = (data) => {
-    console.log(data)
-  }
 
+  // update item editer after current item has been change by click on the item table
+  useEffect(() => {
+    if (currentitem !== undefined)
+      setitemediter(<ItemEdit data={currentitem} updatetable={updateitemtable} />)
+  }, [currentitem])
+
+
+
+
+
+
+  // var changeediter = () => {
+  //   setlistediter(<ListingEdit key={count} updatetable={updatetable} data={currentlist} />)
+  // }
+
+  // useEffect(() => {
+  //   if (userdata.length > 0) {
+  //     console.log(userdata)
+  //     setusetable(<Usertable setuser={changeuser} data={userdata} />)
+  //   }
+  // }, [userdata])
+
+  // var changeuser = (data) => {
+  //   console.log(data)
+  // }
+  // useEffect(() => {
+
+  // }, [usertable])
+
+  useEffect(() => {
+    Api.listing.getbyowner(currentuser, (res) => {
+      console.log(res.data)
+      setlistdata(res.data)
+    })
+  }, [currentuser])
+
+
+  var changeuser = (user) => {
+    console.log(user)
+    setcurrentuser(user)
+  }
 
   return (
     <Container>
       <Tabs style={{ marginBottom: '1vh' }}>
         <Tab eventKey={'user'} title={'User'}>
           <Row>
-            {usertable}
+            {/* {usertable} */}
+            <Col>{currentuser}</Col>
           </Row>
           <Row>
             <Col>
               <Register />
             </Col>
             <Col>
-              <Signin />
+              <Signin changeuser={changeuser} />
             </Col>
           </Row>
 

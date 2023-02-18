@@ -26,7 +26,19 @@ export default function ListingEdit(prop) {
         listing_lng: useRef(null)
     }
     var edit_listing = (event) => {
-        updatetable();
+        event.preventDefault();
+        var data = {
+            title: inputs.listing_title.current.value,
+            description: inputs.listing_description.current.value,
+            location: inputs.listing_location.current.value,
+            lat: inputs.listing_lat.current.value,
+            lng: inputs.listing_lng.current.value
+        }
+        Api.listing.update(data, (res) => {
+
+            //update list table
+            props.updatetable();
+        })
     }
     var delete_listing = () => {
         Api.listing.delete(props.data.id, (res) => {
@@ -50,8 +62,36 @@ export default function ListingEdit(prop) {
         } else {
             setdata(props.data)
         }
+    }
 
+    var req_address = 'https://maps.googleapis.com/maps/api/geocode/json'
+    var key = 'AIzaSyA0DZnzUceQi8G8bH-4CFl4XD6jawq91Ws'
+    var inputs = {
+        listing_title: useRef(null),
+        listing_description: useRef(null),
+        listing_location: useRef(null)
+    }
+    var create_listing = (event) => {
+        event.preventDefault();
 
+        var data = {
+            address: inputs.listing_location.current.value,
+            key: key
+        }
+        Api.map.getgeo(req_address, data, (res) => {
+            var data = {
+                title: inputs.listing_title.current.value,
+                description: inputs.listing_description.current.value,
+                location: inputs.listing_location.current.value,
+                lat: res.data.results[0].geometry.location.lat,
+                lng: res.data.results[0].geometry.location.lng
+            }
+            Api.listing.create(data, (res) => {
+
+                //update list table
+                props.updatetable();
+            })
+        })
     }
 
     return (<Card>
@@ -67,7 +107,7 @@ export default function ListingEdit(prop) {
 
         </Card.Header>
         <Card.Body>
-            <Form id='edit_listing' onSubmit={edit_listing}>
+            <Form id='edit_listing' onSubmit={createmode ? create_listing : edit_listing}>
                 <Row>
                     <Col>
                         <Form.Group className="mb-3" controlId="create_listing_id">

@@ -37,7 +37,7 @@ export default (function Api() {
         return axiosApi.delete('/listings/' + listingsPK + '/delete').then(res => callback(res))
     }
 
-    var listings_update = async (_data) => {
+    var listings_update = async (_data, callback) => {
         var data = {
             title: _data.title,
             description: _data.description,
@@ -45,11 +45,11 @@ export default (function Api() {
             lat: _data.lat,
             lng: _data.lng
         }
-        return axiosApi.put('/listings/' + data.pk + '/update', {})
+        return axiosApi.put('/listings/' + data.pk + '/update', data).then(res => callback(res))
     }
 
-    var listings_read = async () => {
-        return axiosApi.get('/users/', {})
+    var listings_read = async (owner, callback) => {
+        return axiosApi.get('/listings/' + owner + '/').then(res => callback(res));
     }
 
 
@@ -130,7 +130,7 @@ export default (function Api() {
             create: listings_create,
             update: listings_update,
             delete: listings_delete,
-            get: listings_read
+            getbyowner: listings_read
         },
         item: {
             create: item_create,
