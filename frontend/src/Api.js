@@ -93,6 +93,10 @@ export default (function Api() {
         return axiosApi.get('/data/items').then(res => { callback(res) })
     }
 
+    var _getuser = (callback) => {
+        return axiosApi.get('/users/').then(res => callback(res))
+    }
+
 
 
 
@@ -136,7 +140,8 @@ export default (function Api() {
         },
         data: {
             getlist: _getlist,
-            getitems: _getitems
+            getitems: _getitems,
+            getuser: _getuser
         },
         test: {
             getlodingdata: getdata,

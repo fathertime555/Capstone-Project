@@ -17,7 +17,8 @@ export default function ItemEdit(prop) {
     }, [props])
 
     var inputs = {
-        Item_pk: useRef(null),
+        Listing_ID: useRef(null),
+        Item_id: useRef(null),
         Item_name: useRef(null),
         Item_description: useRef(null),
         Item_quantity: useRef(null),
@@ -26,11 +27,11 @@ export default function ItemEdit(prop) {
     var edit_listing = (event) => {
         updatetable();
     }
-    var delete_listing = () => {
-        // Api.listing.delete(props.data.id, (res) => {
-        //     console.log(res);
-        //     props.updatetable();
-        // })
+    var delete_item = () => {
+        Api.item.delete(props.data.id, (res) => {
+            console.log(res);
+            props.updatetable();
+        })
     }
 
     var startcreate = (event) => {
@@ -38,7 +39,7 @@ export default function ItemEdit(prop) {
         setcreatemode(!createmode);
         if (!createmode) {
             setdata({
-                pk: '',
+                id: '',
                 name: '',
                 description: '',
                 quantity: '',
@@ -67,13 +68,24 @@ export default function ItemEdit(prop) {
             <Form id='edit_listing' onSubmit={edit_listing}>
                 <Row>
                     <Col>
-                        <Form.Group className="mb-3" controlId="create_listing_id">
-                            <Form.Label>PK</Form.Label>
-                            <Form.Control value={data.pk} required={true} ref={inputs.Item_pk} type="input" disabled={true} />
-                        </Form.Group>
+                        <Row>
+                            <Col>
+                                <Form.Group className="mb-3" controlId="item_id">
+                                    <Form.Label>Listing ID</Form.Label>
+                                    <Form.Control value={data.listing} required={true} ref={inputs.Listing_ID} type="input" disabled={true} />
+                                </Form.Group>
+                            </Col>
+                            <Col>
+                                <Form.Group className="mb-3" controlId="item_id">
+                                    <Form.Label>PK</Form.Label>
+                                    <Form.Control value={data.id} required={true} ref={inputs.Item_pk} type="input" disabled={true} />
+                                </Form.Group>
+                            </Col>
+                        </Row>
+
                     </Col>
                     <Col>
-                        <Form.Group className="mb-3" controlId="create_listing_title">
+                        <Form.Group className="mb-3" controlId="item_name">
                             <Form.Label>Name</Form.Label>
                             <Form.Control value={data.name} required={true} ref={inputs.Item_name} type="input" placeholder="Enter Name" />
                         </Form.Group>
@@ -81,7 +93,7 @@ export default function ItemEdit(prop) {
                 </Row>
                 <Row>
                     <Col>
-                        <Form.Group className="mb-3" controlId="create_listing_description">
+                        <Form.Group className="mb-3" controlId="item_description">
                             <Form.Label>Description</Form.Label>
                             <Form.Control value={data.description} required={true} ref={inputs.Item_description} type="input" placeholder="Enter Description" />
                         </Form.Group>
@@ -97,9 +109,9 @@ export default function ItemEdit(prop) {
                 </Row> */}
                 <Row>
                     <Col>
-                        <Form.Group className="mb-3" controlId="create_listing_location">
+                        <Form.Group className="mb-3" controlId="item_quantity">
                             <Form.Label>Quantity</Form.Label>
-                            <Form.Control value={data.location} required={true} ref={inputs.Item_quantity} type="input" placeholder="Enter Quantity" />
+                            <Form.Control value={data.quantity} required={true} ref={inputs.Item_quantity} type="input" placeholder="Enter Quantity" />
 
                         </Form.Group>
                     </Col>
@@ -107,17 +119,15 @@ export default function ItemEdit(prop) {
 
                 <Row>
                     <Col>
-                        <Form.Group className="mb-3" controlId="create_lat">
+                        <Form.Group className="mb-3" controlId="item_price">
+
                             <Form.Label>Price</Form.Label>
-                            <Form.Control required={true} value={data.lat} ref={inputs.Item_price} type="input" placeholder="Enter Price" />
+                            <InputGroup className="mb-3">
+                                <InputGroup.Text>$</InputGroup.Text>
+                                <Form.Control required={true} value={data.price} ref={inputs.Item_price} type="input" placeholder="Enter Price" />
+                            </InputGroup>
                         </Form.Group>
                     </Col>
-                    {/* <Col>
-                        <Form.Group className="mb-3" controlId="create_lng">
-                            <Form.Label>Lng</Form.Label>
-                            <Form.Control required={true} value={data.lng} ref={inputs.listing_lng} type="input" placeholder="lat from google" disabled />
-                        </Form.Group>
-                    </Col> */}
                 </Row>
             </Form>
         </Card.Body>
@@ -127,7 +137,7 @@ export default function ItemEdit(prop) {
                     <Button form='create_listing' type="submit" value='submit' style={{ width: '100%' }} >Edit</Button>
                 </Col>
                 <Col>
-                    <Button onClick={delete_listing} style={{ width: '100%' }} >Delete</Button>
+                    <Button onClick={delete_item} style={{ width: '100%' }} >Delete</Button>
                 </Col>
             </Row> : <Row>
                 <Col>
