@@ -66,14 +66,14 @@ export default (function Api() {
     var item_delete = async (listingspk, itempk, callback) => {
         return axiosApi.delete('/listings/' + listingspk + '/' + itempk + '/delete')
     }
-    var item_update = async (_item, listingspk, itempk) => {
-        var data = {
-            name: _item.name,
-            description: _item.description,
-            quantity: _item.quantity,
-            price: _item.price
-        }
-        return axiosApi.put('/listings/' + listingspk + '/' + itempk + '/update', data)
+    var item_update = async (item, listingspk, itempk) => {
+        // var data = {
+        //     name: _item.name,
+        //     description: _item.description,
+        //     quantity: _item.quantity,
+        //     price: _item.price
+        // }
+        return axiosApi.put('/listings/' + listingspk + '/' + itempk + '/update/', item)
     }
 
 
