@@ -13,6 +13,8 @@ import ItemEdit from './Components/Example_Edit_item';
 import Usertable from './Components/Example_usertable';
 
 function App() {
+  const [islogin, setlogin] = useState(false)
+  const [userpk, setuserpk] = useState()
 
   const [usertable, setusetable] = useState(<></>)
   const [itemtable, setitemtable] = useState(<></>)
@@ -51,11 +53,37 @@ function App() {
 
   useEffect(() => {
     if (!mount) {
+      Api.data.checklogin((res) => {
+        if (res.data.isAuthenticated === 'success') {
+          setuserpk(res.data.user.id);
+          setlogin(true)
+        }
+      })
       updatelisttable();
       updateitemtable();
       setmount(true);
     }
   })
+
+  useEffect(() => {
+    if (userpk > 0) {
+      Api.user.get(userpk, (res) => {
+        console.log(res.data);
+        setcurrentuser(res.data.username);
+      })
+    }
+    if (userpk === 0) {
+      setcurrentuser('log out');
+    }
+  }, [userpk])
+
+  useEffect(() => {
+    if (islogin) {
+
+    } else {
+      setuserpk(0)
+    }
+  }, [islogin])
 
   //when the list of listdata updated, update list table.
   useEffect(() => {
@@ -98,25 +126,6 @@ function App() {
 
 
 
-
-  // var changeediter = () => {
-  //   setlistediter(<ListingEdit key={count} updatetable={updatetable} data={currentlist} />)
-  // }
-
-  // useEffect(() => {
-  //   if (userdata.length > 0) {
-  //     console.log(userdata)
-  //     setusetable(<Usertable setuser={changeuser} data={userdata} />)
-  //   }
-  // }, [userdata])
-
-  // var changeuser = (data) => {
-  //   console.log(data)
-  // }
-  // useEffect(() => {
-
-  // }, [usertable])
-
   useEffect(() => {
     Api.listing.getbyowner(currentuser, (res) => {
       console.log(res.data)
@@ -128,6 +137,10 @@ function App() {
   var changeuser = (user) => {
     console.log(user)
     setcurrentuser(user)
+  }
+
+  var logout = () => {
+    setlogin(false);
   }
 
   return (
@@ -143,7 +156,7 @@ function App() {
               <Register />
             </Col>
             <Col>
-              <Signin changeuser={changeuser} />
+              <Signin login={islogin} logout={logout} changeuser={changeuser} />
             </Col>
           </Row>
 

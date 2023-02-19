@@ -1,10 +1,14 @@
 import { Card, Row, Col, Form, Button } from 'react-bootstrap'
-import { useRef, useState } from 'react'
+import { useRef, useState, useEffect } from 'react'
 import Api from '../Api'
 
 export default function Signin(props) {
-    const [disabled, setdisabled] = useState(false)
+    const [disabled, setdisabled] = useState(props.login)
     const [result, setresult] = useState('null')
+
+    useEffect(() => {
+        setdisabled(props.login)
+    }, [props])
     var inputs = {
         username: useRef(null),
         password: useRef(null)
@@ -32,7 +36,7 @@ export default function Signin(props) {
         Api.user.signout((res) => {
             console.log(res);
             setresult(JSON.stringify(res.data))
-            setdisabled(false);
+            props.logout()
         })
     }
 

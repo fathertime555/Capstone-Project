@@ -15,7 +15,9 @@ export default (function Api() {
     }
 
     var user_login = async (data, callback) => {
-        return axiosApi.post('/users/login/', data).then(res => { callback(res) })
+        return axiosApi.post('/users/login/', data).then(res => {
+            axiosApi.get('/users/' + res.data.user.id + '/').then(res => { callback(res) })
+        })
     }
     var user_logout = async (callback) => {
         return axiosApi.post('/users/logout/').then(res => { callback(res) })
@@ -25,8 +27,13 @@ export default (function Api() {
      */
     var user_change = async (USer) => {
         return axiosApi.put('/users/', {})
-
     }
+
+    var user_read = async (pk, callback) => {
+        return axiosApi.get('/users/' + pk + '/').then(res => callback(res));
+    }
+
+
     ////////////////////////////////////////////////////
     // listings
     var listings_create = async (data, callback) => {
@@ -91,6 +98,10 @@ export default (function Api() {
         return axiosApi.get('/users/').then(res => callback(res))
     }
 
+    var _checklogin = (callback) => {
+        return axiosApi.get('/users/authenticated/').then(res => callback(res))
+    }
+
 
 
 
@@ -118,7 +129,8 @@ export default (function Api() {
             register: user_register,
             signin: user_login,
             signout: user_logout,
-            update: user_change
+            update: user_change,
+            get: user_read
         },
         listing: {
             create: listings_create,
@@ -135,7 +147,8 @@ export default (function Api() {
         data: {
             getlist: _getlist,
             getitems: _getitems,
-            getuser: _getuser
+            getuser: _getuser,
+            checklogin: _checklogin
         },
         test: {
             getlodingdata: getdata,
