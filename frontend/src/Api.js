@@ -37,15 +37,9 @@ export default (function Api() {
         return axiosApi.delete('/listings/' + listingsPK + '/delete').then(res => callback(res))
     }
 
-    var listings_update = async (_data, callback) => {
-        var data = {
-            title: _data.title,
-            description: _data.description,
-            location: _data.location,
-            lat: _data.lat,
-            lng: _data.lng
-        }
-        return axiosApi.put('/listings/' + data.pk + '/update', data).then(res => callback(res))
+    var listings_update = async (data, callback) => {
+
+        return axiosApi.put('/listings/' + data.id + '/update/', data).then(res => callback(res))
     }
 
     var listings_read = async (owner, callback) => {

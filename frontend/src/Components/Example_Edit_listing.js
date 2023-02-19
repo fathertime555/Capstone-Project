@@ -7,9 +7,11 @@ export default function ListingEdit(prop) {
     const [data, setdata] = useState(prop.data)
     const [updatetable, setupdatetable] = useState(prop.updatetable)
     const [props, setprops] = useState(prop)
-    const [title,settitle]=useState('');
-    const [description,setdescription]=useState('');
-    const [location,setlocation]=useState('');
+    const [title, settitle] = useState('');
+    const [description, setdescription] = useState('');
+    const [location, setlocation] = useState('');
+    const [lat, setlat] = useState('');
+    const [lng, setlng] = useState('')
 
     useEffect(() => {
         setprops(prop)
@@ -18,7 +20,11 @@ export default function ListingEdit(prop) {
     useEffect(() => {
         setdata(props.data);
         settitle(props.data.title)
+        setdescription(props.data.description);
+        setlocation(props.data.location)
         setupdatetable(props.setupdatetable);
+        setlat(props.data.lat);
+        setlng(props.data.lng);
     }, [props])
 
     var inputs = {
@@ -32,15 +38,17 @@ export default function ListingEdit(prop) {
     }
     var edit_listing = (event) => {
         event.preventDefault();
-        var data = {
-            title: inputs.listing_title.current.value,
-            description: inputs.listing_description.current.value,
-            location: inputs.listing_location.current.value,
-            lat: inputs.listing_lat.current.value,
-            lng: inputs.listing_lng.current.value
+        var _data = {
+            id: data.id,
+            title: title,
+            description: description,
+            location: location,
+            lat: lat,
+            lng: lng
         }
-        Api.listing.update(data, (res) => {
-
+        console.log(_data);
+        Api.listing.update(_data, (res) => {
+            console.log(res)
             //update list table
             props.updatetable();
         })
@@ -56,26 +64,28 @@ export default function ListingEdit(prop) {
         event.preventDefault();
         setcreatemode(!createmode);
         if (!createmode) {
-            setdata({
-                id: '',
-                title: '',
-                description: '',
-                location: '',
-                lat: '',
-                lng: ''
-            })
+            settitle('');
+            setlocation('');
+            setdescription('');
+            setlat('');
+            setlng('');
+
         } else {
-            setdata(props.data)
+            settitle(props.data.title)
+            setdescription(props.data.description);
+            setlocation(props.data.location)
+            setlat(props.data.lat);
+            setlng(props.data.lng);
         }
     }
 
     var req_address = 'https://maps.googleapis.com/maps/api/geocode/json'
     var key = 'AIzaSyA0DZnzUceQi8G8bH-4CFl4XD6jawq91Ws'
-    var inputs = {
-        listing_title: useRef(null),
-        listing_description: useRef(null),
-        listing_location: useRef(null)
-    }
+    // var inputs = {
+    //     listing_title: useRef(null),
+    //     listing_description: useRef(null),
+    //     listing_location: useRef(null)
+    // }
     var create_listing = (event) => {
         event.preventDefault();
 
@@ -92,18 +102,31 @@ export default function ListingEdit(prop) {
                 lng: res.data.results[0].geometry.location.lng
             }
             Api.listing.create(data, (res) => {
-
-                //update list table
                 props.updatetable();
             })
         })
     }
 
     var onchange = (event, keys) => {
-        console.log(event.target.value)
-        let a = data;
-        a[keys] = event.target.value
-        setdata(a);
+
+        switch (keys) {
+            case 'title':
+                settitle(event.target.value);
+                break;
+            case 'description':
+                setdescription(event.target.value);
+                break;
+            case 'location':
+                setlocation(event.target.value);
+                break;
+            case 'lng':
+                setlng(event.target.value);
+                break;
+            case 'lat':
+                setlat(event.target.value);
+                break;
+            default:
+        }
     }
 
     return (<Card>
@@ -124,7 +147,7 @@ export default function ListingEdit(prop) {
                     <Col>
                         <Form.Group className="mb-3" controlId="create_listing_id">
                             <Form.Label>ID</Form.Label>
-                            <Form.Control value={data.id} required={true} ref={inputs.listing_title} type="input" disabled={true} />
+                            <Form.Control onChange={(e) => onchange(e, 'id')} value={data.id} required={true} ref={inputs.listing_id} type="input" disabled={true} />
                         </Form.Group>
                     </Col>
                     <Col>
@@ -169,13 +192,13 @@ export default function ListingEdit(prop) {
                     <Col>
                         <Form.Group className="mb-3" controlId="create_lat">
                             <Form.Label>Lat</Form.Label>
-                            <Form.Control required={true} value={data.lat} ref={inputs.listing_lat} type="input" placeholder="lat from google" disabled />
+                            <Form.Control onChange={(e) => onchange(e, 'lat')} required={true} value={lat} ref={inputs.listing_lat} type="input" placeholder="lat from google" disabled />
                         </Form.Group>
                     </Col>
                     <Col>
                         <Form.Group className="mb-3" controlId="create_lng">
                             <Form.Label>Lng</Form.Label>
-                            <Form.Control required={true} value={data.lng} ref={inputs.listing_lng} type="input" placeholder="lat from google" disabled />
+                            <Form.Control onChange={(e) => onchange(e, 'lng')} required={true} value={lng} ref={inputs.listing_lng} type="input" placeholder="lat from google" disabled />
                         </Form.Group>
                     </Col>
                 </Row>
@@ -184,7 +207,7 @@ export default function ListingEdit(prop) {
         <Card.Footer>
             {!createmode ? <Row>
                 <Col>
-                    <Button form='create_listing' type="submit" value='submit' style={{ width: '100%' }} >Edit</Button>
+                    <Button form='create_listing' type="submit" value='submit' onClick={edit_listing} style={{ width: '100%' }} >Edit</Button>
                 </Col>
                 <Col>
                     <Button onClick={delete_listing} style={{ width: '100%' }} >Delete</Button>
