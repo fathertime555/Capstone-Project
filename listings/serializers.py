@@ -17,7 +17,9 @@ class ListingSerializerGet(serializers.ModelSerializer):
             'description',
             'location',
             'lat',
-            'lng'
+            'lng',
+            'zip_code',
+            'theme'
         ]
 
 
@@ -35,5 +37,9 @@ class ItemSerializerGet(serializers.ModelSerializer):
             'item_main_photo',
             'description',
             'quantity', 
-            'price'
+            'price',
+            'lat',
+            'lng',
+            'zip_code',
+            'tags'
         ]
