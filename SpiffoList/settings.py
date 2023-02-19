@@ -165,5 +165,7 @@ REST_FRAMEWORK = {
     ]
 }
 
+GOOGLE_API_KEY = 'AIzaSyBrIdKaE4vk0uAbmKnlVxJm6lcA4XDwjhw'
+
 
 
