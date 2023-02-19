@@ -57,11 +57,11 @@ class UserViewSet(viewsets.ViewSet, mixins.ListModelMixin, mixins.UpdateModelMix
                 queryset = AppUser.objects.filter(id=user.id)
                 user_data = get_object_or_404(queryset, pk=user.id)
                 serializer = MainUserSerializer(user_data)
-                return Response(serializer.data)
+                return Response({"status":"success","user":serializer.data})
             else:
-                return Response({'isAuthenticated': 'error'})
+                return Response({'status': 'error'})
         except:
-            return Response({'error': 'Something went wrong when checking authentication status'})
+            return Response({'status': 'Something went wrong when checking authentication status'})
 
     def list(self, *args, **kwargs):
         user = self.request.user
@@ -117,11 +117,11 @@ class LoginView(generics.GenericAPIView):
                     "username": user.get_username(),
                     "id": user.pk
                 }
-                return Response({'success': 'User authenticated', "user": userdata})
+                return Response({'status': 'success', "user": userdata})
             else:
-                return Response({'error': 'Error Authenticating'})
+                return Response({'status': 'no user or wrong password'})
         except:
-            return Response({'error': 'Something went wrong when logging in'})
+            return Response({'status': 'Something went wrong when logging in'})
 
 
 @method_decorator(ensure_csrf_cookie, name='dispatch')

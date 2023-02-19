@@ -40,23 +40,22 @@ function App() {
   var updatelisttable = () => {
     Api.data.getlist((res) => {
       setlistdata(res.data)
-      setcurrentlist(res.data[0])
+      setcurrentlist(currentlist === undefined ? res.data[0] : currentlist)
     })
 
   }
   var updateitemtable = () => {
     Api.data.getitems((res) => {
       setitemdata(res.data);
-      setcurrentitem(res.data[0])
+      setcurrentitem(currentitem === undefined ? res.data[0] : currentitem)
     })
   }
 
   useEffect(() => {
     if (!mount) {
       Api.data.checklogin((res) => {
-        if (res.data.isAuthenticated === 'success') {
+        if (res.data.status === 'success') {
           setuserpk(res.data.user.id);
-          setlogin(true)
         }
       })
       updatelisttable();
@@ -64,26 +63,6 @@ function App() {
       setmount(true);
     }
   })
-
-  useEffect(() => {
-    if (userpk > 0) {
-      Api.user.get(userpk, (res) => {
-        console.log(res.data);
-        setcurrentuser(res.data.username);
-      })
-    }
-    if (userpk === 0) {
-      setcurrentuser('log out');
-    }
-  }, [userpk])
-
-  useEffect(() => {
-    if (islogin) {
-
-    } else {
-      setuserpk(0)
-    }
-  }, [islogin])
 
   //when the list of listdata updated, update list table.
   useEffect(() => {
@@ -122,27 +101,48 @@ function App() {
       setitemediter(<ItemEdit data={currentitem} updatetable={updateitemtable} />)
   }, [currentitem])
 
+  //////////////////////////////////////////////////////////////////////////////////
+  // user hook
 
+  useEffect(() => {
+    if (userpk > 0) {
+      setlogin(true)
+    }
+    if (userpk === 0) {
+      setlogin(false)
+    }
+  }, [userpk])
 
+  useEffect(() => {
+    if (islogin) {
+
+    } else {
+      setcurrentuser('no login');
+    }
+  }, [islogin])
 
 
   useEffect(() => {
-    Api.listing.getbyowner(currentuser, (res) => {
-      console.log(res.data)
-      setlistdata(res.data)
-    })
+    if (currentuser !== 'no login')
+      Api.listing.getbyowner(currentuser, (res) => {
+        console.log(res.data)
+        setlistdata(res.data)
+      })
   }, [currentuser])
 
 
   var changeuser = (user) => {
     console.log(user)
-    setcurrentuser(user)
+    setcurrentuser(user.username)
+    setuserpk(user.id)
   }
 
   var logout = () => {
-    setlogin(false);
+    setuserpk(0)
   }
 
+  // end of user hook
+  /////////////////////////////////////////////////////////////////////////
   return (
     <Container>
       <Tabs style={{ marginBottom: '1vh' }}>

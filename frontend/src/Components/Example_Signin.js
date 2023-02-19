@@ -3,11 +3,10 @@ import { useRef, useState, useEffect } from 'react'
 import Api from '../Api'
 
 export default function Signin(props) {
-    const [disabled, setdisabled] = useState(props.login)
-    const [result, setresult] = useState('null')
+    const [disabled, setdisabled] = useState(!props.login)
 
     useEffect(() => {
-        setdisabled(props.login)
+        setdisabled(!props.login)
     }, [props])
     var inputs = {
         username: useRef(null),
@@ -20,22 +19,17 @@ export default function Signin(props) {
             "username": inputs.username.current.value,
             "password": inputs.password.current.value
         }
-        console.log(data)
         Api.user.signin(data, (res) => {
             console.log(res);
-            if (res.data.success !== undefined) {
-                props.changeuser(inputs.username.current.value);
+            if (res.data.status === 'success') {
+                props.changeuser(res.data.user);
             }
-
-            setresult(JSON.stringify(res.data))
-            setdisabled(true)
         })
     }
 
     var _signout = () => {
         Api.user.signout((res) => {
             console.log(res);
-            setresult(JSON.stringify(res.data))
             props.logout()
         })
     }
@@ -51,7 +45,7 @@ export default function Signin(props) {
                         <Col>
                             <Form.Group className="mb-3" controlId="login_username">
                                 <Form.Label>User name</Form.Label>
-                                <Form.Control ref={inputs.username} disabled={disabled} type="input" placeholder="Enter username" />
+                                <Form.Control ref={inputs.username} disabled={!disabled} type="input" placeholder="Enter username" />
                             </Form.Group>
                         </Col>
                     </Row>
@@ -59,7 +53,7 @@ export default function Signin(props) {
                         <Col>
                             <Form.Group className="mb-3" controlId="login_password">
                                 <Form.Label>Password</Form.Label>
-                                <Form.Control disabled={disabled} ref={inputs.password} type="password" placeholder="Enter password" />
+                                <Form.Control disabled={!disabled} ref={inputs.password} type="password" placeholder="Enter password" />
                             </Form.Group>
                         </Col>
 
@@ -67,17 +61,16 @@ export default function Signin(props) {
                 </Form>
             </Row>
             <Row>
-                <Col>{'result:' + result}</Col>
             </Row>
         </Card.Body>
         <Card.Footer>
             <Row>
                 <Col>
-                    <Button disabled={disabled} style={{ width: '100%' }} type="submit" form='login_form'>login</Button>
+                    <Button disabled={!disabled} style={{ width: '100%' }} type="submit" form='login_form'>login</Button>
 
                 </Col>
                 <Col>
-                    <Button disabled={!disabled} style={{ width: '100%' }} onClick={_signout}>logout</Button>
+                    <Button disabled={disabled} style={{ width: '100%' }} onClick={_signout}>logout</Button>
                 </Col>
             </Row>
 

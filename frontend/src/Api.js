@@ -16,7 +16,8 @@ export default (function Api() {
 
     var user_login = async (data, callback) => {
         return axiosApi.post('/users/login/', data).then(res => {
-            axiosApi.get('/users/' + res.data.user.id + '/').then(res => { callback(res) })
+            if (res.data.status === "success")
+                axiosApi.get('/users/' + res.data.user.id + '/').then(res => { callback(res) })
         })
     }
     var user_logout = async (callback) => {
