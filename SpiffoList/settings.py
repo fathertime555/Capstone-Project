@@ -172,3 +172,7 @@ CHANNEL_LAYERS = {
         'BACKEND': "channels.layers.InMemoryChannelLayer"
         }
     }
+GOOGLE_API_KEY = 'AIzaSyBrIdKaE4vk0uAbmKnlVxJm6lcA4XDwjhw'
+
+
+

@@ -9,6 +9,7 @@ from rest_framework.response import Response
 from listings.serializers import ListingSerializerPost, ListingSerializerGet, ItemSerializerGet, ItemSerializerPost
 from django.views.decorators.csrf import ensure_csrf_cookie, csrf_protect
 from django.utils.decorators import method_decorator
+import json
 
 @method_decorator(ensure_csrf_cookie, name='dispatch')
 @method_decorator(csrf_protect, name='dispatch')
@@ -17,8 +18,8 @@ class SpecificListing(generics.GenericAPIView):
     queryset = Listing.objects.all()
     serializer_class = ListingSerializerPost 
     def get (self, request, *args, **kwargs):    
-        queryset_a = Listing.objects.get(pk=self.kwargs['pk'])
-        queryset_b = Item.objects.filter(listing=self.kwargs['pk'])
+        queryset_a = Listing.objects.get(pk=request.data.get('listingsPK'))
+        queryset_b = Item.objects.filter(listing=request.data.get('itemPK'))
 
         # Create an iterator for the querysets and turn it into a list.
         results_list = list(queryset_b)
@@ -47,7 +48,7 @@ class ListingCreation(generics.GenericAPIView, mixins.CreateModelMixin):
         return self.create(request, *args, **kwargs)
 
     def perform_create(self, serializer):
-        serializer.save(owner=self.request.user.username)
+        serializer.save(owner=self.request.user.pk)
     
 @method_decorator(ensure_csrf_cookie, name='dispatch')
 @method_decorator(csrf_protect, name='dispatch')
@@ -57,9 +58,149 @@ class ListListings(generics.GenericAPIView, mixins.ListModelMixin):
     lookup_field = 'owner'
     serializer_class = ListingSerializerPost  
     def get(self, request, *args, **kwargs):
-        if AppUser.objects.filter(username=self.kwargs['owner']).exists():
-            return self.list(request, *args, **kwargs)
+        if AppUser.objects.filter(pk=request.data.get('owner')).exists():
+            queryset_a = Listing.objects.filter(owner=request.user.get('pk'))
+            results_list = list(queryset_a)
+            results = list()
+            for entry in results_list:
+                results.append(ListingSerializerPost(entry).data)
+            return Response(results)
         return Response({ 'error': 'Username does not exist'})
+
+@method_decorator(ensure_csrf_cookie, name='dispatch')
+@method_decorator(csrf_protect, name='dispatch')
+class SortListingsByLocation(generics.GenericAPIView, mixins.ListModelMixin):
+    permission_classes = (permissions.AllowAny,)
+    queryset = Listing.objects.all()
+    lookup_field = 'zip_code'
+    serializer_class = ListingSerializerPost  
+    def get(self, request, *args, **kwargs):
+        userLat = request.data.get("lat")
+        userLong = request.data.get("lng")
+        origin = f'{userLat}, {userLong}'
+        queryset_a = Listing.objects.filter(zip_code=request.data.get("zip_code"))
+        toSearch = list(queryset_a)
+        destination = list()
+        for entry in toSearch:
+            destLat = entry.get("lat")
+            destLong = entry.get("lng")
+            destination.append(f'{destLat}, {destLong}')
+        result=request.get('https://maps.googleapis.com/maps/api/distancematrix/json?', params={'origin': origin, 'destination': destination, 'key': settings.GOOGLE_API_KEY})
+        destinations = result.json()
+        sortedDestinations = {}
+        index = 0
+        for s in destinations["rows"]["elements"]:
+            sortedDestinations[destinations["destination_addresses"][index]] = s["distance"]["value"]
+            index = index + 1
+        sortedDestinations = sorted(sortedDestinations.items(), key=lambda item: item[1])
+        toReturn = list()
+        for key in sortedDestinations:
+            x = key.split(", ")
+            toReturn.append(ListingSerializerPost(Listing.objects.get(lat=x[0], lng=x[1])).data)
+        return Response(toReturn)
+
+
+@method_decorator(ensure_csrf_cookie, name='dispatch')
+@method_decorator(csrf_protect, name='dispatch')
+class SortItemsByLocation(generics.GenericAPIView, mixins.ListModelMixin):
+    permission_classes = (permissions.AllowAny,)
+    queryset = Item.objects.all()
+    lookup_field = 'zip_code'
+    serializer_class = ItemSerializerPost  
+    def get(self, request, *args, **kwargs):
+        userLat = request.data.get("lat")
+        userLong = request.data.get("lng")
+        origin = f'{userLat}, {userLong}'
+        queryset_a = Item.objects.filter(zip_code=request.data.get("zip_code"))
+        toSearch = list(queryset_a)
+        destination = list()
+        for entry in toSearch:
+            destLat = entry.get("lat")
+            destLong = entry.get("lng")
+            destination.append(f'{destLat}, {destLong}')
+        result=request.get('https://maps.googleapis.com/maps/api/distancematrix/json?', params={'origin': origin, 'destination': destination, 'key': settings.GOOGLE_API_KEY})
+        destinations = result.json()
+        sortedDestinations = {}
+        index = 0
+        for s in destinations["rows"]["elements"]:
+            sortedDestinations[destinations["destination_addresses"][index]] = s["distance"]["value"]
+            index = index + 1
+        sortedDestinations = sorted(sortedDestinations.items(), key=lambda item: item[1])
+        toReturn = list()
+        for key in sortedDestinations:
+            x = key.split(", ")
+            toReturn.append(ItemSerializerPost(Item.objects.get(lat=x[0], lng=x[1])).data)
+        return Response(toReturn)
+
+        
+
+@method_decorator(ensure_csrf_cookie, name='dispatch')
+@method_decorator(csrf_protect, name='dispatch')
+class SortListingsByTheme(generics.GenericAPIView, mixins.ListModelMixin):
+    permission_classes = (permissions.AllowAny,)
+    queryset = Listing.objects.all()
+    lookup_field = 'theme'
+    serializer_class = ListingSerializerPost  
+    def get(self, request, *args, **kwargs):
+        queryset_a = Listing.objects.filter(theme__icontains=request.data.get("theme"))
+        results_list = list(queryset_a)
+        results = list()
+        for entry in results_list:
+            results.append(ListingSerializerPost(entry).data)
+        return Response(results)
+
+@method_decorator(ensure_csrf_cookie, name='dispatch')
+@method_decorator(csrf_protect, name='dispatch')
+class SortItemsByTag(generics.GenericAPIView, mixins.ListModelMixin):
+    permission_classes = (permissions.AllowAny,)
+    queryset = Item.objects.all()
+    lookup_field = 'tags'
+    serializer_class = ItemSerializerPost  
+    def get(self, request, *args, **kwargs):
+        queryset_a = Item.objects.filter(tags__icontains=request.data.get("tags"))
+        results_list = list(queryset_a)
+        results = list()
+        for entry in results_list:
+            results.append(ItemSerializerPost(entry).data)
+        return Response(results)
+
+@method_decorator(ensure_csrf_cookie, name='dispatch')
+@method_decorator(csrf_protect, name='dispatch')
+class SortListingsByDate(generics.GenericAPIView, mixins.ListModelMixin):
+    permission_classes = (permissions.AllowAny,)
+    queryset = Listing.objects.all()
+    lookup_field = 'date'
+    serializer_class = ListingSerializerPost  
+    def get(self, request, *args, **kwargs):
+        queryset_a = Listing.objects.all()
+        results = list(queryset_a)
+        sortedDates = {}
+        for s in results:
+            sortedDates[s.get("pk")] = s.get["date"]
+        sortedDates = sorted(sortedDates.items(), key=lambda item: item[1])
+        toReturn = list()
+        for key in sortedDates:
+            toReturn.append(ListingSerializerPost(Listing.objects.get(pk = key).data))
+        return Response(toReturn)
+    
+@method_decorator(ensure_csrf_cookie, name='dispatch')
+@method_decorator(csrf_protect, name='dispatch')
+class SortItemsByDate(generics.GenericAPIView, mixins.ListModelMixin):
+    permission_classes = (permissions.AllowAny,)
+    queryset = Item.objects.all()
+    lookup_field = 'date'
+    serializer_class = ItemSerializerPost  
+    def get(self, request, *args, **kwargs):
+        queryset_a = Item.objects.all()
+        results = list(queryset_a)
+        sortedDates = {}
+        for s in results:
+            sortedDates[s.get("pk")] = s.get["date"]
+        sortedDates = sorted(sortedDates.items(), key=lambda item: item[1])
+        toReturn = list()
+        for key in sortedDates:
+            toReturn.append(ItemSerializerPost(Item.objects.get(pk = key).data))
+        return Response(toReturn)
 
 @method_decorator(ensure_csrf_cookie, name='dispatch')
 @method_decorator(csrf_protect, name='dispatch')
@@ -70,12 +211,12 @@ class ListingDelete(generics.GenericAPIView, mixins.DestroyModelMixin, mixins.Re
     serializer_class = ListingSerializerPost
 
     def get (self, request, *args, **kwargs):
-        if self.request.user.username == Listing.objects.get(pk=self.kwargs['pk']).owner:
+        if self.request.user.pk == Listing.objects.get(pk=request.data.get('listingsPK')).owner:
             return self.retrieve(request, *args, **kwargs)
         return Response({ 'error': 'Not logged in to the correct account'})
 
     def delete(self, request, *args, **kwargs):
-        if self.request.user.username == Listing.objects.get(pk=self.kwargs['pk']).owner:    
+        if self.request.user.pk == Listing.objects.get(pk=request.data.get('pk')).owner:    
             if self.destroy(request, *args, **kwargs).status_code == 204:
                 return Response({ 'success': 'Listing deleted successfully' }) 
             return Response({ 'error': 'Listing was not successfully deleted'})
@@ -90,12 +231,12 @@ class ListingUpdate(generics.GenericAPIView, mixins.UpdateModelMixin, mixins.Ret
     serializer_class = ListingSerializerGet
 
     def get (self, request, *args, **kwargs):
-        if self.request.user.username == Listing.objects.get(pk=self.kwargs['pk']).owner:
+        if self.request.user.pk == Listing.objects.get(pk=request.data.get('listingsPK')).owner:
             return self.retrieve(request, *args, **kwargs)  
         return Response({ 'error': 'Not logged in to the correct account'})
 
     def put(self, request, *args, **kwargs):
-        if self.request.user.username == Listing.objects.get(pk=self.kwargs['pk']).owner:
+        if self.request.user.pk == Listing.objects.get(pk=request.data.get('listingsPK')).owner:
             return self.update(request, *args, **kwargs)
         return Response({ 'error': 'Not logged in to the correct account'})
 
@@ -107,13 +248,13 @@ class ItemCreation(generics.GenericAPIView, mixins.CreateModelMixin):
     serializer_class = ItemSerializerGet
 
     def post(self, request, *args, **kwargs):
-        if self.request.user.username == Listing.objects.get(pk=self.kwargs['pk']).owner:
+        if self.request.user.pk == Listing.objects.get(pk=request.data.get('listingsPK')).owner:
             return self.create(request, *args, **kwargs)
         return Response({ 'error': 'Not logged in to the correct account'})
 
     def perform_create(self, serializer):
         if Listing.objects.filter(pk=self.kwargs['pk']).exists():
-            serializer.save(listing=self.kwargs['pk'], owner = Listing.objects.get(pk=self.kwargs['pk']).owner)
+            serializer.save(listing=self.kwargs['pk'], owner = Listing.objects.get(pk=self.kwargs['pk']).owner, zip_code = Listing.objects.get(pk=self.kwargs['pk']).zip_code, lat = Listing.objects.get(pk=self.kwargs['pk']).lat, lng = Listing.objects.get(pk=self.kwargs['pk']).lng, date = Listing.objects.get(pk=self.kwargs['pk']).date)
         else:
             return Response({ 'error': 'Listing does not exist'})
 
@@ -127,15 +268,15 @@ class ItemDelete(generics.GenericAPIView, mixins.DestroyModelMixin, mixins.Retri
     serializer_class = ItemSerializerPost
 
     def get (self, request, *args, **kwargs):
-        if self.request.user.username == Listing.objects.get(pk=self.kwargs['listpk']).owner:    
-            if Item.objects.get(pk=self.kwargs['itempk']).listing == self.kwargs['listpk']:
+        if self.request.user.pk == Listing.objects.get(pk=request.data.get('listingsPK')).owner:    
+            if Item.objects.get(pk=request.data.get('itemPK')).listing == request.data.get('listpk'):
                 return self.retrieve(request, *args, **kwargs)
             return Response({'error': 'Listing does not contain given item'})
         return Response({ 'error': 'Not logged in to the correct account'})
 
     def delete(self, request, *args, **kwargs):
-        if self.request.user.username == Listing.objects.get(pk=self.kwargs['listpk']).owner:    
-            if Item.objects.get(pk=self.kwargs['itempk']).listing == self.kwargs['listpk']:
+        if self.request.user.pk == Listing.objects.get(pk=request.data.get('listingsPK')).owner:    
+            if Item.objects.get(pk=request.data.get('itemPK')).listing == request.data.get('listingsPK'):
                 if self.destroy(request, *args, **kwargs).status_code == 204:
                     return Response({ 'success': 'Item deleted successfully' }) 
                 return Response({ 'error': 'Listing was not successfully deleted'})
@@ -152,15 +293,15 @@ class ItemUpdate(generics.GenericAPIView, mixins.UpdateModelMixin, mixins.Retrie
     serializer_class = ItemSerializerGet
 
     def get (self, request, *args, **kwargs):
-        if self.request.user.username == Listing.objects.get(pk=self.kwargs['listpk']).owner:
-            if Item.objects.get(pk=self.kwargs['itempk']).listing == self.kwargs['listpk']:
+        if self.request.user.pk == Listing.objects.get(pk=request.data.get('listingsPK')).owner:
+            if Item.objects.get(pk=request.data.get('itemPK')).listing == request.data.get('listingsPK'):
                 return self.retrieve(request, *args, **kwargs)
             return Response({'error': 'Listing does not contain given item'})  
         return Response({ 'error': 'Not logged in to the correct account'})
 
     def put(self, request, *args, **kwargs):
-        if self.request.user.username == Listing.objects.get(pk=self.kwargs['listpk']).owner:
-            if Item.objects.get(pk=self.kwargs['itempk']).listing == self.kwargs['listpk']:           
+        if self.request.user.pk == Listing.objects.get(pk=request.data.get('listingsPK')).owner:
+            if Item.objects.get(pk=request.data.get('itemPK')).listing == request.data.get('listingsPK'):           
                 return self.update(request, *args, **kwargs)
             return Response({'error': 'Listing does not contain given item'})    
         return Response({ 'error': 'Not logged in to the correct account'})
@@ -175,7 +316,7 @@ class SpecificItem(generics.GenericAPIView, mixins.RetrieveModelMixin):
     serializer_class = ItemSerializerPost
 
     def get (self, request, *args, **kwargs):
-        if Item.objects.get(pk=self.kwargs['itempk']).listing == self.kwargs['listpk']:           
+        if Item.objects.get(pk=request.data.get('itemPK')).listing == request.data.get('listingsPK'):           
             return self.retrieve(request, *args, **kwargs)
         return Response({'error': 'Listing does not contain given item'})
 
