@@ -76,10 +76,10 @@ function App() {
   }
 
   // update list editer after current list has been change by click on the list table
-  useEffect(() => {
-    if (currentlist !== undefined)
-      setlistediter(<ListingEdit updatetable={updatelisttable} data={currentlist} />)
-  }, [currentlist])
+  // useEffect(() => {
+  //   if (currentlist !== undefined)
+  //     setlistediter(<ListingEdit updatetable={updatelisttable} data={currentlist} />)
+  // }, [currentlist])
 
 
 
@@ -96,10 +96,10 @@ function App() {
   }
 
   // update item editer after current item has been change by click on the item table
-  useEffect(() => {
-    if (currentitem !== undefined)
-      setitemediter(<ItemEdit data={currentitem} updatetable={updateitemtable} />)
-  }, [currentitem])
+  // useEffect(() => {
+  //   if (currentitem !== undefined)
+  //     setitemediter(<ItemEdit data={currentitem} updatetable={updateitemtable} />)
+  // }, [currentitem])
 
   //////////////////////////////////////////////////////////////////////////////////
   // user hook
@@ -174,10 +174,10 @@ function App() {
           </Row>
           <Row>
             <Col>
-              {currentlist === undefined ? <></> : listediter}
+              {currentlist === undefined ? <></> : <ListingEdit updatetable={updatelisttable} data={currentlist} />}
             </Col>
             <Col>
-              {currentitem === undefined ? <></> : itemediter}
+              {currentitem === undefined ? <></> : <ItemEdit data={currentitem} updatetable={updateitemtable} />}
             </Col>
           </Row>
 
