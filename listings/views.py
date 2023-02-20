@@ -1,15 +1,13 @@
-from django.contrib.auth.models import User
 from listings.models import Listing, Item
 from users.models import AppUser
-from django.shortcuts import get_object_or_404
-from rest_framework.views import APIView
 from rest_framework import permissions, mixins, generics
-from django.contrib import auth
 from rest_framework.response import Response
 from listings.serializers import ListingSerializerPost, ListingSerializerGet, ItemSerializerGet, ItemSerializerPost
 from django.views.decorators.csrf import ensure_csrf_cookie, csrf_protect
 from django.utils.decorators import method_decorator
-import json
+import requests
+from django.conf import settings
+
 
 @method_decorator(ensure_csrf_cookie, name='dispatch')
 @method_decorator(csrf_protect, name='dispatch')
@@ -21,11 +19,9 @@ class SpecificListing(generics.GenericAPIView):
         queryset_a = Listing.objects.get(pk=self.kwargs['pk'])
         queryset_b = Item.objects.filter(listing=self.kwargs['pk'])
 
-        # Create an iterator for the querysets and turn it into a list.
         results_list = list(queryset_b)
         results_list.insert(0,queryset_a)
 
-        # Build the list with items based on the FeedItemSerializer fields
         results = list()
         for entry in results_list:
             item_type = entry.__class__.__name__.lower()
@@ -48,7 +44,10 @@ class ListingCreation(generics.GenericAPIView, mixins.CreateModelMixin):
         return self.create(request, *args, **kwargs)
 
     def perform_create(self, serializer):
-        serializer.save(owner=self.request.user.pk)
+        result=requests.get('https://maps.googleapis.com/maps/api/geocode/json?', params={'address': self.request.data['location'], 'key': settings.GOOGLE_API_KEY})
+        location=result.json()
+        
+        serializer.save(owner=self.request.user.pk, lat=location['results'][0]['geometry']['location']['lat'], lng=location['results'][0]['geometry']['location']['lng'])
     
 @method_decorator(ensure_csrf_cookie, name='dispatch')
 @method_decorator(csrf_protect, name='dispatch')
@@ -85,11 +84,11 @@ class SortListingsByLocation(generics.GenericAPIView, mixins.ListModelMixin):
             destLat = entry.lat
             destLong = entry.lng
             destination.append(f'{destLat}, {destLong}')
-        result=request.get('https://maps.googleapis.com/maps/api/distancematrix/json?', params={'origin': origin, 'destination': destination, 'key': settings.GOOGLE_API_KEY})
+        result=requests.get('https://maps.googleapis.com/maps/api/distancematrix/json?', params={'origin': origin, 'destination': destination, 'key': settings.GOOGLE_API_KEY})
         destinations = result.json()
         sortedDestinations = {}
         index = 0
-        for s in destinations["rows"]["elements"]:
+        for s in destinations["rows"][0]["elements"][0]:
             sortedDestinations[destinations["destination_addresses"][index]] = s["distance"]["value"]
             index = index + 1
         sortedDestinations = sorted(sortedDestinations.items(), key=lambda item: item[1])
@@ -118,11 +117,11 @@ class SortItemsByLocation(generics.GenericAPIView, mixins.ListModelMixin):
             destLat = entry.lat
             destLong = entry.lng
             destination.append(f'{destLat}, {destLong}')
-        result=request.get('https://maps.googleapis.com/maps/api/distancematrix/json?', params={'origin': origin, 'destination': destination, 'key': settings.GOOGLE_API_KEY})
+        result=requests.get('https://maps.googleapis.com/maps/api/distancematrix/json?', params={'origin': origin, 'destination': destination, 'key': settings.GOOGLE_API_KEY})
         destinations = result.json()
         sortedDestinations = {}
         index = 0
-        for s in destinations["rows"]["elements"]:
+        for s in destinations["rows"][0]["elements"][0]:
             sortedDestinations[destinations["destination_addresses"][index]] = s["distance"]["value"]
             index = index + 1
         sortedDestinations = sorted(sortedDestinations.items(), key=lambda item: item[1])
