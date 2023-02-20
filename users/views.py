@@ -43,6 +43,7 @@ class UserViewSet(viewsets.ViewSet, mixins.ListModelMixin, mixins.UpdateModelMix
 
     # pk is what is passed into the url
     def retrieve(self,request,pk=None):
+
         user = self.request.user
         try:
             if int(user.id) != int(pk):

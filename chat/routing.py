@@ -1,15 +1,7 @@
-from channels.routing import ProtocolTypeRouter, URLRouter
-# import app.routing
+from channels import consumer
 from django.urls import re_path
 from chat.consumers import TextRoomConsumer
+
 websocket_urlpatterns = [
-    re_path(r'^chatroom/(?P<room_name>[^/]+)/$', TextRoomConsumer.as_asgi()),
+    re_path(r'^ws/chat/(?P<room_name>\w+)/$', consumer.TextRoomConsumer),
 ]
-# the websocket will open at 127.0.0.1:8000/ws/<room_name>
-application = ProtocolTypeRouter({
-    'websocket':
-        URLRouter(
-            websocket_urlpatterns
-        )
-    ,
-})
