@@ -6,6 +6,7 @@ export default function ListingEdit(prop) {
     const [createmode, setcreatemode] = useState(false)
     const [data, setdata] = useState(prop.data)
     const [updatetable, setupdatetable] = useState(prop.updatetable)
+    const [listid, setlistid] = useState(0)
     const [props, setprops] = useState(prop)
     const [title, settitle] = useState('');
     const [description, setdescription] = useState('');
@@ -18,13 +19,18 @@ export default function ListingEdit(prop) {
     }, [prop])
 
     useEffect(() => {
-        setdata(props.data);
-        settitle(props.data.title)
-        setdescription(props.data.description);
-        setlocation(props.data.location)
-        setupdatetable(props.setupdatetable);
-        setlat(props.data.lat);
-        setlng(props.data.lng);
+        if (props.data !== undefined) {
+            setlistid(props.data.id)
+            setdata(props.data);
+            settitle(props.data.title)
+            setdescription(props.data.description);
+            setlocation(props.data.location)
+            setupdatetable(props.setupdatetable);
+            setlat(props.data.lat);
+            setlng(props.data.lng);
+        } else {
+            setcreatemode(true)
+        }
     }, [props])
 
     var inputs = {
@@ -147,7 +153,7 @@ export default function ListingEdit(prop) {
                     <Col>
                         <Form.Group className="mb-3" controlId="create_listing_id">
                             <Form.Label>ID</Form.Label>
-                            <Form.Control onChange={(e) => onchange(e, 'id')} value={data.id} required={true} ref={inputs.listing_id} type="input" disabled={true} />
+                            <Form.Control onChange={(e) => onchange(e, 'id')} value={listid} required={true} ref={inputs.listing_id} type="input" disabled={true} />
                         </Form.Group>
                     </Col>
                     <Col>
@@ -214,7 +220,7 @@ export default function ListingEdit(prop) {
                 </Col>
             </Row> : <Row>
                 <Col>
-                    <Button style={{ width: '100%' }}>submit</Button>
+                <Button form='create_listing' type="submit" value='submit' onClick={create_listing} style={{ width: '100%' }} >Edit</Button>
                 </Col>
             </Row>}
         </Card.Footer>

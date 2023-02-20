@@ -11,7 +11,7 @@ urlpatterns = [
 	path('<int:listpk>/<int:itempk>/', views.SpecificItem.as_view()),
 	path('<int:listpk>/<int:itempk>/delete/', views.ItemDelete.as_view()),
 	path('<int:listpk>/<int:itempk>/update/', views.ItemUpdate.as_view()),
-	path('<str:owner>/', views.ListListings.as_view()),
+	path('owner/', views.ListListings.as_view()),
     path('sort/nearest/', views.SortListingsByLocation.as_view()),
     path('sort/date/', views.SortListingsByDate.as_view()),
     path('sort/theme/', views.SortListingsByTheme.as_view()),

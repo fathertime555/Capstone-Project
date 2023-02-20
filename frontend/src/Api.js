@@ -50,8 +50,11 @@ export default (function Api() {
         return axiosApi.put('/listings/' + data.id + '/update/', data).then(res => callback(res))
     }
 
-    var listings_read = async (owner, callback) => {
-        return axiosApi.get('/listings/' + owner + '/').then(res => callback(res));
+    var listings_read = async (_owner, callback) => {
+        var data={
+            owner: _owner
+        }
+        return axiosApi.post('/listings/owner/', data).then(res => callback(res));
     }
 
 
@@ -94,7 +97,10 @@ export default (function Api() {
     }
 
     var _checklogin = (callback) => {
-        return axiosApi.get('/users/authenticated/').then(res => callback(res))
+        return axiosApi.get('/users/authenticated/').then(res => {
+            if (res.data.isAuthenticated === 'success')
+                axiosApi.get('/users/' + res.data.user.id + '/').then(res => { callback(res) })
+        })
     }
 
 

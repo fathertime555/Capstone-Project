@@ -57,9 +57,11 @@ class ListListings(generics.GenericAPIView, mixins.ListModelMixin):
     queryset = Listing.objects.all()
     lookup_field = 'owner'
     serializer_class = ListingSerializerPost  
-    def get(self, request, *args, **kwargs):
-        if AppUser.objects.filter(pk=request.data.get('owner')).exists():
-            queryset_a = Listing.objects.filter(owner=request.user.get('pk'))
+    def post(self, request, *args, **kwargs):
+        _pk=request.data['owner']
+        print(_pk)
+        if AppUser.objects.filter(pk=_pk).exists():
+            queryset_a = Listing.objects.filter(owner=_pk)
             results_list = list(queryset_a)
             results = list()
             for entry in results_list:

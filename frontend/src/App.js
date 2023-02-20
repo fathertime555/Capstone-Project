@@ -15,12 +15,13 @@ import Usertable from './Components/Example_usertable';
 function App() {
   const [islogin, setlogin] = useState(false)
   const [userpk, setuserpk] = useState()
+  const [userdata, setuserdata] = useState()
 
   const [usertable, setusetable] = useState(<></>)
   const [itemtable, setitemtable] = useState(<></>)
   const [table, settable] = useState(<></>);
 
-  const [userdata, setuserdata] = useState([])
+
   const [itemdata, setitemdata] = useState([])
   const [listdata, setlistdata] = useState([])
 
@@ -42,7 +43,6 @@ function App() {
       setlistdata(res.data)
       setcurrentlist(currentlist === undefined ? res.data[0] : currentlist)
     })
-
   }
   var updateitemtable = () => {
     Api.data.getitems((res) => {
@@ -54,12 +54,13 @@ function App() {
   useEffect(() => {
     if (!mount) {
       Api.data.checklogin((res) => {
-        if (res.data.status === 'success') {
-          setuserpk(res.data.user.id);
-        }
+        console.log(res.data)
+        setuserdata(res.data.user)
+        setcurrentuser(res.data.user.username)
+        setuserpk(res.data.user.id);
       })
-      updatelisttable();
-      updateitemtable();
+      // updatelisttable();
+      // updateitemtable();
       setmount(true);
     }
   })
@@ -106,6 +107,9 @@ function App() {
 
   useEffect(() => {
     if (userpk > 0) {
+      Api.listing.getbyowner(userpk, (res) => {
+        setlistdata(res.data)
+      })
       setlogin(true)
     }
     if (userpk === 0) {
@@ -123,11 +127,6 @@ function App() {
 
 
   useEffect(() => {
-    if (currentuser !== 'no login')
-      Api.listing.getbyowner(currentuser, (res) => {
-        console.log(res.data)
-        setlistdata(res.data)
-      })
   }, [currentuser])
 
 
@@ -161,7 +160,7 @@ function App() {
           </Row>
 
         </Tab>
-        <Tab eventKey={'listings'} title={'Listings'}>
+        <Tab eventKey={'listings'} title={'Listings'} disabled={!islogin}>
           <Row>
             <Col>
               {table}
@@ -174,7 +173,7 @@ function App() {
           </Row>
           <Row>
             <Col>
-              {currentlist === undefined ? <></> : <ListingEdit updatetable={updatelisttable} data={currentlist} />}
+              <ListingEdit updatetable={updatelisttable} data={currentlist} />
             </Col>
             <Col>
               {currentitem === undefined ? <></> : <ItemEdit listingid={currentlist.id} data={currentitem} updatetable={updateitemtable} />}

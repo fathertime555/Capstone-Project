@@ -17,7 +17,7 @@ class CheckAuthenticatedView(APIView):
             isAuthenticated = user.is_authenticated
 
             if isAuthenticated:
-                return Response({'isAuthenticated': 'success', "user": {"id": user.pk}})
+                return Response({'isAuthenticated': 'success', "user": {"id": user.pk,"username":user.get_username()}})
             else:
                 return Response({'isAuthenticated': 'error'})
         except:
