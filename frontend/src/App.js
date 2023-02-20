@@ -177,7 +177,7 @@ function App() {
               {currentlist === undefined ? <></> : <ListingEdit updatetable={updatelisttable} data={currentlist} />}
             </Col>
             <Col>
-              {currentitem === undefined ? <></> : <ItemEdit data={currentitem} updatetable={updateitemtable} />}
+              {currentitem === undefined ? <></> : <ItemEdit listingid={currentlist.id} data={currentitem} updatetable={updateitemtable} />}
             </Col>
           </Row>
 

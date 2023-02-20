@@ -61,14 +61,8 @@ export default (function Api() {
 
     }
 
-    var item_create = async (_item, listingspk) => {
-        var data = {
-            name: _item.name,
-            description: _item.description,
-            quantity: _item.quantity,
-            price: _item.price
-        }
-        return axiosApi.post('/listings/' + listingspk + '/createitem', data)
+    var item_create = async (_item, listingspk, callback) => {
+        return axiosApi.post('/listings/' + listingspk + '/createitem', _item).then(res => callback(res))
     }
 
     var item_delete = async (listingspk, itempk, callback) => {

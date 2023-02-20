@@ -16,6 +16,31 @@ export default function ItemEdit(prop) {
     const [price, setprice] = useState('');
     const [owner, setowner] = useState('');
 
+    var onchange = (event, keys) => {
+
+        switch (keys) {
+            case 'itemid':
+                setitemid(event.target.value);
+                break;
+            case 'listid':
+                setlistid(event.target.value);
+                break;
+            case 'description':
+                setdescription(event.target.value);
+                break;
+            case 'quantity':
+                setquantity(event.target.value);
+                break;
+            case 'price':
+                setprice(event.target.value);
+                break;
+            case 'name':
+                setname(event.target.value);
+                break;
+            default:
+        }
+    }
+
 
     useEffect(() => {
         setprops(prop)
@@ -46,12 +71,24 @@ export default function ItemEdit(prop) {
         Item_quantity: useRef(null),
         Item_price: useRef(null),
     }
-    var edit_listing = (event) => {
-        updatetable();
+    var edit_item = (event) => {
     }
     var delete_item = () => {
         Api.item.delete(props.data.id, (res) => {
             console.log(res);
+            props.updatetable();
+        })
+    }
+
+    var create_item = () => {
+        var new_item = {
+            name: name,
+            description: description,
+            quantity: quantity,
+            price: price,
+            listid: listid
+        }
+        Api.item.create(new_item, listid, (res) => {
             props.updatetable();
         })
     }
@@ -61,14 +98,11 @@ export default function ItemEdit(prop) {
         setcreatemode(!createmode);
         if (!createmode) {
             setitemid('');
-            setlistid('');
             setname('')
             setdescription('');
             setquantity('')
             setprice('')
             setprice('');
-            setowner()
-            setowner(props.data.owner)
         } else {
             setdata(props.data);
             setprice(props.data.price);
@@ -82,30 +116,7 @@ export default function ItemEdit(prop) {
             setowner(props.data.owner)
         }
     }
-    var onchange = (event, keys) => {
 
-        switch (keys) {
-            case 'itemid':
-                setitemid(event.target.value);
-                break;
-            case 'listid':
-                setlistid(event.target.value);
-                break;
-            case 'description':
-                setdescription(event.target.value);
-                break;
-            case 'quantity':
-                setquantity(event.target.value);
-                break;
-            case 'price':
-                setprice(event.target.value);
-                break;
-            case 'name':
-                setname(event.target.value);
-                break;
-            default:
-        }
-    }
 
     return (<Card>
         <Card.Header>
@@ -120,7 +131,7 @@ export default function ItemEdit(prop) {
 
         </Card.Header>
         <Card.Body>
-            <Form id='edit_item' onSubmit={edit_listing}>
+            <Form id='edit_item' onSubmit={createmode ? create_item : edit_item}>
                 <Row>
                     <Col>
                         <Row>
@@ -132,14 +143,14 @@ export default function ItemEdit(prop) {
                             </Col>
                             <Col>
                                 <Form.Group className="mb-3" controlId="item_id">
-                                    <Form.Label>PK</Form.Label>
+                                    <Form.Label>ID</Form.Label>
                                     <Form.Control onChange={(e) => onchange(e, 'itemid')} value={itemid} required={true} ref={inputs.Item_pk} type="input" disabled={true} />
                                 </Form.Group>
                             </Col>
                             <Col>
                                 <Form.Group className="mb-3" controlId="item_owner">
                                     <Form.Label>owner</Form.Label>
-                                    <Form.Control onChange={(e) => onchange(e, 'owner')} value={owner} required={true} ref={inputs.Item_pk} type="input" disabled={true} />
+                                    <Form.Control onChange={(e) => onchange(e, 'owner')} value={owner} required={true}  type="input" disabled={true} />
                                 </Form.Group>
                             </Col>
                         </Row>
