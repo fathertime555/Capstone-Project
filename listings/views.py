@@ -49,7 +49,6 @@ class ListingCreation(generics.GenericAPIView, mixins.CreateModelMixin):
         for component in location['results'][0]['address_components']:
             if component['types'][0] == ('postal_code'):
                 geozipcode = component['long_name'] 
-
         serializer.save(owner=self.request.user.pk, lat=location['results'][0]['geometry']['location']['lat'], lng=location['results'][0]['geometry']['location']['lng'], zip_code=geozipcode)
     
 @method_decorator(ensure_csrf_cookie, name='dispatch')
@@ -67,7 +66,7 @@ class ListListings(generics.GenericAPIView, mixins.ListModelMixin):
             for entry in results_list:
                 results.append(ListingSerializerPost(entry).data)
             return Response(results)
-        return Response({ 'error': 'Username does not exist'})
+        return Response({ 'error': 'User does not exist'})
 
 @method_decorator(ensure_csrf_cookie, name='dispatch')
 @method_decorator(csrf_protect, name='dispatch')
