@@ -5,6 +5,9 @@ __pycache__
 *.pyc
 uploads
 .idea
+/node_modules
+# remove database from git
+db.sqlite3
 
 /.pnp
 .pnp.js

@@ -16,8 +16,8 @@ class SpecificListing(generics.GenericAPIView):
     queryset = Listing.objects.all()
     serializer_class = ListingSerializerPost 
     def get (self, request, *args, **kwargs):    
-        queryset_a = Listing.objects.get(pk=self.kwargs['pk'])
-        queryset_b = Item.objects.filter(listing=self.kwargs['pk'])
+        queryset_a = Listing.objects.get(pk=request.data.get('listingsPK'))
+        queryset_b = Item.objects.filter(listing=request.data.get('itemPK'))
 
         results_list = list(queryset_b)
         results_list.insert(0,queryset_a)
@@ -299,7 +299,7 @@ class SpecificItem(generics.GenericAPIView, mixins.RetrieveModelMixin):
     serializer_class = ItemSerializerPost
 
     def get (self, request, *args, **kwargs):
-        if Item.objects.get(pk=self.kwargs['itempk']).listing == self.kwargs['listpk']:           
+        if Item.objects.get(pk=request.data.get('itemPK')).listing == request.data.get('listingsPK'):           
             return self.retrieve(request, *args, **kwargs)
         return Response({'error': 'Listing does not contain given item'})
 
