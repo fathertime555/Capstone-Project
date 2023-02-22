@@ -46,8 +46,11 @@ class ListingCreation(generics.GenericAPIView, mixins.CreateModelMixin):
     def perform_create(self, serializer):
         result=requests.get('https://maps.googleapis.com/maps/api/geocode/json?', params={'address': self.request.data['location'], 'key': settings.GOOGLE_API_KEY})
         location=result.json()
-        
-        serializer.save(owner=self.request.user.pk, lat=location['results'][0]['geometry']['location']['lat'], lng=location['results'][0]['geometry']['location']['lng'])
+        for component in location['results'][0]['address_components']:
+            if component['types'][0] == ('postal_code'):
+                geozipcode = component['long_name'] 
+
+        serializer.save(owner=self.request.user.pk, lat=location['results'][0]['geometry']['location']['lat'], lng=location['results'][0]['geometry']['location']['lng'], zip_code=geozipcode)
     
 @method_decorator(ensure_csrf_cookie, name='dispatch')
 @method_decorator(csrf_protect, name='dispatch')
@@ -88,7 +91,7 @@ class SortListingsByLocation(generics.GenericAPIView, mixins.ListModelMixin):
         destinations = result.json()
         sortedDestinations = {}
         index = 0
-        for s in destinations["rows"][0]["elements"][0]:
+        for s in destinations["rows"][0]["elements"]:
             sortedDestinations[destinations["destination_addresses"][index]] = s["distance"]["value"]
             index = index + 1
         sortedDestinations = sorted(sortedDestinations.items(), key=lambda item: item[1])
