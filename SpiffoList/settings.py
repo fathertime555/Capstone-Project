@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'drf_yasg',
+    "daphne",
     # apps
     "chat",
     "listings",
@@ -166,7 +167,7 @@ REST_FRAMEWORK = {
 }
 
 # channels settings
-ASGI_APPLICATION = "chat.routing.application" #routing.py will handle the ASGI
+ASGI_APPLICATION = "SpiffoList.asgi.application"
 CHANNEL_LAYERS = {
     'default': {
         'BACKEND': "channels.layers.InMemoryChannelLayer"
