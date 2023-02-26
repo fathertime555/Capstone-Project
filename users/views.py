@@ -151,9 +151,8 @@ class UserRegistration(viewsets.ViewSet,generics.GenericAPIView):
                         return Response({ 'error': 'Password must be at least 6 characters' })
                     else:
                         user = AppUser.objects.create_user(username=username, password=password)
-
-                        AppUser.objects.get(id=user.id)
-                        return Response({ 'success': 'User created successfully' })
+                        serializer = MainUserSerializer(AppUser.objects.get(id=user.id))
+                        return Response(serializer.data)
             else:
                 return Response({ 'error': 'Passwords do not match' })
         except:
