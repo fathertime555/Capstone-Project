@@ -46,13 +46,23 @@ class ListBoth(generics.GenericAPIView, mixins.ListModelMixin):
             results_list.append(i)
 
         # Build the list with items based on the FeedItemSerializer fields
-        results = list()
+        Listing_results = list()
+        items_results = list()
         for entry in results_list:
             item_type = entry.__class__.__name__.lower()
             if isinstance(entry, Listing):
-                serializer = ListingSerializerPost(entry)
+                Listing_results.append(ListingSerializerPost(entry).data)
             if isinstance(entry, Item):
-                serializer = ItemSerializerPost(entry)
-            results.append(serializer.data)
+                items_results.append(ItemSerializerPost(entry).data)
+            # results.append(serializer.data)
 
-        return Response(results)
+        user = self.request.user
+        if user.is_authenticated:
+            userinfo = MainUserSerializer(AppUser.objects.get(pk=user.pk)).data
+
+        return Response({
+            'listings': Listing_results,
+            'items': items_results,
+            'islogin': user.is_authenticated,
+            'user': userinfo,
+        })
