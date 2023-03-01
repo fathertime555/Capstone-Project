@@ -16,20 +16,25 @@ class SpecificListing(generics.GenericAPIView):
     queryset = Listing.objects.all()
     serializer_class = ListingSerializerPost 
     def get (self, request, *args, **kwargs):    
-        queryset_a = Listing.objects.get(pk=request.data.get('listingsPK'))
-        queryset_b = Item.objects.filter(listing=request.data.get('itemPK'))
+        queryset_a = Listing.objects.get(pk=self.kwargs['pk'])
+        queryset_b = Item.objects.filter(listing=self.kwargs['pk'])
 
         results_list = list(queryset_b)
         results_list.insert(0,queryset_a)
 
-        results = list()
+        results = {}
+        item_results = list()
+        listing_result = list()
         for entry in results_list:
             item_type = entry.__class__.__name__.lower()
             if isinstance(entry, Listing):
                 serializer = ListingSerializerPost(entry)
+                listing_result.append(serializer.data)
             if isinstance(entry, Item):
                 serializer = ItemSerializerPost(entry)
-            results.append(serializer.data)
+                item_results.append(serializer.data)
+        results["listing details"] = listing_result
+        results["listing items"] = item_results
 
         return Response(results)
 
