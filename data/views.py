@@ -1,6 +1,7 @@
 from django.contrib.auth.models import User
 from listings.models import Listing, Item
 from users.models import AppUser
+from users.serializers import MainUserSerializer
 from django.shortcuts import get_object_or_404
 from rest_framework.views import APIView
 from rest_framework import permissions, mixins, generics
@@ -57,6 +58,7 @@ class ListBoth(generics.GenericAPIView, mixins.ListModelMixin):
             # results.append(serializer.data)
 
         user = self.request.user
+        userinfo = {}
         if user.is_authenticated:
             userinfo = MainUserSerializer(AppUser.objects.get(pk=user.pk)).data
 
