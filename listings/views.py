@@ -157,6 +157,21 @@ class SortListingsByTheme(generics.GenericAPIView, mixins.ListModelMixin):
 
 @method_decorator(ensure_csrf_cookie, name='dispatch')
 @method_decorator(csrf_protect, name='dispatch')
+class SortItemsByListing(generics.GenericAPIView, mixins.ListModelMixin):
+    permission_classes = (permissions.AllowAny,)
+    queryset = Item.objects.all()
+    lookup_field = 'listing'
+    serializer_class = ListingSerializerPost  
+    def get(self, request, *args, **kwargs):
+        queryset = Item.objects.filter(listing = self.kwargs['pk'])
+        results_list = list(queryset)
+        results = list()
+        for entry in results_list:
+            results.append(ListingSerializerPost(entry).data)
+        return Response(results)
+
+@method_decorator(ensure_csrf_cookie, name='dispatch')
+@method_decorator(csrf_protect, name='dispatch')
 class SortItemsByTag(generics.GenericAPIView, mixins.ListModelMixin):
     permission_classes = (permissions.AllowAny,)
     queryset = Item.objects.all()

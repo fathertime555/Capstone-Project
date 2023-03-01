@@ -17,5 +17,6 @@ urlpatterns = [
     path('sort/theme/', views.SortListingsByTheme.as_view()),
     path('sort/items/nearest/', views.SortItemsByLocation.as_view()),
     path('sort/items/date/', views.SortItemsByDate.as_view()),
-    path('sort/items/tags/', views.SortItemsByTag.as_view())	
+    path('sort/items/tags/', views.SortItemsByTag.as_view()),
+	path('sort/items/listing/<int:pk>/', views.SortItemsByListing.as_view())
 ]
