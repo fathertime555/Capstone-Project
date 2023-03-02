@@ -65,7 +65,11 @@ urlpatterns = [
     path('api-auth/', include('rest_framework.urls')),
     path('users/', include('users.urls')),
     path('data/', include('data.urls')),
-    re_path(r"^$", render_react),
+    re_path(r"^map/$", render_react),
+    re_path(r"^account/$", render_react),
+    re_path(r"^/$", render_react),
+    re_path(r"^api/$", render_react),
+    re_path(r"^chat/$", render_react),
     re_path(r"^(?:.*)/?$", render_react),
 ]
 
