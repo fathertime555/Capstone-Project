@@ -5,19 +5,28 @@ from .models import AppUser
 class MainUserSerializer(serializers.ModelSerializer):
     class Meta:
         model = AppUser
-        # fields = "__all__"
         fields = [
             "id",
             "username",
             "first_name",
             "last_name",
             "email",
+            "password",
             "address_line_1",
             "address_line_2",
             "city",
             "state",
             "zip_code",
             "phone_number",
+        ]
+
+class LoginSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = AppUser
+        fields = [
+            "username",
+            "password",
+
         ]
 
 

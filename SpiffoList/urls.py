@@ -33,7 +33,6 @@ from django.conf import settings
 def render_react(request):
     return render(request, "index.html")
 
-
 schema_view = get_schema_view(
     openapi.Info(
         title="Snippets API",

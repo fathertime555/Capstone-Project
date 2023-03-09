@@ -5,7 +5,7 @@ from rest_framework.views import APIView
 from rest_framework import permissions, viewsets, mixins,generics
 from django.contrib import auth
 from rest_framework.response import Response
-from .serializers import MainUserSerializer, UserRegistrationSerializer
+from .serializers import MainUserSerializer, UserRegistrationSerializer,LoginSerializer
 from django.views.decorators.csrf import ensure_csrf_cookie, csrf_protect
 from django.utils.decorators import method_decorator
 
@@ -91,9 +91,9 @@ class UserViewSet(viewsets.ViewSet,mixins.ListModelMixin, mixins.UpdateModelMixi
         phone_number = data ['phone_number']
 
         AppUser.objects.filter(id = user.id).update(username = username, first_name = first_name,
-                                                 last_name = last_name,email = email, phone_number = phone_number,
-                                                 address_line_1 = address_line_1, address_line_2 = address_line_2,
-                                                 city = city, state= state, zip_code = zip_code)
+                                                    last_name = last_name,email = email, phone_number = phone_number,
+                                                    address_line_1 = address_line_1, address_line_2 = address_line_2,
+                                                    city = city, state= state, zip_code = zip_code)
         return Response({'profile updated'})
 
 
@@ -101,28 +101,30 @@ class UserViewSet(viewsets.ViewSet,mixins.ListModelMixin, mixins.UpdateModelMixi
 @method_decorator(csrf_protect, name='dispatch')
 class LoginView(generics.GenericAPIView):
     permission_classes = (permissions.AllowAny, )
-    serializer_class = MainUserSerializer
+    serializer_class = LoginSerializer
     def post(self, request, format=None):
         data = self.request.data
         username = data['username']
         password = data['password']
+
         try:
-            user = auth.authenticate(username=username, password=password)
+            user = auth.authenticate(request, username = username, password = password)
             if user is not None:
                 auth.login(request, user)
                 queryset = AppUser.objects.filter(id = user.id)
                 user_data = get_object_or_404(queryset, pk = user.id)
                 serializer = MainUserSerializer(user_data)
-                return Response(serializer)
+                return Response(serializer.data)
             else:
-                return Response({ 'error': 'Error Authenticating' })
+                return Response({'error': 'Error Authenticating'})
+
         except:
             return Response({ 'error': 'Something went wrong when logging in' })
 
 @method_decorator(ensure_csrf_cookie, name='dispatch')
 @method_decorator(csrf_protect, name='dispatch')
 class LogoutView(generics.GenericAPIView):
-    # serializer_class = MainUserSerializer
+    serializer_class = MainUserSerializer
     def post(self, request, format=None):
         try:
             auth.logout(request)
