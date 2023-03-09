@@ -2,11 +2,14 @@ from listings.models import Listing, Item
 from users.models import AppUser
 from rest_framework import permissions, mixins, generics
 from rest_framework.response import Response
+from rest_framework.parsers import MultiPartParser, FormParser
 from listings.serializers import ListingSerializerPost, ListingSerializerGet, ItemSerializerGet, ItemSerializerPost
 from django.views.decorators.csrf import ensure_csrf_cookie, csrf_protect
 from django.utils.decorators import method_decorator
 import requests
 from django.conf import settings
+
+parser_classes=(MultiPartParser,FormParser)
 
 
 @method_decorator(ensure_csrf_cookie, name='dispatch')
@@ -233,12 +236,13 @@ class ListingUpdate(generics.GenericAPIView, mixins.UpdateModelMixin, mixins.Ret
     lookup_field = 'pk'
     serializer_class = ListingSerializerGet
 
+
     def get (self, request, *args, **kwargs):
         if self.request.user.pk == Listing.objects.get(pk=self.kwargs['pk']).owner:
             return self.retrieve(request, *args, **kwargs)  
         return Response({ 'error': 'Not logged in to the correct account'})
 
-    def put(self, request, *args, **kwargs):
+    def post(self, request, *args, **kwargs):
         if self.request.user.pk == Listing.objects.get(pk=self.kwargs['pk']).owner:
             return self.update(request, *args, **kwargs)
         return Response({ 'error': 'Not logged in to the correct account'})
@@ -302,7 +306,7 @@ class ItemUpdate(generics.GenericAPIView, mixins.UpdateModelMixin, mixins.Retrie
             return Response({'error': 'Listing does not contain given item'})  
         return Response({ 'error': 'Not logged in to the correct account'})
 
-    def put(self, request, *args, **kwargs):
+    def post(self, request, *args, **kwargs):
         if self.request.user.pk == Listing.objects.get(pk=self.kwargs['listpk']).owner:
             if Item.objects.get(pk=self.kwargs['itempk']).listing == self.kwargs['listpk']:           
                 return self.update(request, *args, **kwargs)

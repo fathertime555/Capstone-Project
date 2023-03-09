@@ -16,7 +16,7 @@ db.sqlite3
 /coverage
 
 # production
-/build
+
 
 # misc
 .env.local
