@@ -2,12 +2,14 @@ from listings.models import Listing, Item
 from users.models import AppUser
 from rest_framework import permissions, mixins, generics
 from rest_framework.response import Response
+from rest_framework.parsers import MultiPartParser, FormParser
 from listings.serializers import ListingSerializerPost, ListingSerializerGet, ItemSerializerGet, ItemSerializerPost
 from django.views.decorators.csrf import ensure_csrf_cookie, csrf_protect
 from django.utils.decorators import method_decorator
 import requests
 from django.conf import settings
 
+parser_classes=(MultiPartParser,FormParser)
 
 @method_decorator(ensure_csrf_cookie, name='dispatch')
 @method_decorator(csrf_protect, name='dispatch')
@@ -15,6 +17,7 @@ class SpecificListing(generics.GenericAPIView):
     permission_classes = (permissions.AllowAny, )
     queryset = Listing.objects.all()
     serializer_class = ListingSerializerPost 
+    
     def get (self, request, *args, **kwargs):    
         queryset_a = Listing.objects.get(pk=self.kwargs['pk'])
         queryset_b = Item.objects.filter(listing=self.kwargs['pk'])
@@ -228,7 +231,7 @@ class ListingDelete(generics.GenericAPIView, mixins.DestroyModelMixin, mixins.Re
 @method_decorator(ensure_csrf_cookie, name='dispatch')
 @method_decorator(csrf_protect, name='dispatch')
 class ListingUpdate(generics.GenericAPIView, mixins.UpdateModelMixin, mixins.RetrieveModelMixin):
-    permission_classes = (permissions.IsAuthenticated, )
+    permission_classes = (permissions.IsAuthenticated,   )
     queryset = Listing.objects.all()
     lookup_field = 'pk'
     serializer_class = ListingSerializerGet
@@ -238,7 +241,7 @@ class ListingUpdate(generics.GenericAPIView, mixins.UpdateModelMixin, mixins.Ret
             return self.retrieve(request, *args, **kwargs)  
         return Response({ 'error': 'Not logged in to the correct account'})
 
-    def put(self, request, *args, **kwargs):
+    def post(self, request, *args, **kwargs):
         if self.request.user.pk == Listing.objects.get(pk=self.kwargs['pk']).owner:
             return self.update(request, *args, **kwargs)
         return Response({ 'error': 'Not logged in to the correct account'})
