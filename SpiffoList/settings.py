@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -65,7 +66,7 @@ ROOT_URLCONF = "SpiffoList.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [],
+        "DIRS": [os.path.join(BASE_DIR, "build")],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -89,18 +90,18 @@ DATABASES = {
     # For local use mysqlite3
     "default": {
         "ENGINE": "django.db.backends.sqlite3",
-        "NAME"  : BASE_DIR / "db.sqlite3",
+        "NAME": BASE_DIR / "db.sqlite3",
     },
 
     # for mysql database
-#     'mysql_database': {
-#         'ENGINE': 'django.db.backends.mysql',
-#         'NAME': 'mydb',
-#         'USER': 'root',
-#         'PASSWORD': 'admin',
-#         'HOST':'localhost',
-#         'PORT':'3306',
-#     }
+    #     'mysql_database': {
+    #         'ENGINE': 'django.db.backends.mysql',
+    #         'NAME': 'mydb',
+    #         'USER': 'root',
+    #         'PASSWORD': 'admin',
+    #         'HOST':'localhost',
+    #         'PORT':'3306',
+    #     }
 }
 
 
@@ -154,7 +155,7 @@ AUTH_USER_MODEL = "users.AppUser"
 LOGIN_REDIRECT_URL = "/users/login"
 
 CORS_ORIGIN_WHITELIST = [
-     'http://localhost:3000'
+    'http://localhost:3000'
 ]
 
 REST_FRAMEWORK = {
@@ -163,17 +164,23 @@ REST_FRAMEWORK = {
     ],
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.SessionAuthentication',
-    ]
+    ],
+    'DEFAULT_PARSER_CLASSES': (
+        'rest_framework.parsers.FormParser',
+        'rest_framework.parsers.MultiPartParser'
+    )
 }
 
-# channels settings
-ASGI_APPLICATION = "SpiffoList.asgi.application"
 CHANNEL_LAYERS = {
     'default': {
         'BACKEND': "channels.layers.InMemoryChannelLayer"
         }
     }
+    
 GOOGLE_API_KEY = 'AIzaSyBrIdKaE4vk0uAbmKnlVxJm6lcA4XDwjhw'
 
 
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'build/static')]
 
+MEDIA_ROOT = os.path.join(BASE_DIR, "build")
+MEDIA_URL = '/media/'
