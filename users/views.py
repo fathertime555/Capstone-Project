@@ -23,10 +23,23 @@ class CheckAuthenticatedView(APIView):
         except:
             return Response({ 'error': 'Something went wrong when checking authentication status' })
 
+@method_decorator(ensure_csrf_cookie, name='dispatch')
+@method_decorator(csrf_protect, name='dispatch')
+class UserSearch(viewsets.ViewSet, mixins.ListModelMixin,generics.GenericAPIView):
+    permission_classes = (permissions.BasePermission,)
+    serializer_class = MainUserSerializer
+    def list(self, request,*args, **kwargs):
+        queryset = AppUser.objects.all()
+
+        #user_data = get_object_or_404(queryset)
+        serializer = MainUserSerializer()
+        users = queryset.values_list('username', flat = True)
+        return Response(users)
+
 
 @method_decorator(ensure_csrf_cookie, name='dispatch')
 @method_decorator(csrf_protect, name='dispatch')
-class UserViewSet(viewsets.ViewSet, mixins.ListModelMixin, mixins.UpdateModelMixin,generics.GenericAPIView):
+class UserViewSet(viewsets.ViewSet,mixins.ListModelMixin, mixins.UpdateModelMixin,generics.GenericAPIView):
     permission_classes = (permissions.IsAuthenticated,)
     serializer_class = MainUserSerializer
     def delete(self, request, format=None):
@@ -61,18 +74,6 @@ class UserViewSet(viewsets.ViewSet, mixins.ListModelMixin, mixins.UpdateModelMix
                 return Response({'isAuthenticated': 'error'})
         except:
             return Response({'error': 'Something went wrong when checking authentication status'})
-
-    def list (self, *args, **kwargs):
-        user = self.request.user
-        try:
-            isAuthenticated = user.is_authenticated
-            if isAuthenticated:
-                User.objects.filter(id = user.id)
-            else:
-                return Response({'isAuthenticated': 'error'})
-        except:
-            return Response({"Doomed"})
-
     def update(self, request, *args, **kwargs):
 
         user = self.request.user
@@ -109,7 +110,10 @@ class LoginView(generics.GenericAPIView):
             user = auth.authenticate(username=username, password=password)
             if user is not None:
                 auth.login(request, user)
-                return Response({ 'success': 'User authenticated' })
+                queryset = AppUser.objects.filter(id = user.id)
+                user_data = get_object_or_404(queryset, pk = user.id)
+                serializer = MainUserSerializer(user_data)
+                return Response(serializer)
             else:
                 return Response({ 'error': 'Error Authenticating' })
         except:
@@ -147,9 +151,8 @@ class UserRegistration(viewsets.ViewSet,generics.GenericAPIView):
                         return Response({ 'error': 'Password must be at least 6 characters' })
                     else:
                         user = AppUser.objects.create_user(username=username, password=password)
-
-                        AppUser.objects.get(id=user.id)
-                        return Response({ 'success': 'User created successfully' })
+                        serializer = MainUserSerializer(AppUser.objects.get(id=user.id))
+                        return Response(serializer.data)
             else:
                 return Response({ 'error': 'Passwords do not match' })
         except:

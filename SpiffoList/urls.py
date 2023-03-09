@@ -67,6 +67,9 @@ urlpatterns = [
     path('api-auth/', include('rest_framework.urls')),
     path('users/', include('users.urls')),
     path('data/', include('data.urls')),
+    
+    # path("chat/", include("chat.urls")), # test dummy chat api
+    
     re_path(r"^map/$", render_react),
     re_path(r"^account/$", render_react),
     re_path(r"^/$", render_react),
@@ -74,5 +77,6 @@ urlpatterns = [
     re_path(r"^chat/$", render_react),
     re_path(r"^(?:.*)/?$", render_react),
 ]+static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
 
 urlpatterns += router.urls
