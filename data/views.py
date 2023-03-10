@@ -15,7 +15,7 @@ from django.utils.decorators import method_decorator
 @method_decorator(csrf_protect, name='dispatch')
 class ListItems(generics.GenericAPIView, mixins.ListModelMixin):
     permission_classes = (permissions.AllowAny,)
-    queryset = Item.objects.filter(pk__range = [1,100])
+    queryset = Item.objects.all()
     lookup_field = 'pk'
     serializer_class = ItemSerializerPost  
     def get(self, request, *args, **kwargs):
@@ -25,7 +25,7 @@ class ListItems(generics.GenericAPIView, mixins.ListModelMixin):
 @method_decorator(csrf_protect, name='dispatch')
 class ListListings(generics.GenericAPIView, mixins.ListModelMixin):
     permission_classes = (permissions.AllowAny,)
-    queryset = Listing.objects.filter(pk__range = [1,100])
+    queryset = Listing.objects.all()
     lookup_field = 'pk'
     serializer_class = ListingSerializerPost  
     def get(self, request, *args, **kwargs):
@@ -38,8 +38,8 @@ class ListBoth(generics.GenericAPIView, mixins.ListModelMixin):
     queryset = Listing.objects.all()
     serializer_class = ListingSerializerPost 
     def get (self, request, *args, **kwargs):    
-        queryset_a = Listing.objects.filter(pk__range = [1,100])
-        queryset_b = Item.objects.filter(pk__range =[1,100])
+        queryset_a = Listing.objects.all()
+        queryset_b = Item.objects.all()
 
         # Create an iterator for the querysets and turn it into a list.
         results_list = list(queryset_b)

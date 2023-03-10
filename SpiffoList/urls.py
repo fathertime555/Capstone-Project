@@ -28,6 +28,8 @@ from drf_yasg import openapi
 
 from django.conf.urls.static import static
 from django.conf import settings
+from django.conf.urls.static import static
+from django.conf import settings
 ...
 
 def render_react(request):
@@ -44,11 +46,22 @@ schema_view = get_schema_view(
     ),
     public=True,
     permission_classes=[permissions.AllowAny],
+    openapi.Info(
+        title="Snippets API",
+        default_version='v1',
+        description="Test description",
+        terms_of_service="",
+        contact=openapi.Contact(email="contact@snippets.local"),
+        license=openapi.License(name="BSD License"),
+    ),
+    public=True,
+    permission_classes=[permissions.AllowAny],
 )
 
 # Swagger end
 
 router = routers.SimpleRouter()
+router.register(r"users", UserViewSet, basename="users"),
 router.register(r"users", UserViewSet, basename="users"),
 
 urlpatterns = [
