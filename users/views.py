@@ -25,7 +25,7 @@ class CheckAuthenticatedView(APIView):
 
 @method_decorator(ensure_csrf_cookie, name='dispatch')
 @method_decorator(csrf_protect, name='dispatch')
-class UserSearch(viewsets.ViewSet, mixins.ListModelMixin,generics.GenericAPIView):
+class UserSearch(viewsets.ViewSet, mixins.ListModelMixin,mixins.RetrieveModelMixin,generics.GenericAPIView):
     permission_classes = (permissions.BasePermission,)
     serializer_class = MainUserSerializer
     def list(self, request,*args, **kwargs):
@@ -35,6 +35,13 @@ class UserSearch(viewsets.ViewSet, mixins.ListModelMixin,generics.GenericAPIView
         serializer = MainUserSerializer()
         users = queryset.values_list('username', flat = True)
         return Response(users)
+
+    def retrieve(self,request,username=None):
+        queryset = AppUser.objects.filter(username = username)
+        user = queryset.values_list("id",flat = True)
+        #serializer = MainUserSerializer(user)
+        return Response(user)
+
 
 
 @method_decorator(ensure_csrf_cookie, name='dispatch')

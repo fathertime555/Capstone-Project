@@ -67,7 +67,7 @@ urlpatterns = [
     path('users/', include('users.urls')),
     path('data/', include('data.urls')),
     
-    # path("chat/", include("chat.urls")), # test dummy chat api
+    #path("chat/", include("chat.urls")), # test dummy chat api
     
     re_path(r"^map/$", render_react),
     re_path(r"^account/$", render_react),
