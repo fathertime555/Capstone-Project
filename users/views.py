@@ -8,6 +8,8 @@ from rest_framework.response import Response
 from .serializers import MainUserSerializer, UserRegistrationSerializer,LoginSerializer
 from django.views.decorators.csrf import ensure_csrf_cookie, csrf_protect
 from django.utils.decorators import method_decorator
+from rest_framework import permissions
+from rest_framework.parsers import MultiPartParser, FormParser
 
 
 class CheckAuthenticatedView(APIView):
@@ -49,6 +51,8 @@ class UserSearch(viewsets.ViewSet, mixins.ListModelMixin,mixins.RetrieveModelMix
 class UserViewSet(viewsets.ViewSet,mixins.ListModelMixin, mixins.UpdateModelMixin,generics.GenericAPIView):
     permission_classes = (permissions.IsAuthenticated,)
     serializer_class = MainUserSerializer
+    parser_classes = (MultiPartParser, FormParser)
+
     def delete(self, request, format=None):
         user = self.request.user
         try:
@@ -96,6 +100,7 @@ class UserViewSet(viewsets.ViewSet,mixins.ListModelMixin, mixins.UpdateModelMixi
         state = data["state"]
         zip_code = data["zip_code"]
         phone_number = data ['phone_number']
+        image_url = data["image_url"]
 
         AppUser.objects.filter(id = user.id).update(username = username, first_name = first_name,
                                                     last_name = last_name,email = email, phone_number = phone_number,

@@ -1,6 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 
+def upload_to(instance, filename):
+	return 'images/{filename}'.format(filename=filename)
 
 # since we want to only add to the User class we use AbstractUser
 class AppUser (AbstractUser):
@@ -13,6 +15,7 @@ class AppUser (AbstractUser):
 	state = models.CharField(max_length = 2,default = "None")
 	zip_code = models.CharField(max_length = 16,default = "None")
 	phone_number = models.CharField(max_length = 16,default = "None")
+	image_url = models.ImageField(upload_to = upload_to, blank = True, null = True)
 
 
 

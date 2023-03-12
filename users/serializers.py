@@ -17,6 +17,7 @@ class MainUserSerializer(serializers.ModelSerializer):
             "state",
             "zip_code",
             "phone_number",
+            'image_url'
         ]
 
 class LoginSerializer(serializers.ModelSerializer):
@@ -45,4 +46,5 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
             "email",
             "password",
             "re_password"
+            'image_url'
         ]
