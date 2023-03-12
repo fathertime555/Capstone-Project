@@ -149,6 +149,8 @@ class LogoutView(generics.GenericAPIView):
 class UserRegistration(viewsets.ViewSet,generics.GenericAPIView):
     permission_classes = (permissions.AllowAny,)
     serializer_class = UserRegistrationSerializer
+    parser_classes = (MultiPartParser, FormParser)
+
     def create (self, request, format=None):
         data = self.request.data
 
