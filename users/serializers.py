@@ -45,6 +45,6 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
             "last_name",
             "email",
             "password",
-            "re_password"
+            "re_password",
             'image_url'
         ]
