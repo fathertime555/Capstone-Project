@@ -8,6 +8,8 @@ from rest_framework.response import Response
 from .serializers import MainUserSerializer, UserRegistrationSerializer,LoginSerializer
 from django.views.decorators.csrf import ensure_csrf_cookie, csrf_protect
 from django.utils.decorators import method_decorator
+from rest_framework import permissions
+from rest_framework.parsers import MultiPartParser, FormParser
 
 
 class CheckAuthenticatedView(APIView):
@@ -25,7 +27,7 @@ class CheckAuthenticatedView(APIView):
 
 @method_decorator(ensure_csrf_cookie, name='dispatch')
 @method_decorator(csrf_protect, name='dispatch')
-class UserSearch(viewsets.ViewSet, mixins.ListModelMixin,generics.GenericAPIView):
+class UserSearch(viewsets.ViewSet, mixins.ListModelMixin,mixins.RetrieveModelMixin,generics.GenericAPIView):
     permission_classes = (permissions.BasePermission,)
     serializer_class = MainUserSerializer
     def list(self, request,*args, **kwargs):
@@ -36,12 +38,21 @@ class UserSearch(viewsets.ViewSet, mixins.ListModelMixin,generics.GenericAPIView
         users = queryset.values_list('username', flat = True)
         return Response(users)
 
+    def retrieve(self,request,username=None):
+        queryset = AppUser.objects.filter(username = username)
+        user = queryset.values_list("id",flat = True)
+        #serializer = MainUserSerializer(user)
+        return Response(user)
+
+
 
 @method_decorator(ensure_csrf_cookie, name='dispatch')
 @method_decorator(csrf_protect, name='dispatch')
 class UserViewSet(viewsets.ViewSet,mixins.ListModelMixin, mixins.UpdateModelMixin,generics.GenericAPIView):
     permission_classes = (permissions.IsAuthenticated,)
     serializer_class = MainUserSerializer
+    parser_classes = (MultiPartParser, FormParser)
+
     def delete(self, request, format=None):
         user = self.request.user
         try:
@@ -89,6 +100,7 @@ class UserViewSet(viewsets.ViewSet,mixins.ListModelMixin, mixins.UpdateModelMixi
         state = data["state"]
         zip_code = data["zip_code"]
         phone_number = data ['phone_number']
+        image_url = data["image_url"]
 
         AppUser.objects.filter(id = user.id).update(username = username, first_name = first_name,
                                                     last_name = last_name,email = email, phone_number = phone_number,
@@ -137,6 +149,8 @@ class LogoutView(generics.GenericAPIView):
 class UserRegistration(viewsets.ViewSet,generics.GenericAPIView):
     permission_classes = (permissions.AllowAny,)
     serializer_class = UserRegistrationSerializer
+    parser_classes = (MultiPartParser, FormParser)
+
     def create (self, request, format=None):
         data = self.request.data
 
