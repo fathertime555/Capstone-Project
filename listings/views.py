@@ -246,7 +246,7 @@ class ListingUpdate(generics.GenericAPIView, mixins.UpdateModelMixin, mixins.Ret
             return self.retrieve(request, *args, **kwargs)  
         return Response({ 'error': 'Not logged in to the correct account'})
 
-    def put(self, request, *args, **kwargs):
+    def post(self, request, *args, **kwargs):
         if self.request.user.pk == Listing.objects.get(pk=self.kwargs['pk']).owner:
             return self.update(request, *args, **kwargs)
         return Response({ 'error': 'Not logged in to the correct account'})
