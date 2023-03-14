@@ -85,7 +85,7 @@ class UserViewSet(viewsets.ViewSet,mixins.ListModelMixin, mixins.UpdateModelMixi
                 return Response({'isAuthenticated': 'error'})
         except:
             return Response({'error': 'Something went wrong when checking authentication status'})
-    def update(self, request, *args, **kwargs):
+    def update(self, request,*args, **kwargs):
 
         user = self.request.user
         data = self.request.data
@@ -105,7 +105,7 @@ class UserViewSet(viewsets.ViewSet,mixins.ListModelMixin, mixins.UpdateModelMixi
         AppUser.objects.filter(id = user.id).update(username = username, first_name = first_name,
                                                     last_name = last_name,email = email, phone_number = phone_number,
                                                     address_line_1 = address_line_1, address_line_2 = address_line_2,
-                                                    city = city, state= state, zip_code = zip_code)
+                                                    city = city, state= state, zip_code = zip_code, image_url= image_url)
         return Response({'profile updated'})
 
 
