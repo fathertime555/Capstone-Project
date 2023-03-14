@@ -174,7 +174,7 @@ CHANNEL_LAYERS = {
     
 GOOGLE_API_KEY = 'AIzaSyBrIdKaE4vk0uAbmKnlVxJm6lcA4XDwjhw'
 
-STATIC_URL = '/static/'
+#STATIC_URL = '/static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'build/static')]
 
 # Static files (CSS, JavaScript, Images)

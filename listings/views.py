@@ -141,7 +141,6 @@ class SortItemsByLocation(generics.GenericAPIView, mixins.ListModelMixin):
             toReturn.append(ItemSerializerPost(Item.objects.get(lat=x[0], lng=x[1])).data)
         return Response(toReturn)
 
-        
 
 @method_decorator(ensure_csrf_cookie, name='dispatch')
 @method_decorator(csrf_protect, name='dispatch')

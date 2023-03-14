@@ -4,7 +4,7 @@ from .models import AppUser
 
 class MainUserSerializer(serializers.ModelSerializer):
 
-    image_url = serializers.ImageField(required = False)
+    #image_url = serializers.ImageField(required = False)
     class Meta:
         model = AppUser
         fields = [
@@ -37,9 +37,8 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
     # write only since we are not saving it to the database
     re_password = serializers.CharField(allow_blank = False, write_only = True)
     email = serializers.EmailField(allow_blank = False)
-    image_url = serializers.ImageField(required = False)
-    # first_name = serializers.CharField(allow_blank = True)
-    # last_name = serializers.CharField(allow_blank = True)
+    #image_url = serializers.ImageField(required = False)
+
     class Meta:
         model = AppUser
         fields = [
