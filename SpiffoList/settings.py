@@ -9,7 +9,6 @@ https://docs.djangoproject.com/en/4.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.1/ref/settings/
 """
-
 import os
 from pathlib import Path
 
@@ -66,7 +65,7 @@ ROOT_URLCONF = "SpiffoList.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [os.path.join(BASE_DIR, "build")],
+        "DIRS": [os.path.join(BASE_DIR, "build/")],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -134,7 +133,6 @@ USE_I18N = True
 
 USE_TZ = True
 
-
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
@@ -174,13 +172,12 @@ CHANNEL_LAYERS = {
     
 GOOGLE_API_KEY = 'AIzaSyBrIdKaE4vk0uAbmKnlVxJm6lcA4XDwjhw'
 
-#STATIC_URL = '/static/'
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'build/static')]
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
+
+STATIC_URL = "/static/"
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'build/static/')]
+
+MEDIA_ROOT = os.path.join(BASE_DIR, "build/media/")
 STATIC_URL = '/static/static/'
-
-
-MEDIA_ROOT = os.path.join(BASE_DIR,  "build/media/")
-MEDIA_URL = 'static/media/'
+MEDIA_URL = '/static/media/'
