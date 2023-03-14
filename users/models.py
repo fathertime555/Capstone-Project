@@ -8,7 +8,7 @@ def upload_to(instance, filename):
 class AppUser (AbstractUser):
 
 	# This will add these feilds to the database under the User I called in AppUser
-	profile_picture = models.FileField(upload_to = "uploads/users/")
+	profile_picture = models.FileField(upload_to = "")
 	address_line_1 = models.CharField(max_length = 200, default = "None")
 	address_line_2 = models.CharField(max_length = 200,default = "None")
 	city = models.CharField(max_length = 30,default = "None")
