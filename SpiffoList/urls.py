@@ -69,13 +69,14 @@ urlpatterns = [
     
     #path("chat/", include("chat.urls")), # test dummy chat api
     
-    # re_path(r"^map/$", render_react),
-    # re_path(r"^account/$", render_react),
-    # re_path(r"^/$", render_react),
-    # re_path(r"^api/$", render_react),
-    # re_path(r"^chat/$", render_react),
-    # re_path(r"^(?:.*)/?$", render_react),
-] #+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) # file upload
+    re_path(r"^map/$", render_react),
+    re_path(r"^account/$", render_react),
+    re_path(r"^/$", render_react),
+    re_path(r"^api/$", render_react),
+    re_path(r"^chat/$", render_react),
+    re_path(r"^(?:.*)/?$", render_react),
+]
+#+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) # file upload maybe needed
 
 
 urlpatterns += router.urls
