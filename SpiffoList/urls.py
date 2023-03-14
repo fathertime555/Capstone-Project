@@ -74,8 +74,9 @@ urlpatterns = [
     re_path(r"^/$", render_react),
     re_path(r"^api/$", render_react),
     re_path(r"^chat/$", render_react),
-    # re_path(r"^(?:.*)/?$", render_react),
-]+static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    re_path(r"^(?:.*)/?$", render_react),
+    
+]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) # for file upload
 
 
 urlpatterns += router.urls
