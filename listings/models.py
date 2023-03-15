@@ -18,8 +18,8 @@ class Listing(models.Model):
 	end_time = models.DateTimeField(default=datetime.date.today)
 
 class Item(models.Model):
-	name = models.CharField(max_length = 50)
-	item_main_photo = models.FileField(null = True, blank = True, upload_to = "")
+	name = models.CharField(max_length = 150)
+	item_main_photo = models.FileField(null = True, blank = True, upload_to = "uploads/items/")
 	description = models.TextField(null = True, blank = True)
 	quantity = models.IntegerField()
 	price = models.FloatField()

@@ -2,7 +2,7 @@ from django.contrib.auth.models import User
 from .models import AppUser
 from django.shortcuts import get_object_or_404
 from rest_framework.views import APIView
-from rest_framework import permissions, viewsets, mixins,generics
+from rest_framework import permissions, status, viewsets, mixins, generics
 from django.contrib import auth
 from rest_framework.response import Response
 from .serializers import MainUserSerializer, UserRegistrationSerializer,LoginSerializer
@@ -85,28 +85,21 @@ class UserViewSet(viewsets.ViewSet,mixins.ListModelMixin, mixins.UpdateModelMixi
                 return Response({'isAuthenticated': 'error'})
         except:
             return Response({'error': 'Something went wrong when checking authentication status'})
-    def update(self, request, *args, **kwargs):
-
+    def update(self, request,*args, **kwargs):
+        # queryset = AppUser.objects.all()
+        # data = self.request.data
         user = self.request.user
-        data = self.request.data
-        print(data)
-        username = data["username"]
-        first_name = data ['first_name']
-        last_name = data ['last_name']
-        email = data["email"]
-        address_line_1 = data["address_line_1"]
-        address_line_2 = data["address_line_2"]
-        city = data ['city']
-        state = data["state"]
-        zip_code = data["zip_code"]
-        phone_number = data ['phone_number']
-        image_url = data["image_url"]
-
-        AppUser.objects.filter(id = user.id).update(username = username, first_name = first_name,
-                                                    last_name = last_name,email = email, phone_number = phone_number,
-                                                    address_line_1 = address_line_1, address_line_2 = address_line_2,
-                                                    city = city, state= state, zip_code = zip_code)
-        return Response({'profile updated'})
+        expected_user = AppUser.objects.get(pk=self.kwargs["pk"])
+        # print(expected_user)
+        # print(self.request.user.pk)
+        # print(self.kwargs["pk"])
+        # print(data)
+        if user.pk == expected_user.id:
+            serializer = self.serializer_class(request.user, data = request.data, partial = True)
+            serializer.is_valid(raise_exception = True)
+            serializer.save()
+            return Response(serializer.data, status = status.HTTP_200_OK)
+        return Response({'profile not updated'})
 
 
 @method_decorator(ensure_csrf_cookie, name='dispatch')

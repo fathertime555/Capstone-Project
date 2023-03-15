@@ -1,6 +1,7 @@
 /theme/static/css/dist/*
 frontend/node_modules
 __pycache__
+media
 .DS_Store
 *.pyc
 uploads

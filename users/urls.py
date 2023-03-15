@@ -11,4 +11,4 @@ urlpatterns = [
     path('search/<str:username>/', UserSearch.as_view({'get': 'retrieve'})),
     path('login/', LoginView.as_view()),
     path('logout/', LogoutView.as_view()),
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) # so that images can be uploaded
+]

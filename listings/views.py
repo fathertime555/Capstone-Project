@@ -145,7 +145,6 @@ class SortItemsByLocation(generics.GenericAPIView, mixins.ListModelMixin):
             toReturn.append(ItemSerializerPost(Item.objects.get(lat=x[0], lng=x[1])).data)
         return Response(toReturn)
 
-        
 
 @method_decorator(ensure_csrf_cookie, name='dispatch')
 @method_decorator(csrf_protect, name='dispatch')
@@ -246,7 +245,7 @@ class ListingUpdate(generics.GenericAPIView, mixins.UpdateModelMixin, mixins.Ret
             return self.retrieve(request, *args, **kwargs)  
         return Response({ 'error': 'Not logged in to the correct account'})
 
-    def put(self, request, *args, **kwargs):
+    def post(self, request, *args, **kwargs):
         if self.request.user.pk == Listing.objects.get(pk=self.kwargs['pk']).owner:
             return self.update(request, *args, **kwargs)
         return Response({ 'error': 'Not logged in to the correct account'})
