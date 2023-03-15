@@ -14,7 +14,7 @@ class AppUser (AbstractUser):
 	address_line_1 = models.CharField(max_length = 200, default = "None")
 	address_line_2 = models.CharField(max_length = 200,default = "None")
 	city = models.CharField(max_length = 30,default = "None")
-	state = models.CharField(max_length = 2,default = "None")
+	state = models.CharField(max_length = 10,default = "None")
 	zip_code = models.CharField(max_length = 16,default = "None")
 	phone_number = models.CharField(max_length = 16,default = "None")
 	image_url = models.ImageField(upload_to = user_directory_path, blank = True, null = True)
