@@ -186,3 +186,4 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "build/media/")
 STATIC_URL = '/static/static/'
 MEDIA_URL = '/static/media/'
 
+ALLOWED_HOSTS=["*"]
