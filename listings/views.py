@@ -11,10 +11,6 @@ from django.conf import settings
 
 parser_classes=(MultiPartParser,FormParser)
 
-parser_classes=(MultiPartParser,FormParser)
-
-parser_classes=(MultiPartParser,FormParser)
-
 @method_decorator(ensure_csrf_cookie, name='dispatch')
 @method_decorator(csrf_protect, name='dispatch')
 class SpecificListing(generics.GenericAPIView):
@@ -61,7 +57,7 @@ class ListingCreation(generics.GenericAPIView, mixins.CreateModelMixin):
         for component in location['results'][0]['address_components']:
             if component['types'][0] == ('postal_code'):
                 geozipcode = component['long_name'] 
-        serializer.save(owner=self.request.user.pk, lat=location['results'][0]['geometry']['location']['lat'], lng=location['results'][0]['geometry']['location']['lng'], zip_code=geozipcode)
+        serializer.save(owner=self.request.user.pk, lat=location['results'][0]['geometry']['location']['lat'], lng=location['results'][0]['geometry']['location']['lng'], zip_code=geozipcode, listing_photo_url=self.listing_main_photo.path)
     
 @method_decorator(ensure_csrf_cookie, name='dispatch')
 @method_decorator(csrf_protect, name='dispatch')
@@ -133,7 +129,7 @@ class ItemCreation(generics.GenericAPIView, mixins.CreateModelMixin):
 
     def perform_create(self, serializer):
         if Listing.objects.filter(pk=self.kwargs['pk']).exists():
-            serializer.save(listing=self.kwargs['pk'], owner = Listing.objects.get(pk=self.kwargs['pk']).owner, zip_code = Listing.objects.get(pk=self.kwargs['pk']).zip_code, lat = Listing.objects.get(pk=self.kwargs['pk']).lat, lng = Listing.objects.get(pk=self.kwargs['pk']).lng, start_time = Listing.objects.get(pk=self.kwargs['pk']).start_time, end_time = Listing.objects.get(pk=self.kwargs['pk']).end_time)
+            serializer.save(listing=self.kwargs['pk'], owner = Listing.objects.get(pk=self.kwargs['pk']).owner, zip_code = Listing.objects.get(pk=self.kwargs['pk']).zip_code, lat = Listing.objects.get(pk=self.kwargs['pk']).lat, lng = Listing.objects.get(pk=self.kwargs['pk']).lng, start_time = Listing.objects.get(pk=self.kwargs['pk']).start_time, end_time = Listing.objects.get(pk=self.kwargs['pk']).end_time, item_photo_url=self.item_photo.path)
         else:
             return Response({ 'error': 'Listing does not exist'})
 
