@@ -13,8 +13,8 @@ def item_directory_path (instance, filename):
 
 class Listing(models.Model):
 	title = models.CharField(max_length = 50)
-	listing_main_photo = models.FileField(null = True, blank = True, upload_to = "")
-	photo_url = models.ImageField(upload_to = listing_directory_path, blank = True, null = True)
+	listing_main_photo = models.ImageField(upload_to = listing_directory_path(), blank = True, null = True)
+	listing_photo_url = models.FilePathField(null = True, blank = True)
 	description = models.TextField(null = True, blank = True)
 	location = models.CharField(max_length = 150)
 	lat = models.CharField(max_length = 20, default="0")
@@ -27,8 +27,8 @@ class Listing(models.Model):
 
 class Item(models.Model):
 	name = models.CharField(max_length = 150)
-	item_main_photo = models.FileField(null = True, blank = True, upload_to = "")
-	item_photo_url = models.ImageField(upload_to = item_directory_path, blank = True, null = True)
+	item_photo_url = models.FilePathField(null = True, blank = True)
+	item_photo = models.ImageField(upload_to = item_directory_path(), blank = True, null = True)
 	description = models.TextField(null = True, blank = True)
 	quantity = models.IntegerField()
 	price = models.FloatField()
