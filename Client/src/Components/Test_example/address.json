@@ -1,0 +1,19 @@
+{
+    "address":[
+        {
+            "address":"12402 SE 38th St, Bellevue, WA 98006",
+            "lat":47.5776817,
+            "lng":-122.173254
+        },
+        {
+            "address":"Bellevue College Building R",
+            "lat":47.5839952,
+            "lng":-122.1476725
+        },
+        {
+            "address":"9100 SE 42nd St, Mercer Island, WA 98040",
+            "lat":47.5718561,
+            "lng":-122.2200485
+        }
+    ]
+}

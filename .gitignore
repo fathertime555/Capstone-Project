@@ -1,11 +1,11 @@
 /theme/static/css/dist/*
-frontend/node_modules
+Client/node_modules
 __pycache__
 .DS_Store
 *.pyc
 uploads
 .idea
-/node_modules
+node_modules
 # remove database from git
 
 
