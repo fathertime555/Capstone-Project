@@ -7,7 +7,7 @@ uploads
 .idea
 /node_modules
 # remove database from git
-*.sqlite3
+
 
 /.pnp
 .pnp.js
