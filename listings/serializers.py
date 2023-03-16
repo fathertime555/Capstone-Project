@@ -8,7 +8,6 @@ class ListingSerializerPost(serializers.ModelSerializer):
         fields = "__all__"
 
 class ListingSerializerGet(serializers.ModelSerializer):
-    listing_main_photo=serializers.ImageField(required=False)
     class Meta:
         model = Listing
         fields = [
@@ -29,8 +28,6 @@ class ItemSerializerPost(serializers.ModelSerializer):
         fields = "__all__"
 
 class ItemSerializerGet(serializers.ModelSerializer):
-    item_main_photo=serializers.ImageField(required=False)
-
     class Meta:
         model = Item
         fields = [

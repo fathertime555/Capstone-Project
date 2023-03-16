@@ -33,6 +33,7 @@ from django.conf import settings
 def render_react(request):
     return render(request, "index.html")
 
+
 schema_view = get_schema_view(
     openapi.Info(
         title="Snippets API",
@@ -66,17 +67,18 @@ urlpatterns = [
     path('api-auth/', include('rest_framework.urls')),
     path('users/', include('users.urls')),
     path('data/', include('data.urls')),
-    
-    #path("chat/", include("chat.urls")), # test dummy chat api
+
+    # path("chat/", include("chat.urls")), # test dummy chat api
     # comment the below out to use rest api built in - for backend users testing
+    re_path(r"^/$", render_react),
     re_path(r"^map/$", render_react),
     re_path(r"^account/$", render_react),
-    re_path(r"^/$", render_react),
+
     re_path(r"^api/$", render_react),
     re_path(r"^chat/$", render_react),
-    re_path(r"^(?:.*)/?$", render_react),
-    
-]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) # for file upload
+    # re_path(r"^(?:.*)/?$", render_react),
+
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)  # for file upload
 
 
 urlpatterns += router.urls
