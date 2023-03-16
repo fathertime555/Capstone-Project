@@ -52,6 +52,7 @@ class UserViewSet(viewsets.ViewSet,mixins.ListModelMixin, mixins.UpdateModelMixi
     permission_classes = (permissions.IsAuthenticated,)
     serializer_class = MainUserSerializer
     parser_classes = (MultiPartParser, FormParser)
+    queryset = AppUser.objects.all()
 
     def delete(self, request, format=None):
         user = self.request.user

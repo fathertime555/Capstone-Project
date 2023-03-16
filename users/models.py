@@ -4,7 +4,7 @@ from django.contrib.auth.models import AbstractUser
 
 def user_directory_path (instance, filename):
 	# file will be uploaded to MEDIA_ROOT / user_<id>/<filename>
-	return 'users/user_{0}/{1}'.format(instance.pk, filename)
+	return 'static/users/user_{0}/{1}'.format(instance.pk, filename)
 
 # since we want to only add to the User class we use AbstractUser
 class AppUser (AbstractUser):

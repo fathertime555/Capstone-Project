@@ -65,7 +65,7 @@ ROOT_URLCONF = "SpiffoList.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [os.path.join(BASE_DIR, "build/")],
+        "DIRS": [os.path.join(BASE_DIR, "build")],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -89,7 +89,7 @@ DATABASES = {
     # For local use mysqlite3
     "default": {
         "ENGINE": "django.db.backends.sqlite3",
-        "NAME"  : BASE_DIR / "db.sqlite3",
+        "NAME": BASE_DIR / "db.sqlite3",
     },
     # for mysql database
     #     'mysql_database': {
@@ -167,17 +167,14 @@ REST_FRAMEWORK = {
 CHANNEL_LAYERS = {
     'default': {
         'BACKEND': "channels.layers.InMemoryChannelLayer"
-        }
     }
-    
+}
+
 GOOGLE_API_KEY = 'AIzaSyBrIdKaE4vk0uAbmKnlVxJm6lcA4XDwjhw'
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
-STATIC_URL = "/static/"
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'build/static/')]
-
-MEDIA_ROOT = os.path.join(BASE_DIR, "build/media/")
-STATIC_URL = '/static/static/'
-MEDIA_URL = '/static/media/'
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'build/static/'),os.path.join(BASE_DIR, 'static/')]
+STATIC_ROOT = '/build/'
+STATIC_URL = '/static/'

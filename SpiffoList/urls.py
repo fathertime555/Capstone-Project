@@ -18,7 +18,6 @@ from django.contrib import admin
 from django.urls import path, include, re_path
 from rest_framework import routers
 from users.views import UserViewSet
-from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.shortcuts import render
 # SWAGGER
 from rest_framework import permissions
@@ -26,6 +25,7 @@ from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
 
 from django.conf.urls.static import static
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.conf import settings
 ...
 
@@ -68,17 +68,25 @@ urlpatterns = [
     path('users/', include('users.urls')),
     path('data/', include('data.urls')),
 
+
+    path('home/', render_react),
+    path('map/', render_react),
+    path('api/', render_react),
+    path('account/', render_react),
+    path('', render_react),
     # path("chat/", include("chat.urls")), # test dummy chat api
     # comment the below out to use rest api built in - for backend users testing
-    re_path(r"^/$", render_react),
-    re_path(r"^map/$", render_react),
-    re_path(r"^account/$", render_react),
+    #re_path(r"^/$", render_react),
+    # re_path(r"^map/$", render_react),
+    # re_path(r"^account/$", render_react),
 
-    re_path(r"^api/$", render_react),
-    re_path(r"^chat/$", render_react),
+    # re_path(r"^api/$", render_react),
+    # re_path(r"^chat/$", render_react),
     # re_path(r"^(?:.*)/?$", render_react),
 
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)  # for file upload
+]   # for file upload
 
 
 urlpatterns += router.urls
+urlpatterns += staticfiles_urlpatterns()
+# urlpatterns += static(settings.STATIC_URL,document_root=settings.STATICFILES_DIRS)

@@ -6,10 +6,10 @@ import datetime
 
 def listing_directory_path(instance, filename):
     # file will be uploaded to MEDIA_ROOT / user_<id>/<filename>
-    return 'listings/listing_{0}/{1}'.format(instance.pk, filename)
+    return 'static/listings/listing_{0}/{1}'.format(instance.pk, filename)
 def item_directory_path(instance, filename):
     # file will be uploaded to MEDIA_ROOT / user_<id>/<filename>
-    return 'items/item_{0}/{1}'.format(instance.pk, filename)
+    return 'static/items/item_{0}/{1}'.format(instance.pk, filename)
 
 class Listing(models.Model):
     title = models.CharField(max_length=50)
