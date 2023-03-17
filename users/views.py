@@ -134,11 +134,12 @@ class LoginView(generics.GenericAPIView):
 class LogoutView(generics.GenericAPIView):
     serializer_class = MainUserSerializer
     def post(self, request, format=None):
+        res=Axios_response()
         try:
             auth.logout(request)
-            return Response({ 'success': 'Loggout Out' })
+            return Response(res.Success(message='Loggout Out'))
         except:
-            return Response({ 'error': 'Something went wrong when logging out' })
+            return Response(res.Failed('Something went wrong when logging out'))
 
 @method_decorator(ensure_csrf_cookie, name='dispatch')
 @method_decorator(csrf_protect, name='dispatch')

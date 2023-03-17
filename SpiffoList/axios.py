@@ -1,3 +1,4 @@
+from rest_framework import serializers
 class Response_Type():
     Success = 'success'
     Failed = 'failed'
@@ -6,43 +7,44 @@ class Response_Type():
 class Axios_response():
     Status = Response_Type()
 
-    def __init__(self, status=None, massage=None, data=None, dataname=None):
+    def __init__(self, status=None, message=None, data=None, dataname=None):
         self.data = {}
         self.status = status
-        self.massage = massage
+        self.message = message
         if data != None:
             self.data[dataname] = data
 
-    def Success(self, data=None, dataname=None, message=None, serializersdata=None):
+    def Success(self, data=None, dataname=None, message=None, serializersdata:serializers=None):
         self.status = self.Status.Success
 
-        self.massage = message
+        self.message = message
         if data != None:
             self.data[dataname] = data
         elif serializersdata != None:
             self.serializersData(serializers=serializersdata)
 
         return {'status': self.status,
-                'massage': self.massage,
+                'message': self.message,
                 'data': self.data}
 
-    def Failed(self, massage=None):
+    def Failed(self, message=None):
         self.status = self.Status.Failed
-        self.massage = massage
+        self.message = message
         return {'status': self.status,
-                'massage': self.massage,
+                'message': self.message,
                 'data': self.data}
 
     def AppendData(self, data, dataname):
         self.data[dataname] = data
 
-    def serializersData(self, serializers):
+    def serializersData(self, serializers:serializers, dataname=None):
         datatype = serializers.instance.__module__.replace(".models", "")
+        if dataname != None:
+            datatype = dataname
         data = serializers.data
         self.AppendData(dataname=datatype, data=data)
-        print(self.data)
 
     def response(self):
         return {'status': self.status,
-                'massage': self.massage,
+                'message': self.message,
                 'data': self.data}
