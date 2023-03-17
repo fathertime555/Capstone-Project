@@ -10,6 +10,7 @@ from django.views.decorators.csrf import ensure_csrf_cookie, csrf_protect
 from django.utils.decorators import method_decorator
 from rest_framework import permissions
 from rest_framework.parsers import MultiPartParser, FormParser
+from SpiffoList.axios import Axios_response
 
 
 class CheckAuthenticatedView(APIView):
@@ -108,24 +109,25 @@ class UserViewSet(viewsets.ViewSet,mixins.ListModelMixin, mixins.UpdateModelMixi
 class LoginView(generics.GenericAPIView):
     permission_classes = (permissions.AllowAny, )
     serializer_class = LoginSerializer
+    
     def post(self, request, format=None):
         data = self.request.data
         username = data['username']
         password = data['password']
-
+        res=Axios_response()
         try:
             user = auth.authenticate(request, username = username, password = password)
             if user is not None:
                 auth.login(request, user)
-                queryset = AppUser.objects.filter(id = user.id)
-                user_data = get_object_or_404(queryset, pk = user.id)
-                serializer = MainUserSerializer(user_data)
-                return Response(serializer.data)
+                # queryset = AppUser.objects.filter(id = user.id)
+                # user_data = get_object_or_404(queryset, pk = user.id)
+                # serializer = MainUserSerializer(user_data)
+                return Response(res.Success(message='login success',serializersdata=MainUserSerializer(user)))
             else:
-                return Response({'error': 'Error Authenticating'})
+                return Response(res.Failed('Error Authenticating'))
 
         except:
-            return Response({ 'error': 'Something went wrong when logging in' })
+            return Response(res.Failed('Something went wrong when logging in'))
 
 @method_decorator(ensure_csrf_cookie, name='dispatch')
 @method_decorator(csrf_protect, name='dispatch')
