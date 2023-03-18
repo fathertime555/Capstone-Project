@@ -1,50 +1,77 @@
 from rest_framework import serializers
-class Response_Type():
-    Success = 'success'
-    Failed = 'failed'
+from rest_framework.response import Response
+
 
 
 class Axios_response():
-    Status = Response_Type()
+    class Response_Type():
+        Success = 'success'
+        Failed = 'failed'
+        Error = 'error'
 
-    def __init__(self, status=None, message=None, data=None, dataname=None):
+    Status = Response_Type()
+    statu = None
+    message = None
+    data = {}
+
+    def __init__(self, status: Response_Type = None, message=None, data=None, dataname=None, response: Response = None):
+        self.response = Response
         self.data = {}
         self.status = status
         self.message = message
-        if data != None:
-            self.data[dataname] = data
+        if data is not None:
+            if dataname is None:
+                self.data['data'] = data
+            else:
+                self.data[dataname] = data
 
-    def Success(self, data=None, dataname=None, message=None, serializersdata:serializers=None):
-        self.status = self.Status.Success
+    @staticmethod
+    def AppendData(data, dataname):
+        Axios_response.data[dataname] = data
 
-        self.message = message
-        if data != None:
-            self.data[dataname] = data
-        elif serializersdata != None:
-            self.serializersData(serializers=serializersdata)
-
-        return {'status': self.status,
-                'message': self.message,
-                'data': self.data}
-
-    def Failed(self, message=None):
-        self.status = self.Status.Failed
-        self.message = message
-        return {'status': self.status,
-                'message': self.message,
-                'data': self.data}
-
-    def AppendData(self, data, dataname):
-        self.data[dataname] = data
-
-    def serializersData(self, serializers:serializers, dataname=None):
+    @staticmethod
+    def serializersData(serializers: serializers, dataname=None):
         datatype = serializers.instance.__module__.replace(".models", "")
         if dataname != None:
             datatype = dataname
         data = serializers.data
-        self.AppendData(dataname=datatype, data=data)
+        Axios_response.AppendData(dataname=datatype, data=data)
 
-    def response(self):
-        return {'status': self.status,
-                'message': self.message,
-                'data': self.data}
+    @staticmethod
+    def Success(data=None, dataname=None, message=None, serializersdata: serializers = None):
+        Axios_response.status = Axios_response.Status.Success
+
+        Axios_response.message = message
+        if data is not None:
+            Axios_response.data[dataname] = data
+        elif serializersdata is not None:
+            Axios_response.serializersData(serializers=serializersdata)
+
+        return Axios_response.response()
+
+    @staticmethod
+    def Failed(message=None):
+        Axios_response.status = Axios_response.Status.Failed
+        Axios_response.message = message
+
+        return Axios_response.response()
+
+    @staticmethod
+    def ResponseSuccess(data=None, dataname=None, message=None, serializersdata: serializers = None):
+        return Response(Axios_response.Success(data=data, dataname=dataname, message=message, serializersdata=serializersdata))
+
+    @staticmethod
+    def ResponseFailed(message=None):
+        return Response(Axios_response.Failed(message=message))
+
+    @staticmethod
+    def response():
+        responsedata = {'status': Axios_response.status,
+                        'message': Axios_response.message,
+                        'data': Axios_response.data}
+
+        Axios_response.status = None
+        Axios_response.message = None
+        Axios_response.data = {}
+
+        return responsedata
