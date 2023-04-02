@@ -63,7 +63,7 @@ class ListingCreation(generics.GenericAPIView, mixins.CreateModelMixin):
         serializer = self.serializer_class(Item.objects.all(), data=reqdata, partial = True)
         if serializer.is_valid():
             results["result"] = "pass"
-            results["data"] = self.create(request, *args, **kwargs)
+            results["data"] = self.create(request, *args, **kwargs).data
             results["message"] = ""
         else:
             results["result"] = "error"
@@ -120,7 +120,7 @@ class ListingDelete(generics.GenericAPIView, mixins.DestroyModelMixin, mixins.Re
         results = {}
         if self.request.user.pk == Listing.objects.get(pk=self.kwargs['pk']).owner:
             results["result"] = "pass"
-            results["data"] = self.retrieve(request, *args, **kwargs)
+            results["data"] = self.retrieve(request, *args, **kwargs).data
             results["message"] = ""
         else:
             results["result"] = "error"
@@ -158,7 +158,7 @@ class ListingUpdate(generics.GenericAPIView, mixins.UpdateModelMixin, mixins.Ret
         results = {}
         if self.request.user.pk == Listing.objects.get(pk=self.kwargs['pk']).owner:
             results["result"] = "pass"
-            results["data"] = self.retrieve(request, *args, **kwargs)
+            results["data"] = self.retrieve(request, *args, **kwargs).data
             results["message"] = ""
         else:
             results["result"] = "error"
@@ -174,7 +174,7 @@ class ListingUpdate(generics.GenericAPIView, mixins.UpdateModelMixin, mixins.Ret
             serializer = self.serializer_class(listing, data=reqdata, partial=True)
             if serializer.is_valid():
                 results["result"] = "pass"
-                results["data"] = self.update(request, *args, **kwargs)
+                results["data"] = self.update(request, *args, **kwargs).data
                 results["message"]= ""
             else:
                 results["result"]  = "error"
@@ -212,7 +212,7 @@ class ItemCreation(generics.GenericAPIView, mixins.CreateModelMixin):
                 serializer = self.serializer_class(Item.objects.all(), data=reqdata, partial=True)
                 serializer.is_valid(raise_exception=True)
                 results["result"] = "pass"
-                results["data"] = self.create(request, *args, **kwargs)
+                results["data"] = self.create(request, *args, **kwargs).data
                 results["message"] = ""
             else: 
                 results["result"] = "error"
@@ -243,7 +243,7 @@ class ItemDelete(generics.GenericAPIView, mixins.DestroyModelMixin, mixins.Retri
         if self.request.user.pk == Listing.objects.get(pk=self.kwargs['listpk']).owner:
             if Item.objects.get(pk=self.kwargs['itempk']).listing == self.kwargs['listpk']:
                 results["result"] = "pass"
-                results["data"] = self.retrieve(request, *args, **kwargs)
+                results["data"] = self.retrieve(request, *args, **kwargs).data
                 results["message"] = ""
             else:
                 results["result"] = "error"
@@ -293,7 +293,7 @@ class ItemUpdate(generics.GenericAPIView, mixins.UpdateModelMixin, mixins.Retrie
         if self.request.user.pk == Listing.objects.get(pk=self.kwargs['listpk']).owner:
             if Item.objects.get(pk=self.kwargs['itempk']).listing == self.kwargs['listpk']:
                 results["result"] = "pass"
-                results["data"] = self.retrieve(request, *args, **kwargs)
+                results["data"] = self.retrieve(request, *args, **kwargs).data
                 results["message"] = ""
             else:
                 results["result"] = "error"
@@ -313,7 +313,7 @@ class ItemUpdate(generics.GenericAPIView, mixins.UpdateModelMixin, mixins.Retrie
             serializer = self.serializer_class(item, data=reqdata, partial=True)
             if serializer.is_valid():
                 results["result"] = "pass"
-                results["data"] = self.update(request, *args, **kwargs)
+                results["data"] = self.update(request, *args, **kwargs).data
                 results["message"]= ""
             else:
                 results["result"]  = "error"
@@ -343,7 +343,7 @@ class SpecificItem(generics.GenericAPIView, mixins.RetrieveModelMixin):
         results = {}
         if Item.objects.get(pk=request.data.get('itemPK')).listing == request.data.get('listingsPK'):
             results["result"] = "pass"
-            results["data"] = self.retrieve(request, *args, **kwargs)
+            results["data"] = self.retrieve(request, *args, **kwargs).data
             results["message"] = ""
         else:
             results["result"] = "error"
