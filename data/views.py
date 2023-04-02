@@ -22,7 +22,7 @@ class ListItems(generics.GenericAPIView, mixins.ListModelMixin):
     def get(self, request, *args, **kwargs):
         results = {}
         results["result"] = "pass"
-        results["data"] = self.list(request, *args, **kwargs)
+        results["data"] = self.list(request, *args, **kwargs).data
         return Response(results)
 
 @method_decorator(ensure_csrf_cookie, name='dispatch')
@@ -36,7 +36,7 @@ class ListListings(generics.GenericAPIView, mixins.ListModelMixin):
     def get(self, request, *args, **kwargs):
         results = {}
         results["result"] = "pass"
-        results["data"] = self.list(request, *args, **kwargs)
+        results["data"] = self.list(request, *args, **kwargs).data
         return Response(results)
         
 @method_decorator(ensure_csrf_cookie, name='dispatch')
@@ -270,7 +270,7 @@ class SortListingsByDate(generics.GenericAPIView, mixins.ListModelMixin):
     def get(self, request, *args, **kwargs):
         results = {}
         results["result"] = "pass"
-        results["data"] = self.list(request, *args, **kwargs)
+        results["data"] = self.list(request, *args, **kwargs).data
         results["message"] = ""
         return Response(results) 
 
@@ -286,6 +286,6 @@ class SortItemsByDate(generics.GenericAPIView, mixins.ListModelMixin):
     def get(self, request, *args, **kwargs):
         results = {}
         results["result"] = "pass"
-        results["data"] = self.list(request, *args, **kwargs)
+        results["data"] = self.list(request, *args, **kwargs).data
         results["message"] = ""
         return Response(results) 
