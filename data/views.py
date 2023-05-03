@@ -10,7 +10,10 @@ from rest_framework.parsers import MultiPartParser, FormParser
 from django.views.decorators.csrf import ensure_csrf_cookie, csrf_protect
 from django.utils.decorators import method_decorator
 import requests
+import random
+import json
 from django.conf import settings
+
 
 @method_decorator(ensure_csrf_cookie, name='dispatch')
 @method_decorator(csrf_protect, name='dispatch')
@@ -18,12 +21,14 @@ class ListItems(generics.GenericAPIView, mixins.ListModelMixin):
     permission_classes = (permissions.AllowAny,)
     queryset = Item.objects.all()
     lookup_field = 'pk'
-    serializer_class = ItemSerializerPost  
+    serializer_class = ItemSerializerPost
+
     def get(self, request, *args, **kwargs):
         results = {}
         results["result"] = "pass"
         results["data"] = self.list(request, *args, **kwargs).data
         return Response(results)
+
 
 @method_decorator(ensure_csrf_cookie, name='dispatch')
 @method_decorator(csrf_protect, name='dispatch')
@@ -31,23 +36,24 @@ class ListListings(generics.GenericAPIView, mixins.ListModelMixin):
     permission_classes = (permissions.AllowAny,)
     queryset = Listing.objects.all()
     lookup_field = 'pk'
-    serializer_class = ListingSerializerPost  
+    serializer_class = ListingSerializerPost
 
     def get(self, request, *args, **kwargs):
         results = {}
         results["result"] = "pass"
         results["data"] = self.list(request, *args, **kwargs).data
         return Response(results)
-        
+
+
 @method_decorator(ensure_csrf_cookie, name='dispatch')
 @method_decorator(csrf_protect, name='dispatch')
 class ListBoth(generics.GenericAPIView, mixins.ListModelMixin):
     permission_classes = (permissions.AllowAny,)
     queryset = Listing.objects.all()
-    serializer_class = ListingSerializerPost 
+    serializer_class = ListingSerializerPost
 
-    def get (self, request, *args, **kwargs):  
-        results = {}  
+    def get(self, request, *args, **kwargs):
+        results = {}
         queryset_a = Listing.objects.all()
         queryset_b = Item.objects.all()
 
@@ -73,15 +79,16 @@ class ListBoth(generics.GenericAPIView, mixins.ListModelMixin):
             userinfo = MainUserSerializer(AppUser.objects.get(pk=user.pk)).data
 
         data = {'listings': Listing_results,
-            'items': items_results,
-            'islogin': user.is_authenticated,
-            'user': userinfo}
-        
+                'items': items_results,
+                'islogin': user.is_authenticated,
+                'user': userinfo}
+
         results["result"] = "pass"
         results["data"] = data
         results["message"] = ""
 
         return Response(results)
+
 
 @method_decorator(ensure_csrf_cookie, name='dispatch')
 @method_decorator(csrf_protect, name='dispatch')
@@ -124,10 +131,10 @@ class SortListingsByLocation(generics.GenericAPIView, mixins.ListModelMixin):
             results["result"] = "error"
             results["data"] = ""
             results["message"] = "No listings returned"
-        else:    
+        else:
             results["result"] = "pass"
             results["data"] = toReturn
-            results["message"]= ""
+            results["message"] = ""
         return Response(results)
 
 
@@ -172,10 +179,10 @@ class SortItemsByLocation(generics.GenericAPIView, mixins.ListModelMixin):
             results["result"] = "error"
             results["data"] = ""
             results["message"] = "No items returned"
-        else:    
+        else:
             results["result"] = "pass"
             results["data"] = toReturn
-            results["message"]= ""
+            results["message"] = ""
         return Response(results)
 
 
@@ -199,10 +206,10 @@ class SortListingsByTheme(generics.GenericAPIView, mixins.ListModelMixin):
             results["result"] = "error"
             results["data"] = ""
             results["message"] = "No listings returned"
-        else:    
+        else:
             results["result"] = "pass"
             results["data"] = result
-            results["message"]= ""
+            results["message"] = ""
         return Response(results)
 
 
@@ -225,10 +232,10 @@ class SortItemsByListing(generics.GenericAPIView, mixins.ListModelMixin):
             results["result"] = "error"
             results["data"] = ""
             results["message"] = "No items returned"
-        else:    
+        else:
             results["result"] = "pass"
             results["data"] = result
-            results["message"]= ""
+            results["message"] = ""
         return Response(results)
 
 
@@ -252,10 +259,10 @@ class SortItemsByTag(generics.GenericAPIView, mixins.ListModelMixin):
             results["result"] = "error"
             results["data"] = ""
             results["message"] = "No items returned"
-        else:    
+        else:
             results["result"] = "pass"
             results["data"] = result
-            results["message"]= ""
+            results["message"] = ""
         return Response(results)
 
 
@@ -272,7 +279,7 @@ class SortListingsByDate(generics.GenericAPIView, mixins.ListModelMixin):
         results["result"] = "pass"
         results["data"] = self.list(request, *args, **kwargs).data
         results["message"] = ""
-        return Response(results) 
+        return Response(results)
 
 
 @method_decorator(ensure_csrf_cookie, name='dispatch')
@@ -288,4 +295,72 @@ class SortItemsByDate(generics.GenericAPIView, mixins.ListModelMixin):
         results["result"] = "pass"
         results["data"] = self.list(request, *args, **kwargs).data
         results["message"] = ""
-        return Response(results) 
+        return Response(results)
+
+
+@method_decorator(ensure_csrf_cookie, name='dispatch')
+@method_decorator(csrf_protect, name='dispatch')
+class CreatedummyData(generics.GenericAPIView, mixins.ListModelMixin):
+    permission_classes = (permissions.AllowAny,)
+
+    # create dummy user
+
+    def get(self, request, *args, **kwargs):
+        dummyaddress = json.load(open('static/dummyaddress.json'))
+        dummyaddress_index = 0
+        dummyitem = json.load(open('static/dummyitem.json'))
+        itemname = dummyitem["itemname"]
+        itemname_num = dummyitem["itemname_num"]
+        itemc = dummyitem["condition"]
+        itemc_num = dummyitem["condition_num"]
+        Listing.objects.all().delete()
+        Item.objects.all().delete()
+        for i in range(1, 100):
+            uname = 'user'+str(i)
+            p = AppUser.objects.filter(username=uname)
+            p.delete()
+
+        Response({'status': 'done'})
+
+        def create_dummy_user(index):
+            user = AppUser.objects.create_user(
+                username="user"+str(index), password="12345678", email="user"+str(index)+"@gmail.com")
+            return user
+
+        def create_dummy_listing(index, j_index, user, dummyaddress_index):
+            address = dummyaddress[dummyaddress_index]
+
+            lists = Listing.objects.create(owner=user.id, title='Listing_'+str(index)+'_'+str(
+                j_index), location=address['Address'], lat=address['Latitude'], lng=address['Longitude'], zip_code=address['Zip'])
+            return lists
+
+        def create_dummy_item(index, j_index, k_index, user, dummy_listing):
+            itemn = itemname[random.randrange(0, itemname_num)]
+            tag = itemc[random.randrange(0, itemc_num)]
+            Item.objects.create(owner=user.id, name='Item_'+str(index)+'_'+str(j_index)+str(k_index)+' '+itemn, tags=tag, price=random.randrange(1, 100)*0.9999, quantity=random.randrange(
+                1, 10), description=tag+" "+itemn, lat=dummy_listing.lat, lng=dummy_listing.lng, zip_code=dummy_listing.zip_code, listing=dummy_listing.id)
+
+        for i in range(1, 100):
+            user = create_dummy_user(i)
+            for j in range(1, 4):
+                d_list = create_dummy_listing(i, j, user, dummyaddress_index)
+                dummyaddress_index = dummyaddress_index+1
+                for k in range(1, 10):
+                    create_dummy_item(i, j, k, user, d_list)
+
+        # for i in range(2, 100):
+        #     user = AppUser.objects.get(username='user'+str(i))
+        #     if (user.DoesNotExist):
+        #         user = AppUser.objects.create_user(
+        #             username="user"+str(i), password="12345678", email="user"+str(i)+"@gmail.com")
+        #     listnum = random.randrange(1, 3)
+        #     for j in (1, listnum):
+        #         address = dummyaddress[dummyaddress_index]
+        #         dummyaddress_index = dummyaddress_index+1
+        #         lists = Listing.objects.create(owner=user.id, title='Listing_'+str(i)+'_'+str(
+        #             j), location=address['Address'], lat=address['Latitude'], lng=address['Longitude'], zip_code=address['Zip'])
+        #         for k in (1, random.randrange(1, 10)):
+        #             itemn = itemname[random.randrange(0, itemname_num)]
+        #             tag = itemc[random.randrange(0, itemc_num)]
+        #             Item.objects.create(owner=user.id, name='Item_'+str(i)+'_'+str(j)+str(k)+' '+itemn, tags=tag, price=random.randrange(0.99, 99.99), quantity=random.randrange(
+        #                 1, 10), description=tag+" "+itemn, location=address['Address'], lat=address['Latitude'], lng=address['Longitude'], zip_code=address['Zip'])

@@ -1,0 +1,10 @@
+{
+    "itemname":[
+        "laptop","chair","table","desk","cup","dish","t-shirt","layette","car seat","truck","keyboard","phone"
+    ],
+    "itemname_num":12,
+    "condition":[
+        "new","excellent","good","Very Used"
+    ],
+    "condition_num":4
+}

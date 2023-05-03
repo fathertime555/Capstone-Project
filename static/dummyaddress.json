@@ -1,0 +1,2402 @@
+[
+    {
+        "Address": "522 West Crow Street,Kent,WA,98032,United States",
+        "City": "Kent",
+        "County": "King County",
+        "Zip": "98032",
+        "Latitude": "47.376391",
+        "Longitude": "-122.238421"
+    },
+    {
+        "Address": "5385 East Rutter Avenue,Spokane,WA,99212,United States",
+        "City": "Spokane",
+        "County": "Spokane County",
+        "Zip": "99212",
+        "Latitude": "47.677472",
+        "Longitude": "-117.331587"
+    },
+    {
+        "Address": "1092 58th Avenue Northeast,undefined,WA,98422,United States",
+        "City": "Tacoma",
+        "County": "Pierce County",
+        "Zip": "98422",
+        "Latitude": "47.26725",
+        "Longitude": "-122.350773"
+    },
+    {
+        "Address": "1627 West Lavender Court,Spokane,WA,99208,United States",
+        "City": "Spokane",
+        "County": "Spokane County",
+        "Zip": "99208",
+        "Latitude": "47.735235",
+        "Longitude": "-117.436823"
+    },
+    {
+        "Address": "4988 South 70th Street,Tacoma,WA,98409,United States",
+        "City": "Tacoma",
+        "County": "Pierce County",
+        "Zip": "98409",
+        "Latitude": "47.19417",
+        "Longitude": "-122.50288"
+    },
+    {
+        "Address": "4089 West 27th Avenue,undefined,WA,99224,United States",
+        "City": "Spokane",
+        "County": "Spokane County",
+        "Zip": "99224",
+        "Latitude": "47.630273",
+        "Longitude": "-117.47114"
+    },
+    {
+        "Address": "Banyan Tree Thai Restaurant,504 Ramsay Way,Kent,WA,98032,United States",
+        "City": "Kent",
+        "County": "King County",
+        "Zip": "98032",
+        "Latitude": "47.391942",
+        "Longitude": "-122.257192"
+    },
+    {
+        "Address": "10031 Southeast 258th Place,Kent,WA,98030,United States",
+        "City": "Kent",
+        "County": "King County",
+        "Zip": "98030",
+        "Latitude": "47.369871",
+        "Longitude": "-122.206639"
+    },
+    {
+        "Address": "22835 103rd Avenue Southeast,Kent,WA,98031,United States",
+        "City": "Kent",
+        "County": "King County",
+        "Zip": "98031",
+        "Latitude": "47.396255",
+        "Longitude": "-122.203705"
+    },
+    {
+        "Address": "11679 Southeast Sebring Drive,undefined,WA,98366,United States",
+        "City": "Port Orchard",
+        "County": "Kitsap County",
+        "Zip": "98366",
+        "Latitude": "47.512289",
+        "Longitude": "-122.498564"
+    },
+    {
+        "Address": "2735 West Glass Avenue,Spokane,WA,99205,United States",
+        "City": "Spokane",
+        "County": "Spokane County",
+        "Zip": "99205",
+        "Latitude": "47.689711",
+        "Longitude": "-117.451367"
+    },
+    {
+        "Address": "31416 11th Place South,Federal Way,WA,98003,United States",
+        "City": "Federal Way",
+        "County": "King County",
+        "Zip": "98003",
+        "Latitude": "47.32027",
+        "Longitude": "-122.319471"
+    },
+    {
+        "Address": "28607 55th Avenue South,Auburn,WA,98001,United States",
+        "City": "Auburn",
+        "County": "King County",
+        "Zip": "98001",
+        "Latitude": "47.344578",
+        "Longitude": "-122.266965"
+    },
+    {
+        "Address": "10611 106th Place Northeast,Kirkland,WA,98033,United States",
+        "City": "Kirkland",
+        "County": "King County",
+        "Zip": "98033",
+        "Latitude": "47.694327",
+        "Longitude": "-122.199512"
+    },
+    {
+        "Address": "35340 10th Place Southwest,Federal Way,WA,98023,United States",
+        "City": "Federal Way",
+        "County": "King County",
+        "Zip": "98023",
+        "Latitude": "47.28533",
+        "Longitude": "-122.348123"
+    },
+    {
+        "Address": "11610 Southeast 221st Street,Kent,WA,98031,United States",
+        "City": "Kent",
+        "County": "King County",
+        "Zip": "98031",
+        "Latitude": "47.404126",
+        "Longitude": "-122.186244"
+    },
+    {
+        "Address": "17299 89th Avenue Court East,South Hill,WA,98375,United States",
+        "City": "Puyallup",
+        "County": "Pierce County",
+        "Zip": "98375",
+        "Latitude": "47.098555",
+        "Longitude": "-122.312478"
+    },
+    {
+        "Address": "21222 53rd Place South,Kent,WA,98032,United States",
+        "City": "Kent",
+        "County": "King County",
+        "Zip": "98032",
+        "Latitude": "47.411278",
+        "Longitude": "-122.266558"
+    },
+    {
+        "Address": "1647 Southeast 402nd Court,undefined,WA,98671,United States",
+        "City": "Washougal",
+        "County": "Clark County",
+        "Zip": "98671",
+        "Latitude": "45.609063",
+        "Longitude": "-122.260535"
+    },
+    {
+        "Address": "174 Ammons Lane Southeast,undefined,WA,98360,United States",
+        "City": "Orting",
+        "County": "Pierce County",
+        "Zip": "98360",
+        "Latitude": "47.098526",
+        "Longitude": "-122.202065"
+    },
+    {
+        "Address": "4605 South 258th Place,Kent,WA,98032,United States",
+        "City": "Kent",
+        "County": "King County",
+        "Zip": "98032",
+        "Latitude": "47.369848",
+        "Longitude": "-122.27523"
+    },
+    {
+        "Address": "9405 East Maringo Drive,undefined,WA,99206,United States",
+        "City": "Spokane",
+        "County": "Spokane County",
+        "Zip": "99206",
+        "Latitude": "47.691254",
+        "Longitude": "-117.278963"
+    },
+    {
+        "Address": "1755 North Stone Street,Spokane,WA,99207,United States",
+        "City": "Spokane",
+        "County": "Spokane County",
+        "Zip": "99207",
+        "Latitude": "47.674331",
+        "Longitude": "-117.37677"
+    },
+    {
+        "Address": "421 Novak Lane,Kent,WA,98032,United States",
+        "City": "Kent",
+        "County": "King County",
+        "Zip": "98032",
+        "Latitude": "47.394108",
+        "Longitude": "-122.23017"
+    },
+    {
+        "Address": "2085 East 36th Street,Tacoma,WA,98404,United States",
+        "City": "Tacoma",
+        "County": "Pierce County",
+        "Zip": "98404",
+        "Latitude": "47.226552",
+        "Longitude": "-122.400996"
+    },
+    {
+        "Address": "6718 South 216th Street,Kent,WA,98032,United States",
+        "City": "Kent",
+        "County": "King County",
+        "Zip": "98032",
+        "Latitude": "47.409339",
+        "Longitude": "-122.250247"
+    },
+    {
+        "Address": "5427 East Sumac Lane,undefined,WA,99223,United States",
+        "City": "Spokane",
+        "County": "Spokane County",
+        "Zip": "99223",
+        "Latitude": "47.611947",
+        "Longitude": "-117.331502"
+    },
+    {
+        "Address": "8912 West Silver Street,undefined,WA,99004,United States",
+        "City": "Cheney",
+        "County": "Spokane County",
+        "Zip": "99004",
+        "Latitude": "47.596291",
+        "Longitude": "-117.537438"
+    },
+    {
+        "Address": "3738 50th Avenue East,undefined,WA,98443,United States",
+        "City": "Tacoma",
+        "County": "Pierce County",
+        "Zip": "98443",
+        "Latitude": "47.223642",
+        "Longitude": "-122.362461"
+    },
+    {
+        "Address": "3413 WA 509,Tacoma,WA,98421,United States",
+        "City": "Tacoma",
+        "County": "Pierce County",
+        "Zip": "98421",
+        "Latitude": "47.252031",
+        "Longitude": "-122.364403"
+    },
+    {
+        "Address": "22316 PSE Trail,Redmond,WA,98053,United States",
+        "City": "Redmond",
+        "County": "King County",
+        "Zip": "98053",
+        "Latitude": "47.647955",
+        "Longitude": "-122.042168"
+    },
+    {
+        "Address": "24519 119th Avenue Southeast,Kent,WA,98030,United States",
+        "City": "Kent",
+        "County": "King County",
+        "Zip": "98030",
+        "Latitude": "47.38179",
+        "Longitude": "-122.183388"
+    },
+    {
+        "Address": "6163 West Nine Mile Road,Spokane,WA,99208,United States",
+        "City": "Spokane",
+        "County": "Spokane County",
+        "Zip": "99208",
+        "Latitude": "47.780541",
+        "Longitude": "-117.455375"
+    },
+    {
+        "Address": "21046 Southeast 24th Street,Sammamish,WA,98075,United States",
+        "City": "Sammamish",
+        "County": "King County",
+        "Zip": "98075",
+        "Latitude": "47.588563",
+        "Longitude": "-122.05807"
+    },
+    {
+        "Address": "3274 West Alice Avenue,Spokane,WA,99205,United States",
+        "City": "Spokane",
+        "County": "Spokane County",
+        "Zip": "99205",
+        "Latitude": "47.688185",
+        "Longitude": "-117.458682"
+    },
+    {
+        "Address": "25411 Frager Road South,Kent,WA,98032,United States",
+        "City": "Kent",
+        "County": "King County",
+        "Zip": "98032",
+        "Latitude": "47.373967",
+        "Longitude": "-122.258257"
+    },
+    {
+        "Address": "6200 241st Street East,Elk Plain,WA,98338,United States",
+        "City": "Graham",
+        "County": "Pierce County",
+        "Zip": "98338",
+        "Latitude": "47.037703",
+        "Longitude": "-122.347452"
+    },
+    {
+        "Address": "23610 126th Avenue Southeast,Kent,WA,98031,United States",
+        "City": "Kent",
+        "County": "King County",
+        "Zip": "98031",
+        "Latitude": "47.38987",
+        "Longitude": "-122.173034"
+    },
+    {
+        "Address": "29655 Kent Black Diamond Road Southeast,Kent,WA,98042,United States",
+        "City": "Kent",
+        "County": "King County",
+        "Zip": "98042",
+        "Latitude": "47.335565",
+        "Longitude": "-122.124246"
+    },
+    {
+        "Address": "15754 203rd Avenue Southeast,Renton,WA,98059,United States",
+        "City": "Renton",
+        "County": "King County",
+        "Zip": "98059",
+        "Latitude": "47.458972",
+        "Longitude": "-122.071112"
+    },
+    {
+        "Address": "21950 Road 22 Northeast,Marlin,WA,98832,United States",
+        "City": "Marlin",
+        "County": "Grant County",
+        "Zip": "98832",
+        "Latitude": "47.4066",
+        "Longitude": "-119.02174"
+    },
+    {
+        "Address": "3890 West Francis Avenue,Spokane,WA,99205,United States",
+        "City": "Spokane",
+        "County": "Spokane County",
+        "Zip": "99205",
+        "Latitude": "47.715542",
+        "Longitude": "-117.467588"
+    },
+    {
+        "Address": "10401 West Westbow Road,undefined,WA,99224,United States",
+        "City": "Spokane",
+        "County": "Spokane County",
+        "Zip": "99224",
+        "Latitude": "47.592283",
+        "Longitude": "-117.557698"
+    },
+    {
+        "Address": "9620 28th Avenue Southwest,Seattle,WA,98126,United States",
+        "City": "Seattle",
+        "County": "King County",
+        "Zip": "98126",
+        "Latitude": "47.516679",
+        "Longitude": "-122.366691"
+    },
+    {
+        "Address": "221 WA Avenue North,Kent,WA,98032,United States",
+        "City": "Kent",
+        "County": "King County",
+        "Zip": "98032",
+        "Latitude": "47.391942",
+        "Longitude": "-122.257192"
+    },
+    {
+        "Address": "27778 Northeast Hathaway Road,undefined,WA,98607,United States",
+        "City": "Camas",
+        "County": "Clark County",
+        "Zip": "98607",
+        "Latitude": "45.624155",
+        "Longitude": "-122.388611"
+    },
+    {
+        "Address": "604 Sater Lane,Edmonds,WA,98020,United States",
+        "City": "Edmonds",
+        "County": "Snohomish County",
+        "Zip": "98020",
+        "Latitude": "47.816552",
+        "Longitude": "-122.374842"
+    },
+    {
+        "Address": "601 Kensington Avenue South,Kent,WA,98030,United States",
+        "City": "Kent",
+        "County": "King County",
+        "Zip": "98030",
+        "Latitude": "47.377072",
+        "Longitude": "-122.226055"
+    },
+    {
+        "Address": "4398 Fir Drive Northeast,undefined,WA,98310,United States",
+        "City": "Bremerton",
+        "County": "Kitsap County",
+        "Zip": "98310",
+        "Latitude": "47.602699",
+        "Longitude": "-122.604566"
+    },
+    {
+        "Address": "10222 Southeast 222nd Street,Kent,WA,98031,United States",
+        "City": "Kent",
+        "County": "King County",
+        "Zip": "98031",
+        "Latitude": "47.403479",
+        "Longitude": "-122.20363"
+    },
+    {
+        "Address": "26910 86th Avenue South,Kent,WA,98030,United States",
+        "City": "Kent",
+        "County": "King County",
+        "Zip": "98030",
+        "Latitude": "47.36024",
+        "Longitude": "-122.227839"
+    },
+    {
+        "Address": "2792 East Nora Avenue,Spokane,WA,99207,United States",
+        "City": "Spokane",
+        "County": "Spokane County",
+        "Zip": "99207",
+        "Latitude": "47.673287",
+        "Longitude": "-117.369874"
+    },
+    {
+        "Address": "26643 127th Avenue Southeast,Kent,WA,98030,United States",
+        "City": "Kent",
+        "County": "King County",
+        "Zip": "98030",
+        "Latitude": "47.362175",
+        "Longitude": "-122.17256"
+    },
+    {
+        "Address": "5952 Madrona Avenue Northeast,undefined,WA,98311,United States",
+        "City": "Bremerton",
+        "County": "Kitsap County",
+        "Zip": "98311",
+        "Latitude": "47.6172",
+        "Longitude": "-122.59777"
+    },
+    {
+        "Address": "30665 Military Road South,Auburn,WA,98001,United States",
+        "City": "Auburn",
+        "County": "King County",
+        "Zip": "98001",
+        "Latitude": "47.325461",
+        "Longitude": "-122.290605"
+    },
+    {
+        "Address": "10848 East 6th Avenue,Spokane Valley,WA,99206,United States",
+        "City": "Spokane Valley",
+        "County": "Spokane County",
+        "Zip": "99206",
+        "Latitude": "47.651317",
+        "Longitude": "-117.25953"
+    },
+    {
+        "Address": "2409 West Valley Highway East,undefined,WA,98372,United States",
+        "City": "Edgewood",
+        "County": "Pierce County",
+        "Zip": "98372",
+        "Latitude": "47.235405",
+        "Longitude": "-122.254724"
+    },
+    {
+        "Address": "8199 146th Avenue Court East,undefined,WA,98372,United States",
+        "City": "Puyallup",
+        "County": "Pierce County",
+        "Zip": "98372",
+        "Latitude": "47.182932",
+        "Longitude": "-122.234414"
+    },
+    {
+        "Address": "3017 Ruston Way,Tacoma,WA,98402,United States",
+        "City": "Tacoma",
+        "County": "Pierce County",
+        "Zip": "98402",
+        "Latitude": "47.28004",
+        "Longitude": "-122.475427"
+    },
+    {
+        "Address": "9421 North Wieber Drive,Spokane,WA,99208,United States",
+        "City": "Spokane",
+        "County": "Spokane County",
+        "Zip": "99208",
+        "Latitude": "47.74433",
+        "Longitude": "-117.474629"
+    },
+    {
+        "Address": "8401 Northeast 164th Street,undefined,WA,98662,United States",
+        "City": "Vancouver",
+        "County": "Clark County",
+        "Zip": "98662",
+        "Latitude": "45.74018",
+        "Longitude": "-122.588059"
+    },
+    {
+        "Address": "21621 Mountain Highway East,Spanaway,WA,98387,United States",
+        "City": "Spanaway",
+        "County": "Pierce County",
+        "Zip": "98387",
+        "Latitude": "47.060357",
+        "Longitude": "-122.404484"
+    },
+    {
+        "Address": "12417 Southeast 265th Court,Kent,WA,98030,United States",
+        "City": "Kent",
+        "County": "King County",
+        "Zip": "98030",
+        "Latitude": "47.36436",
+        "Longitude": "-122.175643"
+    },
+    {
+        "Address": "6701 Pacific Avenue South,Tacoma,WA,98408,United States",
+        "City": "Tacoma",
+        "County": "Pierce County",
+        "Zip": "98408",
+        "Latitude": "47.196719",
+        "Longitude": "-122.433965"
+    },
+    {
+        "Address": "22031 100th Court Southeast,Kent,WA,98031,United States",
+        "City": "Kent",
+        "County": "King County",
+        "Zip": "98031",
+        "Latitude": "47.404319",
+        "Longitude": "-122.20704"
+    },
+    {
+        "Address": "6201 15th Street Northeast,Tacoma,WA,98422,United States",
+        "City": "Tacoma",
+        "County": "Pierce County",
+        "Zip": "98422",
+        "Latitude": "47.271077",
+        "Longitude": "-122.364753"
+    },
+    {
+        "Address": "10701 North Newport Highway,undefined,WA,99218,United States",
+        "City": "Spokane",
+        "County": "Spokane County",
+        "Zip": "99218",
+        "Latitude": "47.754815",
+        "Longitude": "-117.397743"
+    },
+    {
+        "Address": "3463 36th Avenue West,Seattle,WA,98199,United States",
+        "City": "Seattle",
+        "County": "King County",
+        "Zip": "98199",
+        "Latitude": "47.652274",
+        "Longitude": "-122.403893"
+    },
+    {
+        "Address": "1019 30th Street Northeast,Auburn,WA,98002,United States",
+        "City": "Auburn",
+        "County": "King County",
+        "Zip": "98002",
+        "Latitude": "47.334045",
+        "Longitude": "-122.215914"
+    },
+    {
+        "Address": "3876 South Dishman-Mica Road,Spokane Valley,WA,99206,United States",
+        "City": "Spokane Valley",
+        "County": "Spokane County",
+        "Zip": "99206",
+        "Latitude": "47.621455",
+        "Longitude": "-117.259089"
+    },
+    {
+        "Address": "23004 112th Place Southeast,Kent,WA,98031,United States",
+        "City": "Kent",
+        "County": "King County",
+        "Zip": "98031",
+        "Latitude": "47.395195",
+        "Longitude": "-122.191101"
+    },
+    {
+        "Address": "1008 5th Avenue South,Kent,WA,98032,United States",
+        "City": "Kent",
+        "County": "King County",
+        "Zip": "98032",
+        "Latitude": "47.371281",
+        "Longitude": "-122.239366"
+    },
+    {
+        "Address": "3649 South Rebecca Street,Spokane,WA,99223,United States",
+        "City": "Spokane",
+        "County": "Spokane County",
+        "Zip": "99223",
+        "Latitude": "47.621357",
+        "Longitude": "-117.354991"
+    },
+    {
+        "Address": "28836 224th Avenue Southeast,undefined,WA,98010,United States",
+        "City": "Black Diamond",
+        "County": "King County",
+        "Zip": "98010",
+        "Latitude": "47.341918",
+        "Longitude": "-122.04262"
+    },
+    {
+        "Address": "6648 South Cedar Road,Spokane,WA,99224,United States",
+        "City": "Spokane",
+        "County": "Spokane County",
+        "Zip": "99224",
+        "Latitude": "47.592933",
+        "Longitude": "-117.431668"
+    },
+    {
+        "Address": "13014 111th Avenue East,South Hill,WA,98374,United States",
+        "City": "Puyallup",
+        "County": "Pierce County",
+        "Zip": "98374",
+        "Latitude": "47.138975",
+        "Longitude": "-122.279884"
+    },
+    {
+        "Address": "7469 61st Street Northwest,undefined,WA,98335,United States",
+        "City": "Gig Harbor",
+        "County": "Pierce County",
+        "Zip": "98335",
+        "Latitude": "47.312817",
+        "Longitude": "-122.608492"
+    },
+    {
+        "Address": "6757 South Dishman-Mica Road,Spokane Valley,WA,99206,United States",
+        "City": "Spokane",
+        "County": "Spokane County",
+        "Zip": "99206",
+        "Latitude": "47.590363",
+        "Longitude": "-117.252059"
+    },
+    {
+        "Address": "22905 125th Avenue Southeast,Kent,WA,98031,United States",
+        "City": "Kent",
+        "County": "King County",
+        "Zip": "98031",
+        "Latitude": "47.396516",
+        "Longitude": "-122.175852"
+    },
+    {
+        "Address": "5391 99th Avenue Northwest,undefined,WA,98335,United States",
+        "City": "Gig Harbor",
+        "County": "Pierce County",
+        "Zip": "98335",
+        "Latitude": "47.306286",
+        "Longitude": "-122.670631"
+    },
+    {
+        "Address": "16538 42nd Avenue Court East,undefined,WA,98446,United States",
+        "City": "Tacoma",
+        "County": "Pierce County",
+        "Zip": "98446",
+        "Latitude": "47.109445",
+        "Longitude": "-122.372706"
+    },
+    {
+        "Address": "10094 119th Street Southwest,Lakewood,WA,98498,United States",
+        "City": "Lakewood",
+        "County": "Pierce County",
+        "Zip": "98498",
+        "Latitude": "47.1499",
+        "Longitude": "-122.571336"
+    },
+    {
+        "Address": "12110 Southeast 223rd Drive,Kent,WA,98031,United States",
+        "City": "Kent",
+        "County": "King County",
+        "Zip": "98031",
+        "Latitude": "47.402291",
+        "Longitude": "-122.179704"
+    },
+    {
+        "Address": "3017 Ruston Way,Tacoma,WA,98402,United States",
+        "City": "Tacoma",
+        "County": "Pierce County",
+        "Zip": "98402",
+        "Latitude": "47.28004",
+        "Longitude": "-122.475427"
+    },
+    {
+        "Address": "4089 West 27th Avenue,undefined,WA,99224,United States",
+        "City": "Spokane",
+        "County": "Spokane County",
+        "Zip": "99224",
+        "Latitude": "47.630273",
+        "Longitude": "-117.47114"
+    },
+    {
+        "Address": "8209 South 222nd Street,Kent,WA,98032,United States",
+        "City": "Kent",
+        "County": "King County",
+        "Zip": "98032",
+        "Latitude": "47.402321",
+        "Longitude": "-122.230279"
+    },
+    {
+        "Address": "1026 East Chicago Street,Kent,WA,98030,United States",
+        "City": "Kent",
+        "County": "King County",
+        "Zip": "98030",
+        "Latitude": "47.375744",
+        "Longitude": "-122.2208"
+    },
+    {
+        "Address": "11211 Southeast 213th Street,Kent,WA,98031,United States",
+        "City": "Kent",
+        "County": "King County",
+        "Zip": "98031",
+        "Latitude": "47.410572",
+        "Longitude": "-122.191368"
+    },
+    {
+        "Address": "20706 97th Place South,Kent,WA,98031,United States",
+        "City": "Kent",
+        "County": "King County",
+        "Zip": "98031",
+        "Latitude": "47.416734",
+        "Longitude": "-122.210326"
+    },
+    {
+        "Address": "1894 West Liberty Avenue,Spokane,WA,99205,United States",
+        "City": "Spokane",
+        "County": "Spokane County",
+        "Zip": "99205",
+        "Latitude": "47.688465",
+        "Longitude": "-117.439058"
+    },
+    {
+        "Address": "6122 South 228th Street,Kent,WA,98032,United States",
+        "City": "Kent",
+        "County": "King County",
+        "Zip": "98032",
+        "Latitude": "47.39719",
+        "Longitude": "-122.257394"
+    },
+    {
+        "Address": "26624 108th Avenue Southeast,Kent,WA,98030,United States",
+        "City": "Kent",
+        "County": "King County",
+        "Zip": "98030",
+        "Latitude": "47.362723",
+        "Longitude": "-122.196751"
+    },
+    {
+        "Address": "2815 South Scott Street,Spokane,WA,99203,United States",
+        "City": "Spokane",
+        "County": "Spokane County",
+        "Zip": "99203",
+        "Latitude": "47.628662",
+        "Longitude": "-117.39928"
+    },
+    {
+        "Address": "3923 South 328th Street,Federal Way,WA,98001,United States",
+        "City": "Federal Way",
+        "County": "King County",
+        "Zip": "98001",
+        "Latitude": "47.307525",
+        "Longitude": "-122.283533"
+    },
+    {
+        "Address": "4599 102nd Avenue East,undefined,WA,98371,United States",
+        "City": "Puyallup",
+        "County": "Pierce County",
+        "Zip": "98371",
+        "Latitude": "47.216192",
+        "Longitude": "-122.293697"
+    },
+    {
+        "Address": "11204 Southeast 234th Street,Kent,WA,98031,United States",
+        "City": "Kent",
+        "County": "King County",
+        "Zip": "98031",
+        "Latitude": "47.392263",
+        "Longitude": "-122.19161"
+    },
+    {
+        "Address": "7513 East 44th Avenue,undefined,WA,99223,United States",
+        "City": "Spokane",
+        "County": "Spokane County",
+        "Zip": "99223",
+        "Latitude": "47.613312",
+        "Longitude": "-117.30957"
+    },
+    {
+        "Address": "31615 6th Avenue Southwest,Federal Way,WA,98023,United States",
+        "City": "Federal Way",
+        "County": "King County",
+        "Zip": "98023",
+        "Latitude": "47.318089",
+        "Longitude": "-122.342836"
+    },
+    {
+        "Address": "Spokane Head Start/ECEAP/EHS,3939 North Freya Street,Spokane,WA,99217,United States",
+        "City": "Spokane",
+        "County": "Spokane County",
+        "Zip": "99217",
+        "Latitude": "47.693906",
+        "Longitude": "-117.357802"
+    },
+    {
+        "Address": "12508 West 1st Avenue,Airway Heights,WA,99001,United States",
+        "City": "Airway Heights",
+        "County": "Spokane County",
+        "Zip": "99001",
+        "Latitude": "47.655394",
+        "Longitude": "-117.583885"
+    },
+    {
+        "Address": "42143 South Dunn Road,undefined,WA,99018,United States",
+        "City": "Latah",
+        "County": "Spokane County",
+        "Zip": "99018",
+        "Latitude": "47.261893",
+        "Longitude": "-117.288958"
+    },
+    {
+        "Address": "1998 134th Street Court South,Parkland,WA,98444,United States",
+        "City": "Tacoma",
+        "County": "Pierce County",
+        "Zip": "98444",
+        "Latitude": "47.135486",
+        "Longitude": "-122.462865"
+    },
+    {
+        "Address": "4189 East 38th Avenue,Spokane,WA,99223,United States",
+        "City": "Spokane",
+        "County": "Spokane County",
+        "Zip": "99223",
+        "Latitude": "47.62012",
+        "Longitude": "-117.349968"
+    },
+    {
+        "Address": "7397 West 53rd Avenue,undefined,WA,99224,United States",
+        "City": "Spokane",
+        "County": "Spokane County",
+        "Zip": "99224",
+        "Latitude": "47.60556",
+        "Longitude": "-117.515402"
+    },
+    {
+        "Address": "11153 Southeast 202nd Court,Kent,WA,98031,United States",
+        "City": "Kent",
+        "County": "King County",
+        "Zip": "98031",
+        "Latitude": "47.42131",
+        "Longitude": "-122.190882"
+    },
+    {
+        "Address": "22588 Central Avenue North,Kent,WA,98032,United States",
+        "City": "Kent",
+        "County": "King County",
+        "Zip": "98032",
+        "Latitude": "47.370406",
+        "Longitude": "-122.229849"
+    },
+    {
+        "Address": "15026 94th Avenue East,South Hill,WA,98375,United States",
+        "City": "Puyallup",
+        "County": "Pierce County",
+        "Zip": "98375",
+        "Latitude": "47.11957",
+        "Longitude": "-122.304161"
+    },
+    {
+        "Address": "24108 Southeast 182nd Street,Maple Valley,WA,98038,United States",
+        "City": "Maple Valley",
+        "County": "King County",
+        "Zip": "98038",
+        "Latitude": "47.440277",
+        "Longitude": "-122.018706"
+    },
+    {
+        "Address": "3644 South 252nd Street,Kent,WA,98032,United States",
+        "City": "Kent",
+        "County": "King County",
+        "Zip": "98032",
+        "Latitude": "47.375937",
+        "Longitude": "-122.284645"
+    },
+    {
+        "Address": "12231 Southeast 251st Place,Kent,WA,98030,United States",
+        "City": "Kent",
+        "County": "King County",
+        "Zip": "98030",
+        "Latitude": "47.376155",
+        "Longitude": "-122.177634"
+    },
+    {
+        "Address": "176 East Elcliff Road,undefined,WA,99218,United States",
+        "City": "Spokane",
+        "County": "Spokane County",
+        "Zip": "99218",
+        "Latitude": "47.758305",
+        "Longitude": "-117.406855"
+    },
+    {
+        "Address": "21810 45th Avenue South,Kent,WA,98032,United States",
+        "City": "Kent",
+        "County": "King County",
+        "Zip": "98032",
+        "Latitude": "47.406011",
+        "Longitude": "-122.276836"
+    },
+    {
+        "Address": "1772 North Locust Road,Spokane Valley,WA,99206,United States",
+        "City": "Spokane Valley",
+        "County": "Spokane County",
+        "Zip": "99206",
+        "Latitude": "47.672857",
+        "Longitude": "-117.277259"
+    },
+    {
+        "Address": "925 5th Avenue South,Kent,WA,98032,United States",
+        "City": "Kent",
+        "County": "King County",
+        "Zip": "98032",
+        "Latitude": "47.372122",
+        "Longitude": "-122.239766"
+    },
+    {
+        "Address": "10104 Southeast 207th Street,Kent,WA,98031,United States",
+        "City": "Kent",
+        "County": "King County",
+        "Zip": "98031",
+        "Latitude": "47.417554",
+        "Longitude": "-122.205856"
+    },
+    {
+        "Address": "24311 114th Place Southeast,Kent,WA,98030,United States",
+        "City": "Kent",
+        "County": "King County",
+        "Zip": "98030",
+        "Latitude": "47.38379",
+        "Longitude": "-122.189228"
+    },
+    {
+        "Address": "4073 Tribute Avenue East,undefined,WA,98424,United States",
+        "City": "Fife",
+        "County": "Pierce County",
+        "Zip": "98424",
+        "Latitude": "47.22097",
+        "Longitude": "-122.338484"
+    },
+    {
+        "Address": "1601 15th Street Northwest,Auburn,WA,98001,United States",
+        "City": "Auburn",
+        "County": "King County",
+        "Zip": "98001",
+        "Latitude": "47.323131",
+        "Longitude": "-122.254628"
+    },
+    {
+        "Address": "20405 123rd Court Southeast,Kent,WA,98031,United States",
+        "City": "Kent",
+        "County": "King County",
+        "Zip": "98031",
+        "Latitude": "47.419271",
+        "Longitude": "-122.178514"
+    },
+    {
+        "Address": "1016 East Temperance Street,Kent,WA,98030,United States",
+        "City": "Kent",
+        "County": "King County",
+        "Zip": "98030",
+        "Latitude": "47.384026",
+        "Longitude": "-122.221324"
+    },
+    {
+        "Address": "365 Alpine Court,Port Ludlow,WA,98365,United States",
+        "City": "Port Ludlow",
+        "County": "Jefferson County",
+        "Zip": "98365",
+        "Latitude": "47.880825",
+        "Longitude": "-122.648926"
+    },
+    {
+        "Address": "998 76th Avenue Court,undefined,WA,98354,United States",
+        "City": "Milton",
+        "County": "Pierce County",
+        "Zip": "98354",
+        "Latitude": "47.249174",
+        "Longitude": "-122.327228"
+    },
+    {
+        "Address": "Boeing 17-66,700 15th Street Southwest,Auburn,WA,98001,United States",
+        "City": "Auburn",
+        "County": "King County",
+        "Zip": "98002",
+        "Latitude": "47.321134",
+        "Longitude": "-122.229224"
+    },
+    {
+        "Address": "7410 East Tower Mountain Lane,undefined,WA,99223,United States",
+        "City": "Spokane",
+        "County": "Spokane County",
+        "Zip": "99223",
+        "Latitude": "47.585631",
+        "Longitude": "-117.304954"
+    },
+    {
+        "Address": "8467 North Freya Street,undefined,WA,99217,United States",
+        "City": "Spokane",
+        "County": "Spokane County",
+        "Zip": "99217",
+        "Latitude": "47.735088",
+        "Longitude": "-117.358957"
+    },
+    {
+        "Address": "12524 Southeast 270th Street,Kent,WA,98030,United States",
+        "City": "Kent",
+        "County": "King County",
+        "Zip": "98030",
+        "Latitude": "47.359338",
+        "Longitude": "-122.173868"
+    },
+    {
+        "Address": "36704 28th Avenue South,Federal Way,WA,98003,United States",
+        "City": "Federal Way",
+        "County": "King County",
+        "Zip": "98003",
+        "Latitude": "47.27247",
+        "Longitude": "-122.297404"
+    },
+    {
+        "Address": "322 197th Place Southwest,North Creek,WA,98012,United States",
+        "City": "Bothell",
+        "County": "Snohomish County",
+        "Zip": "98012",
+        "Latitude": "47.818909",
+        "Longitude": "-122.235101"
+    },
+    {
+        "Address": "32112 Southeast 268th Street,undefined,WA,98051,United States",
+        "City": "Ravensdale",
+        "County": "King County",
+        "Zip": "98051",
+        "Latitude": "47.362158",
+        "Longitude": "-121.915634"
+    },
+    {
+        "Address": "4335 236th Street East,Elk Plain,WA,98387,United States",
+        "City": "Spanaway",
+        "County": "Pierce County",
+        "Zip": "98387",
+        "Latitude": "47.042321",
+        "Longitude": "-122.372376"
+    },
+    {
+        "Address": "22612 97th Avenue South,Kent,WA,98031,United States",
+        "City": "Kent",
+        "County": "King County",
+        "Zip": "98031",
+        "Latitude": "47.400041",
+        "Longitude": "-122.21078"
+    },
+    {
+        "Address": "30421 312th Way Southeast,undefined,WA,98051,United States",
+        "City": "Ravensdale",
+        "County": "King County",
+        "Zip": "98051",
+        "Latitude": "47.326276",
+        "Longitude": "-121.926642"
+    },
+    {
+        "Address": "778 East 8th Avenue,Spokane,WA,99202,United States",
+        "City": "Spokane",
+        "County": "Spokane County",
+        "Zip": "99202",
+        "Latitude": "47.647991",
+        "Longitude": "-117.399861"
+    },
+    {
+        "Address": "22800 Northeast 20th Place,Sammamish,WA,98074,United States",
+        "City": "Sammamish",
+        "County": "King County",
+        "Zip": "98074",
+        "Latitude": "47.628053",
+        "Longitude": "-122.032978"
+    },
+    {
+        "Address": "11156 Southwest 220th Street,undefined,WA,98070,United States",
+        "City": "Vashon",
+        "County": "King County",
+        "Zip": "98070",
+        "Latitude": "47.407472",
+        "Longitude": "-122.477397"
+    },
+    {
+        "Address": "9235 West Trails Road,undefined,WA,99224,United States",
+        "City": "Spokane",
+        "County": "Spokane County",
+        "Zip": "99224",
+        "Latitude": "47.672216",
+        "Longitude": "-117.539887"
+    },
+    {
+        "Address": "8414 56th Street West,University Place,WA,98467,United States",
+        "City": "University Place",
+        "County": "Pierce County",
+        "Zip": "98467",
+        "Latitude": "47.205439",
+        "Longitude": "-122.550059"
+    },
+    {
+        "Address": "212 5th Avenue South,Kent,WA,98032,United States",
+        "City": "Kent",
+        "County": "King County",
+        "Zip": "98032",
+        "Latitude": "47.380455",
+        "Longitude": "-122.23812"
+    },
+    {
+        "Address": "4327 Southwest Thistle Street,Seattle,WA,98136,United States",
+        "City": "Seattle",
+        "County": "King County",
+        "Zip": "98136",
+        "Latitude": "47.528035",
+        "Longitude": "-122.388264"
+    },
+    {
+        "Address": "8803 East Sinto Avenue,Spokane Valley,WA,99212,United States",
+        "City": "Spokane Valley",
+        "County": "Spokane County",
+        "Zip": "99212",
+        "Latitude": "47.669804",
+        "Longitude": "-117.287073"
+    },
+    {
+        "Address": "296 Reiten Road,Kent,WA,98030,United States",
+        "City": "Kent",
+        "County": "King County",
+        "Zip": "98031",
+        "Latitude": "47.382325",
+        "Longitude": "-122.225542"
+    },
+    {
+        "Address": "4089 East Pratt Avenue,Spokane,WA,99202,United States",
+        "City": "Spokane",
+        "County": "Spokane County",
+        "Zip": "99202",
+        "Latitude": "47.646854",
+        "Longitude": "-117.350596"
+    },
+    {
+        "Address": "4210 Southwest 328th Street,Federal Way,WA,98023,United States",
+        "City": "Federal Way",
+        "County": "King County",
+        "Zip": "98023",
+        "Latitude": "47.309416",
+        "Longitude": "-122.386855"
+    },
+    {
+        "Address": "4025 West Lake Sammamish Parkway Southeast,Bellevue,WA,99007,United States",
+        "City": "Bellevue",
+        "County": "King County",
+        "Zip": "98008",
+        "Latitude": "47.573628",
+        "Longitude": "-122.109076"
+    },
+    {
+        "Address": "9706 South 230th Place,Kent,WA,98031,United States",
+        "City": "Kent",
+        "County": "King County",
+        "Zip": "98031",
+        "Latitude": "47.395729",
+        "Longitude": "-122.210781"
+    },
+    {
+        "Address": "Renton Concrete Recyclers,500 Monster Road Southwest,Renton,WA,98057,United States",
+        "City": "Renton",
+        "County": "King County",
+        "Zip": "98057",
+        "Latitude": "47.476828",
+        "Longitude": "-122.249298"
+    },
+    {
+        "Address": "23401 104th Avenue Southeast,Kent,WA,98031,United States",
+        "City": "Kent",
+        "County": "King County",
+        "Zip": "98031",
+        "Latitude": "47.391786",
+        "Longitude": "-122.20294"
+    },
+    {
+        "Address": "3423 South 261st Street,Kent,WA,98032,United States",
+        "City": "Kent",
+        "County": "King County",
+        "Zip": "98032",
+        "Latitude": "47.36767",
+        "Longitude": "-122.288155"
+    },
+    {
+        "Address": "11313 Jake Lane,Airway Heights,WA,99001,United States",
+        "City": "Airway Heights",
+        "County": "Spokane County",
+        "Zip": "99001",
+        "Latitude": "47.631659",
+        "Longitude": "-117.568067"
+    },
+    {
+        "Address": "4399 83rd Avenue Northwest,undefined,WA,98335,United States",
+        "City": "Gig Harbor",
+        "County": "Pierce County",
+        "Zip": "98335",
+        "Latitude": "47.296851",
+        "Longitude": "-122.648387"
+    },
+    {
+        "Address": "8699 146th Street Court East,South Hill,WA,98375,United States",
+        "City": "Puyallup",
+        "County": "Pierce County",
+        "Zip": "98375",
+        "Latitude": "47.123547",
+        "Longitude": "-122.31249"
+    },
+    {
+        "Address": "9617 East Hoffman Lane,undefined,WA,99206,United States",
+        "City": "Spokane",
+        "County": "Spokane County",
+        "Zip": "99206",
+        "Latitude": "47.698859",
+        "Longitude": "-117.275549"
+    },
+    {
+        "Address": "4533 Centennial Trail,undefined,WA,99224,United States",
+        "City": "Spokane",
+        "County": "Spokane County",
+        "Zip": "99224",
+        "Latitude": "47.628858",
+        "Longitude": "-117.551291"
+    },
+    {
+        "Address": "2750 Marine View Drive,Tacoma,WA,98422,United States",
+        "City": "Tacoma",
+        "County": "Pierce County",
+        "Zip": "98422",
+        "Latitude": "47.278863",
+        "Longitude": "-122.387586"
+    },
+    {
+        "Address": "2449 East Diamond Avenue,Spokane,WA,99217,United States",
+        "City": "Spokane",
+        "County": "Spokane County",
+        "Zip": "99217",
+        "Latitude": "47.705232",
+        "Longitude": "-117.374602"
+    },
+    {
+        "Address": "1025 Sunrise Lane,Fircrest,WA,98466,United States",
+        "City": "Fircrest",
+        "County": "Pierce County",
+        "Zip": "98466",
+        "Latitude": "47.226549",
+        "Longitude": "-122.52071"
+    },
+    {
+        "Address": "9599 North Davies Road,Lake Stevens,WA,98258,United States",
+        "City": "Lake Stevens",
+        "County": "Snohomish County",
+        "Zip": "98258",
+        "Latitude": "48.004831",
+        "Longitude": "-122.101811"
+    },
+    {
+        "Address": "City of Kent Corrections Facility,1230 Central Avenue South,Kent,WA,98032,United States",
+        "City": "Kent",
+        "County": "King County",
+        "Zip": "98032",
+        "Latitude": "47.391942",
+        "Longitude": "-122.257192"
+    },
+    {
+        "Address": "5640 South 228th Street,Kent,WA,98032,United States",
+        "City": "Kent",
+        "County": "King County",
+        "Zip": "98032",
+        "Latitude": "47.397477",
+        "Longitude": "-122.263257"
+    },
+    {
+        "Address": "10457 Southeast 240th Street,Kent,WA,98031,United States",
+        "City": "Kent",
+        "County": "King County",
+        "Zip": "98031",
+        "Latitude": "47.386624",
+        "Longitude": "-122.200092"
+    },
+    {
+        "Address": "281 Southeast 349th Place,undefined,WA,98671,United States",
+        "City": "Washougal",
+        "County": "Clark County",
+        "Zip": "98671",
+        "Latitude": "45.619433",
+        "Longitude": "-122.313604"
+    },
+    {
+        "Address": "37532 19th Way South,Federal Way,WA,98003,United States",
+        "City": "Federal Way",
+        "County": "King County",
+        "Zip": "98003",
+        "Latitude": "47.264913",
+        "Longitude": "-122.311411"
+    },
+    {
+        "Address": "2713 East 53rd Avenue,Spokane,WA,99223,United States",
+        "City": "Spokane",
+        "County": "Spokane County",
+        "Zip": "99223",
+        "Latitude": "47.606005",
+        "Longitude": "-117.370636"
+    },
+    {
+        "Address": "27281 94th Place South,undefined,WA,98030,United States",
+        "City": "Kent",
+        "County": "King County",
+        "Zip": "98030",
+        "Latitude": "47.358098",
+        "Longitude": "-122.21335"
+    },
+    {
+        "Address": "3872 West Northwest Boulevard,Spokane,WA,99205,United States",
+        "City": "Spokane",
+        "County": "Spokane County",
+        "Zip": "99205",
+        "Latitude": "47.694395",
+        "Longitude": "-117.467276"
+    },
+    {
+        "Address": "16346 91st Avenue Southeast,undefined,WA,98296,United States",
+        "City": "Snohomish",
+        "County": "Snohomish County",
+        "Zip": "98296",
+        "Latitude": "47.848747",
+        "Longitude": "-122.110088"
+    },
+    {
+        "Address": "874 East 62nd Street,Tacoma,WA,98404,United States",
+        "City": "Tacoma",
+        "County": "Pierce County",
+        "Zip": "98404",
+        "Latitude": "47.20068",
+        "Longitude": "-122.419925"
+    },
+    {
+        "Address": "4510 South 356th Street,Auburn,WA,98001,United States",
+        "City": "Auburn",
+        "County": "King County",
+        "Zip": "98001",
+        "Latitude": "47.282804",
+        "Longitude": "-122.277206"
+    },
+    {
+        "Address": "26503 126th Place Southeast,Kent,WA,98030,United States",
+        "City": "Kent",
+        "County": "King County",
+        "Zip": "98030",
+        "Latitude": "47.36427",
+        "Longitude": "-122.174259"
+    },
+    {
+        "Address": "609 South 373rd Street,Federal Way,WA,98003,United States",
+        "City": "Federal Way",
+        "County": "King County",
+        "Zip": "98003",
+        "Latitude": "47.26705",
+        "Longitude": "-122.326695"
+    },
+    {
+        "Address": "5370 Lake WA Boulevard South,Seattle,WA,98144,United States",
+        "City": "Seattle",
+        "County": "King County",
+        "Zip": "98144",
+        "Latitude": "47.585621",
+        "Longitude": "-122.292492"
+    },
+    {
+        "Address": "834 Dock Street,Tacoma,WA,98402,United States",
+        "City": "Tacoma",
+        "County": "Pierce County",
+        "Zip": "98402",
+        "Latitude": "47.25628",
+        "Longitude": "-122.436703"
+    },
+    {
+        "Address": "29810 201st Place Southeast,Kent,WA,98042,United States",
+        "City": "Kent",
+        "County": "King County",
+        "Zip": "98042",
+        "Latitude": "47.335056",
+        "Longitude": "-122.071474"
+    },
+    {
+        "Address": "10878 North Market Street,undefined,WA,99021,United States",
+        "City": "Mead",
+        "County": "Spokane County",
+        "Zip": "99021",
+        "Latitude": "47.75623",
+        "Longitude": "-117.357382"
+    },
+    {
+        "Address": "655 I Place Northeast,Auburn,WA,98002,United States",
+        "City": "Auburn",
+        "County": "King County",
+        "Zip": "98002",
+        "Latitude": "47.313636",
+        "Longitude": "-122.216996"
+    },
+    {
+        "Address": "7852 West Griffin Road,undefined,WA,99004,United States",
+        "City": "Cheney",
+        "County": "Spokane County",
+        "Zip": "99004",
+        "Latitude": "47.577937",
+        "Longitude": "-117.52084"
+    },
+    {
+        "Address": "8284 East 18th Avenue,undefined,WA,99212,United States",
+        "City": "Spokane",
+        "County": "Spokane County",
+        "Zip": "99212",
+        "Latitude": "47.640434",
+        "Longitude": "-117.298761"
+    },
+    {
+        "Address": "17703 128th Place Southeast,undefined,WA,98290,United States",
+        "City": "Snohomish",
+        "County": "Snohomish County",
+        "Zip": "98290",
+        "Latitude": "47.881099",
+        "Longitude": "-121.995612"
+    },
+    {
+        "Address": "20256 111th Way Southeast,Kent,WA,98031,United States",
+        "City": "Kent",
+        "County": "King County",
+        "Zip": "98031",
+        "Latitude": "47.420633",
+        "Longitude": "-122.191408"
+    },
+    {
+        "Address": "2306 B Street Northwest,Auburn,WA,98001,United States",
+        "City": "Auburn",
+        "County": "King County",
+        "Zip": "98001",
+        "Latitude": "47.328178",
+        "Longitude": "-122.23099"
+    },
+    {
+        "Address": "22100 70th Avenue East,undefined,WA,98338,United States",
+        "City": "Spanaway",
+        "County": "Pierce County",
+        "Zip": "98387",
+        "Latitude": "47.05591",
+        "Longitude": "-122.337828"
+    },
+    {
+        "Address": "12027 Southeast Kent Kangley Road,Kent,WA,98030,United States",
+        "City": "Kent",
+        "County": "King County",
+        "Zip": "98030",
+        "Latitude": "47.364402",
+        "Longitude": "-122.179568"
+    },
+    {
+        "Address": "227 Kensington Avenue South,Kent,WA,98030,United States",
+        "City": "Kent",
+        "County": "King County",
+        "Zip": "98030",
+        "Latitude": "47.380295",
+        "Longitude": "-122.22602"
+    },
+    {
+        "Address": "34028 Peasley Canyon Way South,Auburn,WA,98001,United States",
+        "City": "Auburn",
+        "County": "King County",
+        "Zip": "98001",
+        "Latitude": "47.296185",
+        "Longitude": "-122.273048"
+    },
+    {
+        "Address": "59 Crescent Circle Southwest,Lakewood,WA,98499,United States",
+        "City": "Lakewood",
+        "County": "Pierce County",
+        "Zip": "98499",
+        "Latitude": "47.169542",
+        "Longitude": "-122.512288"
+    },
+    {
+        "Address": "7496 West Deno Road,undefined,WA,99224,United States",
+        "City": "Spokane",
+        "County": "Spokane County",
+        "Zip": "99224",
+        "Latitude": "47.664906",
+        "Longitude": "-117.516703"
+    },
+    {
+        "Address": "10308 22nd Street East,undefined,WA,98372,United States",
+        "City": "Puyallup",
+        "County": "Pierce County",
+        "Zip": "98372",
+        "Latitude": "47.237512",
+        "Longitude": "-122.293871"
+    },
+    {
+        "Address": "6693 South Thierman Lane,undefined,WA,99223,United States",
+        "City": "Spokane",
+        "County": "Spokane County",
+        "Zip": "99223",
+        "Latitude": "47.61748",
+        "Longitude": "-117.314611"
+    },
+    {
+        "Address": "602 Auburn Way South,Auburn,WA,98002,United States",
+        "City": "Auburn",
+        "County": "King County",
+        "Zip": "98002",
+        "Latitude": "47.30177",
+        "Longitude": "-122.224658"
+    },
+    {
+        "Address": "1400 North Oak Street,Spokane,WA,99201,United States",
+        "City": "Spokane",
+        "County": "Spokane County",
+        "Zip": "99201",
+        "Latitude": "47.669766",
+        "Longitude": "-117.438453"
+    },
+    {
+        "Address": "1604 106th Street Southwest,Everett,WA,98204,United States",
+        "City": "Everett",
+        "County": "Snohomish County",
+        "Zip": "98204",
+        "Latitude": "47.903606",
+        "Longitude": "-122.255414"
+    },
+    {
+        "Address": "24907 115th Avenue Southeast,Kent,WA,98030,United States",
+        "City": "Kent",
+        "County": "King County",
+        "Zip": "98030",
+        "Latitude": "47.378717",
+        "Longitude": "-122.188474"
+    },
+    {
+        "Address": "9928 22nd Avenue East,undefined,WA,98445,United States",
+        "City": "Tacoma",
+        "County": "Pierce County",
+        "Zip": "98445",
+        "Latitude": "47.166828",
+        "Longitude": "-122.400197"
+    },
+    {
+        "Address": "23206 62nd Avenue South,Kent,WA,98032,United States",
+        "City": "Kent",
+        "County": "King County",
+        "Zip": "98032",
+        "Latitude": "47.393832",
+        "Longitude": "-122.257057"
+    },
+    {
+        "Address": "26103 South 261st Street,Kent,WA,98032,United States",
+        "City": "Kent",
+        "County": "King County",
+        "Zip": "98032",
+        "Latitude": "47.367471",
+        "Longitude": "-122.279633"
+    },
+    {
+        "Address": "11623 Southeast 225th Street,Kent,WA,98031,United States",
+        "City": "Kent",
+        "County": "King County",
+        "Zip": "98031",
+        "Latitude": "47.400691",
+        "Longitude": "-122.185264"
+    },
+    {
+        "Address": "10003 Southeast 203rd Street,Kent,WA,98031,United States",
+        "City": "Kent",
+        "County": "King County",
+        "Zip": "98031",
+        "Latitude": "47.420164",
+        "Longitude": "-122.207162"
+    },
+    {
+        "Address": "6520 45th Street West,University Place,WA,98466,United States",
+        "City": "Tacoma",
+        "County": "Pierce County",
+        "Zip": "98466",
+        "Latitude": "47.216253",
+        "Longitude": "-122.524706"
+    },
+    {
+        "Address": "5153 North 49th Street,undefined,WA,98407,United States",
+        "City": "Ruston",
+        "County": "Pierce County",
+        "Zip": "98407",
+        "Latitude": "47.295007",
+        "Longitude": "-122.506906"
+    },
+    {
+        "Address": "4822 South 252nd Place,Kent,WA,98032,United States",
+        "City": "Kent",
+        "County": "King County",
+        "Zip": "98032",
+        "Latitude": "47.375659",
+        "Longitude": "-122.273127"
+    },
+    {
+        "Address": "Echo Falls Golf Club,20414 121st Avenue Southeast,Maltby,WA,98296,United States",
+        "City": "Snohomish",
+        "County": "Snohomish County",
+        "Zip": "98296",
+        "Latitude": "47.811484",
+        "Longitude": "-122.070085"
+    },
+    {
+        "Address": "Safeway Distribution Center,3647 C Street Southwest,Auburn,WA,98047,United States",
+        "City": "Pacific",
+        "County": "King County",
+        "Zip": "98047",
+        "Latitude": "47.27451",
+        "Longitude": "-122.234258"
+    },
+    {
+        "Address": "6009 South Cooper Street,Seattle,WA,98118,United States",
+        "City": "Seattle",
+        "County": "King County",
+        "Zip": "98118",
+        "Latitude": "47.511481",
+        "Longitude": "-122.257781"
+    },
+    {
+        "Address": "6501 South Westchester Drive,Spokane,WA,99223,United States",
+        "City": "Spokane",
+        "County": "Spokane County",
+        "Zip": "99223",
+        "Latitude": "47.594787",
+        "Longitude": "-117.396397"
+    },
+    {
+        "Address": "12899 322nd Avenue Northeast,undefined,WA,98019,United States",
+        "City": "Duvall",
+        "County": "King County",
+        "Zip": "98019",
+        "Latitude": "47.713431",
+        "Longitude": "-121.909016"
+    },
+    {
+        "Address": "21069 East Meridian Avenue,Graham,WA,98338,United States",
+        "City": "Graham",
+        "County": "Pierce County",
+        "Zip": "98338",
+        "Latitude": "47.065011",
+        "Longitude": "-122.29457"
+    },
+    {
+        "Address": "King Beverage, Inc.,6715 East Mission Avenue,Spokane Valley,WA,99212,United States",
+        "City": "Spokane Valley",
+        "County": "Spokane County",
+        "Zip": "99212",
+        "Latitude": "47.672601",
+        "Longitude": "-117.314032"
+    },
+    {
+        "Address": "8528 South 222nd Street,Kent,WA,98031,United States",
+        "City": "Kent",
+        "County": "King County",
+        "Zip": "98031",
+        "Latitude": "47.403569",
+        "Longitude": "-122.225147"
+    },
+    {
+        "Address": "8345 North Scott Road,undefined,WA,99217,United States",
+        "City": "Spokane",
+        "County": "Spokane County",
+        "Zip": "99217",
+        "Latitude": "47.732984",
+        "Longitude": "-117.27779"
+    },
+    {
+        "Address": "1121 Manzanita Way,Vancouver,WA,98661,United States",
+        "City": "Vancouver",
+        "County": "Clark County",
+        "Zip": "98661",
+        "Latitude": "45.628696",
+        "Longitude": "-122.625223"
+    },
+    {
+        "Address": "26731 Lake Fenwick Road South,Kent,WA,98032,United States",
+        "City": "Kent",
+        "County": "King County",
+        "Zip": "98032",
+        "Latitude": "47.361632",
+        "Longitude": "-122.272595"
+    },
+    {
+        "Address": "5372 East Sharp Avenue,Spokane Valley,WA,99212,United States",
+        "City": "Spokane Valley",
+        "County": "Spokane County",
+        "Zip": "99212",
+        "Latitude": "47.668696",
+        "Longitude": "-117.329892"
+    },
+    {
+        "Address": "3902 South 249th Street,Kent,WA,98032,United States",
+        "City": "Kent",
+        "County": "King County",
+        "Zip": "98032",
+        "Latitude": "47.378705",
+        "Longitude": "-122.282598"
+    },
+    {
+        "Address": "12009 Southeast 251st Place,Kent,WA,98030,United States",
+        "City": "Kent",
+        "County": "King County",
+        "Zip": "98030",
+        "Latitude": "47.376353",
+        "Longitude": "-122.180342"
+    },
+    {
+        "Address": "10805 Southeast 244th Street,Kent,WA,98030,United States",
+        "City": "Kent",
+        "County": "King County",
+        "Zip": "98030",
+        "Latitude": "47.383114",
+        "Longitude": "-122.196747"
+    },
+    {
+        "Address": "8140 North Orchard Prairie Road,undefined,WA,99217,United States",
+        "City": "Spokane",
+        "County": "Spokane County",
+        "Zip": "99217",
+        "Latitude": "47.73207",
+        "Longitude": "-117.314382"
+    },
+    {
+        "Address": "6199 51st Street Court West,University Place,WA,98467,United States",
+        "City": "University Place",
+        "County": "Pierce County",
+        "Zip": "98467",
+        "Latitude": "47.210586",
+        "Longitude": "-122.520269"
+    },
+    {
+        "Address": "31220 36th Avenue Southwest,Federal Way,WA,98023,United States",
+        "City": "Federal Way",
+        "County": "King County",
+        "Zip": "98023",
+        "Latitude": "47.321902",
+        "Longitude": "-122.37744"
+    },
+    {
+        "Address": "23369 Southeast 53rd Street,Issaquah,WA,98029,United States",
+        "City": "Issaquah",
+        "County": "King County",
+        "Zip": "98029",
+        "Latitude": "47.554514",
+        "Longitude": "-122.029162"
+    },
+    {
+        "Address": "2946 East Liberty Avenue,Spokane,WA,99207,United States",
+        "City": "Spokane",
+        "County": "Spokane County",
+        "Zip": "99207",
+        "Latitude": "47.687009",
+        "Longitude": "-117.367667"
+    },
+    {
+        "Address": "9615 South 218th Street,Kent,WA,98031,United States",
+        "City": "Kent",
+        "County": "King County",
+        "Zip": "98031",
+        "Latitude": "47.40624",
+        "Longitude": "-122.211126"
+    },
+    {
+        "Address": "1863 North Stone Street,Spokane,WA,99207,United States",
+        "City": "Spokane",
+        "County": "Spokane County",
+        "Zip": "99207",
+        "Latitude": "47.675529",
+        "Longitude": "-117.377119"
+    },
+    {
+        "Address": "23327 84th Place South,Kent,WA,98031,United States",
+        "City": "Kent",
+        "County": "King County",
+        "Zip": "98031",
+        "Latitude": "47.392096",
+        "Longitude": "-122.227807"
+    },
+    {
+        "Address": "13021 13th Avenue Northwest,Seattle,WA,98177,United States",
+        "City": "Seattle",
+        "County": "King County",
+        "Zip": "98177",
+        "Latitude": "47.723989",
+        "Longitude": "-122.373094"
+    },
+    {
+        "Address": "7763 West White Road,undefined,WA,99004,United States",
+        "City": "Cheney",
+        "County": "Spokane County",
+        "Zip": "99004",
+        "Latitude": "47.581308",
+        "Longitude": "-117.521589"
+    },
+    {
+        "Address": "1323 West Everett Avenue,Spokane,WA,99205,United States",
+        "City": "Spokane",
+        "County": "Spokane County",
+        "Zip": "99205",
+        "Latitude": "47.706067",
+        "Longitude": "-117.430309"
+    },
+    {
+        "Address": "21017 77th Avenue South,Kent,WA,98032,United States",
+        "City": "Kent",
+        "County": "King County",
+        "Zip": "98032",
+        "Latitude": "47.413794",
+        "Longitude": "-122.238108"
+    },
+    {
+        "Address": "Building C,6633 South 216th Street,Kent,WA,98032,United States",
+        "City": "Kent",
+        "County": "King County",
+        "Zip": "98032",
+        "Latitude": "47.408071",
+        "Longitude": "-122.251594"
+    },
+    {
+        "Address": "684 North Ralph Street,Spokane,WA,99202,United States",
+        "City": "Spokane",
+        "County": "Spokane County",
+        "Zip": "99202",
+        "Latitude": "47.663402",
+        "Longitude": "-117.362063"
+    },
+    {
+        "Address": "5975 North Cedar Street,Spokane,WA,99205,United States",
+        "City": "Spokane",
+        "County": "Spokane County",
+        "Zip": "99205",
+        "Latitude": "47.712574",
+        "Longitude": "-117.432647"
+    },
+    {
+        "Address": "21846 76th Avenue South,Kent,WA,98032,United States",
+        "City": "Kent",
+        "County": "King County",
+        "Zip": "98032",
+        "Latitude": "47.405472",
+        "Longitude": "-122.237405"
+    },
+    {
+        "Address": "4698 North Lyons Road,undefined,WA,99224,United States",
+        "City": "Spokane",
+        "County": "Spokane County",
+        "Zip": "99224",
+        "Latitude": "47.701925",
+        "Longitude": "-117.577432"
+    },
+    {
+        "Address": "11812 Southeast 252nd Place,Kent,WA,98030,United States",
+        "City": "Kent",
+        "County": "King County",
+        "Zip": "98030",
+        "Latitude": "47.375918",
+        "Longitude": "-122.183737"
+    },
+    {
+        "Address": "6290 Terrace View Lane Southeast,Auburn,WA,98092,United States",
+        "City": "Auburn",
+        "County": "Pierce County",
+        "Zip": "98092",
+        "Latitude": "47.250998",
+        "Longitude": "-122.225751"
+    },
+    {
+        "Address": "617 North Glenn Road,Spokane Valley,WA,99206,United States",
+        "City": "Spokane Valley",
+        "County": "Spokane County",
+        "Zip": "99206",
+        "Latitude": "47.663058",
+        "Longitude": "-117.258719"
+    },
+    {
+        "Address": "23720 51st Avenue South,Kent,WA,98032,United States",
+        "City": "Kent",
+        "County": "King County",
+        "Zip": "98032",
+        "Latitude": "47.389281",
+        "Longitude": "-122.271436"
+    },
+    {
+        "Address": "3502 South Mason Avenue,Tacoma,WA,98409,United States",
+        "City": "Tacoma",
+        "County": "Pierce County",
+        "Zip": "98409",
+        "Latitude": "47.231539",
+        "Longitude": "-122.495135"
+    },
+    {
+        "Address": "12330 Southeast 204th Street,Kent,WA,98031,United States",
+        "City": "Kent",
+        "County": "King County",
+        "Zip": "98031",
+        "Latitude": "47.419269",
+        "Longitude": "-122.17713"
+    },
+    {
+        "Address": "422 WA Avenue North,Kent,WA,98032,United States",
+        "City": "Kent",
+        "County": "King County",
+        "Zip": "98032",
+        "Latitude": "47.391942",
+        "Longitude": "-122.257192"
+    },
+    {
+        "Address": "25003 113th Avenue Southeast,Kent,WA,98030,United States",
+        "City": "Kent",
+        "County": "King County",
+        "Zip": "98030",
+        "Latitude": "47.377839",
+        "Longitude": "-122.189718"
+    },
+    {
+        "Address": "1139 Valley Avenue Northwest,Puyallup,WA,98371,United States",
+        "City": "Puyallup",
+        "County": "Pierce County",
+        "Zip": "98371",
+        "Latitude": "47.215367",
+        "Longitude": "-122.308484"
+    },
+    {
+        "Address": "4117 South Driftwood Drive,Spokane Valley,WA,99206,United States",
+        "City": "Spokane Valley",
+        "County": "Spokane County",
+        "Zip": "99206",
+        "Latitude": "47.618337",
+        "Longitude": "-117.267655"
+    },
+    {
+        "Address": "1643 Northwest Klickitat Street,Camas,WA,98607,United States",
+        "City": "Camas",
+        "County": "Clark County",
+        "Zip": "98607",
+        "Latitude": "45.591032",
+        "Longitude": "-122.447055"
+    },
+    {
+        "Address": "33625 33rd Place South,Federal Way,WA,98001,United States",
+        "City": "Federal Way",
+        "County": "King County",
+        "Zip": "98001",
+        "Latitude": "47.300192",
+        "Longitude": "-122.291745"
+    },
+    {
+        "Address": "9200 North Five Mile Road,undefined,WA,99208,United States",
+        "City": "Spokane",
+        "County": "Spokane County",
+        "Zip": "99208",
+        "Latitude": "47.742317",
+        "Longitude": "-117.453204"
+    },
+    {
+        "Address": "3589 West 41st Avenue,Spokane,WA,99224,United States",
+        "City": "Spokane",
+        "County": "Spokane County",
+        "Zip": "99224",
+        "Latitude": "47.617394",
+        "Longitude": "-117.464547"
+    },
+    {
+        "Address": "5901 South Helena Street,undefined,WA,99223,United States",
+        "City": "Spokane",
+        "County": "Spokane County",
+        "Zip": "99223",
+        "Latitude": "47.600658",
+        "Longitude": "-117.386902"
+    },
+    {
+        "Address": "8140 North Orchard Prairie Road,undefined,WA,99217,United States",
+        "City": "Spokane",
+        "County": "Spokane County",
+        "Zip": "99217",
+        "Latitude": "47.73207",
+        "Longitude": "-117.314382"
+    },
+    {
+        "Address": "7486 Pilchuck Tree Farm Road,undefined,WA,98290,United States",
+        "City": "Snohomish",
+        "County": "Snohomish County",
+        "Zip": "98290",
+        "Latitude": "48.066868",
+        "Longitude": "-121.99599"
+    },
+    {
+        "Address": "30321 111th Court Southeast,Auburn,WA,98092,United States",
+        "City": "Auburn",
+        "County": "King County",
+        "Zip": "98092",
+        "Latitude": "47.331481",
+        "Longitude": "-122.193354"
+    },
+    {
+        "Address": "11412 Southeast 226th Street,Kent,WA,98031,United States",
+        "City": "Kent",
+        "County": "King County",
+        "Zip": "98031",
+        "Latitude": "47.399944",
+        "Longitude": "-122.188735"
+    },
+    {
+        "Address": "12510 Northeast 36th Place,Bellevue,WA,98005,United States",
+        "City": "Bellevue",
+        "County": "King County",
+        "Zip": "98005",
+        "Latitude": "47.642778",
+        "Longitude": "-122.172997"
+    },
+    {
+        "Address": "3400 International Place,DuPont,WA,98327,United States",
+        "City": "Dupont",
+        "County": "Pierce County",
+        "Zip": "98327",
+        "Latitude": "47.108708",
+        "Longitude": "-122.627245"
+    },
+    {
+        "Address": "2806 Weigel Avenue,Vancouver,WA,98660,United States",
+        "City": "Vancouver",
+        "County": "Clark County",
+        "Zip": "98660",
+        "Latitude": "45.642214",
+        "Longitude": "-122.696444"
+    },
+    {
+        "Address": "10020 Southeast 233rd Street,Kent,WA,98031,United States",
+        "City": "Kent",
+        "County": "King County",
+        "Zip": "98031",
+        "Latitude": "47.393699",
+        "Longitude": "-122.206377"
+    },
+    {
+        "Address": "1255 Weiland Street,Kent,WA,98030,United States",
+        "City": "Kent",
+        "County": "King County",
+        "Zip": "98030",
+        "Latitude": "47.381169",
+        "Longitude": "-122.217733"
+    },
+    {
+        "Address": "32171 Northeast 8th Street,undefined,WA,98014,United States",
+        "City": "Carnation",
+        "County": "King County",
+        "Zip": "98014",
+        "Latitude": "47.61516",
+        "Longitude": "-121.912035"
+    },
+    {
+        "Address": "2525 South 74th Street,Tacoma,WA,98409,United States",
+        "City": "Tacoma",
+        "County": "Pierce County",
+        "Zip": "98409",
+        "Latitude": "47.190296",
+        "Longitude": "-122.470042"
+    },
+    {
+        "Address": "20791 Green River Trail,Kent,WA,98032,United States",
+        "City": "Kent",
+        "County": "King County",
+        "Zip": "98030",
+        "Latitude": "47.354439",
+        "Longitude": "-122.209727"
+    },
+    {
+        "Address": "803 Alvord Avenue North,Kent,WA,98031,United States",
+        "City": "Kent",
+        "County": "King County",
+        "Zip": "98031",
+        "Latitude": "47.38869",
+        "Longitude": "-122.220404"
+    },
+    {
+        "Address": "10370 20th Street East,undefined,WA,98372,United States",
+        "City": "Edgewood",
+        "County": "Pierce County",
+        "Zip": "98372",
+        "Latitude": "47.238909",
+        "Longitude": "-122.291801"
+    },
+    {
+        "Address": "1404 Central Avenue South,Kent,WA,98032,United States",
+        "City": "Kent",
+        "County": "King County",
+        "Zip": "98032",
+        "Latitude": "47.366847",
+        "Longitude": "-122.229282"
+    },
+    {
+        "Address": "27052 111th Place Southeast,Kent,WA,98030,United States",
+        "City": "Kent",
+        "County": "King County",
+        "Zip": "98030",
+        "Latitude": "47.359336",
+        "Longitude": "-122.189976"
+    },
+    {
+        "Address": "3912 Cambridge Court,Kent,WA,98032,United States",
+        "City": "Kent",
+        "County": "King County",
+        "Zip": "98032",
+        "Latitude": "47.363104",
+        "Longitude": "-122.284192"
+    },
+    {
+        "Address": "710 WA Avenue North,Kent,WA,98032,United States",
+        "City": "Kent",
+        "County": "King County",
+        "Zip": "98032",
+        "Latitude": "47.391942",
+        "Longitude": "-122.257192"
+    },
+    {
+        "Address": "2640 East 44th Avenue,Spokane,WA,99223,United States",
+        "City": "Spokane",
+        "County": "Spokane County",
+        "Zip": "99223",
+        "Latitude": "47.613398",
+        "Longitude": "-117.372476"
+    },
+    {
+        "Address": "37515 8th Avenue South,Federal Way,WA,98003,United States",
+        "City": "Federal Way",
+        "County": "King County",
+        "Zip": "98003",
+        "Latitude": "47.265821",
+        "Longitude": "-122.325356"
+    },
+    {
+        "Address": "832 Marine View Drive,Tacoma,WA,98422,United States",
+        "City": "Tacoma",
+        "County": "Pierce County",
+        "Zip": "98422",
+        "Latitude": "47.266334",
+        "Longitude": "-122.361075"
+    },
+    {
+        "Address": "14239 50th Avenue East,undefined,WA,98446,United States",
+        "City": "Tacoma",
+        "County": "Pierce County",
+        "Zip": "98446",
+        "Latitude": "47.12677",
+        "Longitude": "-122.362627"
+    },
+    {
+        "Address": "3406 West 47th Avenue,undefined,WA,99224,United States",
+        "City": "Spokane",
+        "County": "Spokane County",
+        "Zip": "99224",
+        "Latitude": "47.611026",
+        "Longitude": "-117.461241"
+    },
+    {
+        "Address": "7735 North Brownsville Court,Spokane,WA,99208,United States",
+        "City": "Spokane",
+        "County": "Spokane County",
+        "Zip": "99208",
+        "Latitude": "47.728309",
+        "Longitude": "-117.400251"
+    },
+    {
+        "Address": "14801 91st Avenue Southwest,Vashon,WA,98070,United States",
+        "City": "Vashon",
+        "County": "King County",
+        "Zip": "98070",
+        "Latitude": "47.471768",
+        "Longitude": "-122.44962"
+    },
+    {
+        "Address": "374 East Valley Road,undefined,WA,98647,United States",
+        "City": "Skamokawa",
+        "County": "Wahkiakum County",
+        "Zip": "98647",
+        "Latitude": "46.28926",
+        "Longitude": "-123.435053"
+    },
+    {
+        "Address": "283 Bella Bella Drive Fox Island,Fox Island,WA,98333,United States",
+        "City": "Fox Island",
+        "County": "Pierce County",
+        "Zip": "98333",
+        "Latitude": "47.2727",
+        "Longitude": "-122.65395"
+    },
+    {
+        "Address": "21038 99th Avenue South,Kent,WA,98031,United States",
+        "City": "Kent",
+        "County": "King County",
+        "Zip": "98031",
+        "Latitude": "47.412565",
+        "Longitude": "-122.208214"
+    },
+    {
+        "Address": "26827 102nd Avenue Southeast,Kent,WA,98030,United States",
+        "City": "Kent",
+        "County": "King County",
+        "Zip": "98030",
+        "Latitude": "47.361025",
+        "Longitude": "-122.205671"
+    },
+    {
+        "Address": "23421 Military Road South,Kent,WA,98032,United States",
+        "City": "Kent",
+        "County": "King County",
+        "Zip": "98032",
+        "Latitude": "47.390082",
+        "Longitude": "-122.287094"
+    },
+    {
+        "Address": "322 197th Place Southwest,North Creek,WA,98012,United States",
+        "City": "Bothell",
+        "County": "Snohomish County",
+        "Zip": "98012",
+        "Latitude": "47.818909",
+        "Longitude": "-122.235101"
+    },
+    {
+        "Address": "5601 South Elk Ridge Lane,undefined,WA,99223,United States",
+        "City": "Spokane",
+        "County": "Spokane County",
+        "Zip": "99223",
+        "Latitude": "47.59611",
+        "Longitude": "-117.338033"
+    },
+    {
+        "Address": "22108 Southeast Sawyer Ridge Way,undefined,WA,98010,United States",
+        "City": "Black Diamond",
+        "County": "King County",
+        "Zip": "98010",
+        "Latitude": "47.319748",
+        "Longitude": "-122.048053"
+    },
+    {
+        "Address": "2975 East 65th Avenue,undefined,WA,99223,United States",
+        "City": "Spokane",
+        "County": "Spokane County",
+        "Zip": "99223",
+        "Latitude": "47.595028",
+        "Longitude": "-117.367475"
+    },
+    {
+        "Address": "Red Robin,25207 104th Avenue Southeast,Kent,WA,98030,United States",
+        "City": "Kent",
+        "County": "King County",
+        "Zip": "98030",
+        "Latitude": "47.375965",
+        "Longitude": "-122.202812"
+    },
+    {
+        "Address": "6508 South 261st Street,undefined,WA,98032,United States",
+        "City": "Kent",
+        "County": "King County",
+        "Zip": "98032",
+        "Latitude": "47.367895",
+        "Longitude": "-122.25299"
+    },
+    {
+        "Address": "2112 West Decatur Avenue,Spokane,WA,99205,United States",
+        "City": "Spokane",
+        "County": "Spokane County",
+        "Zip": "99205",
+        "Latitude": "47.714754",
+        "Longitude": "-117.442086"
+    },
+    {
+        "Address": "4119 North Lidgerwood Street,Spokane,WA,99207,United States",
+        "City": "Spokane",
+        "County": "Spokane County",
+        "Zip": "99207",
+        "Latitude": "47.695506",
+        "Longitude": "-117.406148"
+    },
+    {
+        "Address": "5986 North Smith Street,Spokane,WA,99208,United States",
+        "City": "Spokane",
+        "County": "Spokane County",
+        "Zip": "99208",
+        "Latitude": "47.712109",
+        "Longitude": "-117.371719"
+    },
+    {
+        "Address": "21045 101st Avenue Southeast,Kent,WA,98031,United States",
+        "City": "Kent",
+        "County": "King County",
+        "Zip": "98031",
+        "Latitude": "47.412793",
+        "Longitude": "-122.206212"
+    },
+    {
+        "Address": "3317 Northeast 119th Avenue,Vancouver,WA,98682,United States",
+        "City": "Vancouver",
+        "County": "Clark County",
+        "Zip": "98682",
+        "Latitude": "45.646543",
+        "Longitude": "-122.551092"
+    },
+    {
+        "Address": "10920 Lundstrom Drive Southwest,Lakewood,WA,98498,United States",
+        "City": "Lakewood",
+        "County": "Pierce County",
+        "Zip": "98498",
+        "Latitude": "47.158201",
+        "Longitude": "-122.560014"
+    },
+    {
+        "Address": "10200 Southeast 222nd Street,Kent,WA,98031,United States",
+        "City": "Kent",
+        "County": "King County",
+        "Zip": "98031",
+        "Latitude": "47.403429",
+        "Longitude": "-122.204595"
+    },
+    {
+        "Address": "32209 157th Avenue Southeast,Auburn,WA,98092,United States",
+        "City": "Auburn",
+        "County": "King County",
+        "Zip": "98092",
+        "Latitude": "47.314265",
+        "Longitude": "-122.131625"
+    },
+    {
+        "Address": "4314 South Marshall Road,Spokane,WA,99224,United States",
+        "City": "Spokane",
+        "County": "Spokane County",
+        "Zip": "99224",
+        "Latitude": "47.615122",
+        "Longitude": "-117.443646"
+    },
+    {
+        "Address": "7382 69th Avenue Southwest,Lakewood,WA,98498,United States",
+        "City": "Lakewood",
+        "County": "Pierce County",
+        "Zip": "98498",
+        "Latitude": "47.190992",
+        "Longitude": "-122.529018"
+    },
+    {
+        "Address": "335 Alder Lane,Kent,WA,98030,United States",
+        "City": "Kent",
+        "County": "King County",
+        "Zip": "98030",
+        "Latitude": "47.367797",
+        "Longitude": "-122.228247"
+    },
+    {
+        "Address": "733 Point Fosdick Drive Northwest,University Place,WA,98335,United States",
+        "City": "Gig Harbor",
+        "County": "Pierce County",
+        "Zip": "98335",
+        "Latitude": "47.264695",
+        "Longitude": "-122.591032"
+    },
+    {
+        "Address": "8589 North Hill North Dale Street,Spokane,WA,99208,United States",
+        "City": "Spokane",
+        "County": "Spokane County",
+        "Zip": "99208",
+        "Latitude": "47.780541",
+        "Longitude": "-117.455375"
+    },
+    {
+        "Address": "1619 South 226th Place,Des Moines,WA,98198,United States",
+        "City": "Des Moines",
+        "County": "King County",
+        "Zip": "98198",
+        "Latitude": "47.398597",
+        "Longitude": "-122.311127"
+    },
+    {
+        "Address": "7873 East Woodland Ridge Lane,undefined,WA,99212,United States",
+        "City": "Spokane",
+        "County": "Spokane County",
+        "Zip": "99212",
+        "Latitude": "47.710953",
+        "Longitude": "-117.299722"
+    },
+    {
+        "Address": "1683 89th Avenue Southeast,Snohomish,WA,98290,United States",
+        "City": "Snohomish",
+        "County": "Snohomish County",
+        "Zip": "98290",
+        "Latitude": "47.932066",
+        "Longitude": "-122.111888"
+    },
+    {
+        "Address": "24807 107th Avenue Southeast,Kent,WA,98030,United States",
+        "City": "Kent",
+        "County": "King County",
+        "Zip": "98030",
+        "Latitude": "47.379413",
+        "Longitude": "-122.19877"
+    }
+]
