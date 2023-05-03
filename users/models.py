@@ -18,6 +18,10 @@ class AppUser (AbstractUser):
 	zip_code = models.CharField(max_length = 16,default = "None")
 	phone_number = models.CharField(max_length = 16,default = "None")
 	image_url = models.ImageField(upload_to = user_directory_path, blank = True, null = True)
+	# for chat we need fk for the new tables.
+	chats = models.ManyToManyField('ChatModel', related_name = 'users')
+	notifications = models.ForeignKey('ChatNotification', on_delete = models.CASCADE, related_name = 'user',
+	                                  null = True)
 
 
 
