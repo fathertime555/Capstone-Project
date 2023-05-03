@@ -74,6 +74,8 @@ urlpatterns = [
     path('api/', render_react),
     path('account/', render_react),
     path('', render_react),
+
+
     # path("chat/", include("chat.urls")), # test dummy chat api
     # comment the below out to use rest api built in - for backend users testing
     #re_path(r"^/$", render_react),

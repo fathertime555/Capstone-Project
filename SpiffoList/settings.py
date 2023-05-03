@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     # packages
     'corsheaders',
     'rest_framework',
+    'django_rest_passwordreset',
     "users.apps.UsersConfig",
     # came with base django
     "django.contrib.admin",
@@ -149,6 +150,18 @@ LOGIN_REDIRECT_URL = "/users/login"
 CORS_ORIGIN_WHITELIST = [
     'http://localhost:3000'
 ]
+SITE_ID = 1
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+EMAIL_HOST = 'smtp.gmail.com' # Or your email provider's SMTP server
+EMAIL_PORT = 587 # Or your email provider's SMTP port
+EMAIL_USE_TLS = True # Or False if your email provider doesn't support TLS
+EMAIL_HOST_USER = 'your_email@example.com' # Your email address
+EMAIL_HOST_PASSWORD = 'your_email_password' # Your email password or app password
+
+
+PASSWORD_RESET_TIMEOUT = 20 * 60 # 20 minutes in seconds
 
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
