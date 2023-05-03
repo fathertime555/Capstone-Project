@@ -154,7 +154,7 @@ SITE_ID = 1
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
-EMAIL_HOST = 'smtp.gmail.com' # Or your email provider's SMTP server
+EMAIL_HOST = 'smtp.emaildomain.com' # Or your email provider's SMTP server
 EMAIL_PORT = 587 # Or your email provider's SMTP port
 EMAIL_USE_TLS = True # Or False if your email provider doesn't support TLS
 EMAIL_HOST_USER = 'your_email@example.com' # Your email address
