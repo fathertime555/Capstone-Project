@@ -8,6 +8,7 @@ from django.views.decorators.csrf import ensure_csrf_cookie, csrf_protect
 from django.utils.decorators import method_decorator
 import requests
 from django.conf import settings
+from SpiffoList.axios import Axios_response
 
 
 @method_decorator(ensure_csrf_cookie, name='dispatch')
@@ -24,8 +25,7 @@ class SpecificListing(generics.GenericAPIView):
         results_list = list(queryset_b)
         results_list.insert(0, queryset_a)
 
-        results = {}
-        data = {}
+        daeta = {}
         item_results = list()
         listing_result = list()
         for entry in results_list:
@@ -38,16 +38,11 @@ class SpecificListing(generics.GenericAPIView):
                 item_results.append(serializer.data)
         
         if not listing_result:
-            results["result"] = "error"
-            results["data"] = ""
-            results["message"] = "No listing returned"
+            return Response(Axios_response.Failed("No listing returned"))
         else:
-            results["result"] = "pass"
-            data["listing details"] = listing_result
-            data["listing items"] = item_results
-            results["data"] = data
-            results["message"] = ""
-        return Response(results)
+            daeta["listing details"] = listing_result
+            daeta["listing items"] = item_results
+            return Axios_response.ResponseSuccess(data = daeta, dataname = "Listing",message='')
 
 
 @method_decorator(ensure_csrf_cookie, name='dispatch')
@@ -58,18 +53,12 @@ class ListingCreation(generics.GenericAPIView, mixins.CreateModelMixin):
     serializer_class = ListingSerializerGet
 
     def post(self, request, *args, **kwargs):
-        results = {}
         reqdata = request.data
         serializer = self.serializer_class(Item.objects.all(), data=reqdata, partial = True)
         if serializer.is_valid():
-            results["result"] = "pass"
-            results["data"] = self.create(request, *args, **kwargs).data
-            results["message"] = ""
+            return Axios_response.ResponseSuccess(data = self.create(request, *args, **kwargs).data, dataname = "Listing",message='Listing Created')
         else:
-            results["result"] = "error"
-            results["data"] = ""
-            results["message"] = "Data not in valid form"
-        return Response(results)
+            return Response(Axios_response.Failed("Data is not in valid form"))
 
     def perform_create(self, serializer):
         result = requests.get('https://maps.googleapis.com/maps/api/geocode/json?', params={
@@ -91,22 +80,15 @@ class ListListings(generics.GenericAPIView, mixins.ListModelMixin):
     serializer_class = ListingSerializerPost
 
     def get(self, request, *args, **kwargs):
-        results = {}
         if AppUser.objects.filter(pk=self.kwargs['owner']).exists():
             queryset_a = Listing.objects.filter(owner=self.kwargs['owner'])
             results_list = list(queryset_a)
             result = list()
             for entry in results_list:
                 result.append(ListingSerializerPost(entry).data)
-            results["result"] = "pass"
-            results["data"] = result
-            results["message"] = ""
+            return Axios_response.ResponseSuccess(data = result, dataname = "Listings",message='All Listings')
         else:
-            results["result"] = "error"
-            results["data"] = ""
-            results["message"] = "User does not exist"
-        return Response(results)
-    
+            return Response(Axios_response.Failed("User does not exist"))    
 
 @method_decorator(ensure_csrf_cookie, name='dispatch')
 @method_decorator(csrf_protect, name='dispatch')
@@ -117,33 +99,19 @@ class ListingDelete(generics.GenericAPIView, mixins.DestroyModelMixin, mixins.Re
     serializer_class = ListingSerializerPost
 
     def get(self, request, *args, **kwargs):
-        results = {}
         if self.request.user.pk == Listing.objects.get(pk=self.kwargs['pk']).owner:
-            results["result"] = "pass"
-            results["data"] = self.retrieve(request, *args, **kwargs).data
-            results["message"] = ""
+            return Axios_response.ResponseSuccess(data = self.retrieve(request, *args, **kwargs).data, dataname = "Listing",message='Listing Found')
         else:
-            results["result"] = "error"
-            results["data"] = ""
-            results["message"] = "No listing returned"
-        return Response(results)
+            return Response(Axios_response.Failed("No listing returned")) 
 
     def delete(self, request, *args, **kwargs):
-        results = {}
         if self.request.user.pk == Listing.objects.get(pk=self.kwargs['pk']).owner:
             if self.destroy(request, *args, **kwargs).status_code == 204:
-                results["result"] = "pass"
-                results["data"] = ""
-                results["message"] = ""
+                return Axios_response.ResponseSuccess(message='Listing Deleted')
             else:
-                results["result"] = "error"
-                results["data"] = ""
-                results["message"] = "Listing was not successfully deleted"
+                return Response(Axios_response.Failed("Listing was not successfully deleted"))
         else:
-            results["result"] = "error"
-            results["data"] = ""
-            results["message"] = "Not logged in to the correct account"
-        return Response(results)
+            return Response(Axios_response.Failed("Not logged in to the correct account"))
 
 @method_decorator(ensure_csrf_cookie, name='dispatch')
 @method_decorator(csrf_protect, name='dispatch')
@@ -155,36 +123,22 @@ class ListingUpdate(generics.GenericAPIView, mixins.UpdateModelMixin, mixins.Ret
     parser_classes = (MultiPartParser, FormParser)
 
     def get(self, request, *args, **kwargs):
-        results = {}
         if self.request.user.pk == Listing.objects.get(pk=self.kwargs['pk']).owner:
-            results["result"] = "pass"
-            results["data"] = self.retrieve(request, *args, **kwargs).data
-            results["message"] = ""
+            return Axios_response.ResponseSuccess(data = self.retrieve(request, *args, **kwargs).data, dataname = "Listing",message='Listing Found')
         else:
-            results["result"] = "error"
-            results["data"] = ""
-            results["message"] = "No listing returned"
-        return Response(results)
+            return Response(Axios_response.Failed("No listing returned"))
 
     def post(self, request, *args, **kwargs):
-        results = {}
         listing = Listing.objects.get(pk=self.kwargs['pk'])
         if self.request.user.pk == listing.owner:
             reqdata = request.data
             serializer = self.serializer_class(listing, data=reqdata, partial=True)
             if serializer.is_valid():
-                results["result"] = "pass"
-                results["data"] = self.update(request, *args, **kwargs).data
-                results["message"]= ""
+                return Axios_response.ResponseSuccess(data = self.update(request, *args, **kwargs).data, dataname = "Listing",message='Listing Updated')
             else:
-                results["result"]  = "error"
-                results["data"] = ""
-                results["message"] = "Data not in a valid form"
+                return Response(Axios_response.Failed("Data not in a valid form"))
         else:
-            results["result"]  = "error"
-            results["data"] = ""
-            results["message"] = "Not logged into the correct account"
-        return Response(results)
+            return Response(Axios_response.Failed("Not logged into the correct account"))
     
     def perform_update(self, serializer):
         result = requests.get('https://maps.googleapis.com/maps/api/geocode/json?', params={
@@ -205,24 +159,16 @@ class ItemCreation(generics.GenericAPIView, mixins.CreateModelMixin):
     serializer_class = ItemSerializerGet
 
     def post(self, request, *args, **kwargs):
-        results = {}
         if Listing.objects.filter(pk=self.kwargs['pk']).exists():
             if self.request.user.pk == Listing.objects.get(pk=self.kwargs['pk']).owner:
                 reqdata = request.data
                 serializer = self.serializer_class(Item.objects.all(), data=reqdata, partial=True)
                 serializer.is_valid(raise_exception=True)
-                results["result"] = "pass"
-                results["data"] = self.create(request, *args, **kwargs).data
-                results["message"] = ""
+                return Axios_response.ResponseSuccess(data = self.create(request, *args, **kwargs).data, dataname = "Item",message='Item created')
             else: 
-                results["result"] = "error"
-                results["data"] = ""
-                results["message"] = "Not logged in to the correct account"
+                return Response(Axios_response.Failed("Not logged into the correct account"))
         else:
-            results["result"] = "error"
-            results["data"] = ""
-            results["message"] = "Listing does not exist"
-        return Response(results)
+            return Response(Axios_response.Failed("Listing does not exist"))
 
     def perform_create(self, serializer):
         serializer.save(listing=self.kwargs['pk'], owner=Listing.objects.get(pk=self.kwargs['pk']).owner, zip_code=Listing.objects.get(pk=self.kwargs['pk']).zip_code, lat=Listing.objects.get(
@@ -239,43 +185,25 @@ class ItemDelete(generics.GenericAPIView, mixins.DestroyModelMixin, mixins.Retri
     serializer_class = ItemSerializerPost
 
     def get(self, request, *args, **kwargs):
-        results = {}
         if self.request.user.pk == Listing.objects.get(pk=self.kwargs['listpk']).owner:
             if Item.objects.get(pk=self.kwargs['itempk']).listing == self.kwargs['listpk']:
-                results["result"] = "pass"
-                results["data"] = self.retrieve(request, *args, **kwargs).data
-                results["message"] = ""
+                return Axios_response.ResponseSuccess(data = self.retrieve(request, *args, **kwargs).data, dataname = "Item",message='Item Found')
             else:
-                results["result"] = "error"
-                results["data"] = ""
-                results["message"] = "Listing does not contain given item"
+                return Response(Axios_response.Failed("Listing does not contain given item"))
         else:               
-            results["result"] = "error"
-            results["data"] = ""
-            results["message"] = "Not logged in to the correct account"
-        return Response(results)
+            return Response(Axios_response.Failed("Not logged into the correct account"))
 
     def delete(self, request, *args, **kwargs):
-        results = {}
         if self.request.user.pk == Listing.objects.get(pk=self.kwargs['listpk']).owner:
             if Item.objects.get(pk=self.kwargs['itempk']).listing == self.kwargs['listpk']:
                 if self.destroy(request, *args, **kwargs).status_code == 204:
-                    results["result"] = "pass"
-                    results["data"] = ""
-                    results["message"] = ""
+                    return Axios_response.ResponseSuccess(message='Item Deleted')
                 else:
-                    results["result"] = "error"
-                    results["data"] = ""
-                    results["message"] = "Item not deleted successfully"
+                    return Response(Axios_response.Failed("Item not deleted successfully"))
             else:
-                results["result"] = "error"
-                results["data"] = ""
-                results["message"] = "Listing does not contain given item"
+                return Response(Axios_response.Failed("Listing does not contain given item"))
         else:
-            results["result"] = "error"
-            results["data"] = ""
-            results["message"] = "Not logged in to the correct account"
-        return Response(results)
+            return Response(Axios_response.Failed("Not logged into the correct account"))
 
 
 @method_decorator(ensure_csrf_cookie, name='dispatch')
@@ -289,41 +217,25 @@ class ItemUpdate(generics.GenericAPIView, mixins.UpdateModelMixin, mixins.Retrie
     parser_classes = (MultiPartParser, FormParser)
 
     def get(self, request, *args, **kwargs):
-        results = {}
         if self.request.user.pk == Listing.objects.get(pk=self.kwargs['listpk']).owner:
             if Item.objects.get(pk=self.kwargs['itempk']).listing == self.kwargs['listpk']:
-                results["result"] = "pass"
-                results["data"] = self.retrieve(request, *args, **kwargs).data
-                results["message"] = ""
+                return Axios_response.ResponseSuccess(data = self.retrieve(request, *args, **kwargs).data, dataname = "Item",message='Item Found')
             else:
-                results["result"] = "error"
-                results["data"] = ""
-                results["message"] = "Listing does not contain given item"
+                return Response(Axios_response.Failed("Listing does not contain given item"))
         else:
-            results["result"] = "error"
-            results["data"] = ""
-            results["message"] = "Not logged in to the correct account" 
-        return Response(results)
+            return Response(Axios_response.Failed("Not logged into the correct account"))
 
     def post(self, request, *args, **kwargs):
-        results = {}
         item=Item.objects.get(pk=self.kwargs['listpk'])
         if self.request.user.pk == item.owner:
             reqdata = request.data
             serializer = self.serializer_class(item, data=reqdata, partial=True)
             if serializer.is_valid():
-                results["result"] = "pass"
-                results["data"] = self.update(request, *args, **kwargs).data
-                results["message"]= ""
+                return Axios_response.ResponseSuccess(data = self.update(request, *args, **kwargs).data, dataname = "Item",message='Item Updated')
             else:
-                results["result"]  = "error"
-                results["data"] = ""
-                results["message"] = "Data not in a valid form"
+                return Response(Axios_response.Failed("Data not in valid form"))
         else:
-            results["result"] = "error"
-            results["data"] = ""
-            results["message"] = "Not logged in to the correct account"
-        return Response(results)
+            return Response(Axios_response.Failed("Not logged into the correct account"))
     
     def perform_update(self, serializer):
         serializer.save(listing=self.kwargs['pk'], owner=Listing.objects.get(pk=self.kwargs['pk']).owner, zip_code=Listing.objects.get(pk=self.kwargs['pk']).zip_code, lat=Listing.objects.get(
@@ -342,14 +254,9 @@ class SpecificItem(generics.GenericAPIView, mixins.RetrieveModelMixin):
     def get(self, request, *args, **kwargs):
         results = {}
         if Item.objects.get(pk=request.data.get('itemPK')).listing == request.data.get('listingsPK'):
-            results["result"] = "pass"
-            results["data"] = self.retrieve(request, *args, **kwargs).data
-            results["message"] = ""
+            return Axios_response.ResponseSuccess(data = self.retrieve(request, *args, **kwargs).data, dataname = "Item",message='Item Found')
         else:
-            results["result"] = "error"
-            results["data"] = ""
-            results["message"] = "Listing does not contain given item"
-        return Response(results)
+            return Response(Axios_response.Failed("Listing does not contain given item"))
 
 # Need to add in caveats for if keys entered into url exist
 # Need to add on cascade delete
