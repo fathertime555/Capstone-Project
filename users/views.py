@@ -20,11 +20,11 @@ class CheckAuthenticatedView(APIView):
             isAuthenticated = user.is_authenticated
 
             if isAuthenticated:
-                return Response({'isAuthenticated': 'success'})
+                return Axios_response.ResponseSuccess(message="Sucessfully Authenticated")
             else:
-                return Response({'isAuthenticated': 'error'})
+                return Response(Axios_response.Failed('Not authenticated'))
         except:
-            return Response({'error': 'Something went wrong when checking authentication status'})
+            return Response(Axios_response.Failed('Something went wrong when checking authentication status'))
 
 
 @method_decorator(ensure_csrf_cookie, name='dispatch')
@@ -39,13 +39,13 @@ class UserSearch(viewsets.ViewSet, mixins.ListModelMixin, mixins.RetrieveModelMi
         #user_data = get_object_or_404(queryset)
         serializer = MainUserSerializer()
         users = queryset.values_list('username', flat=True)
-        return Response(users)
+        return Axios_response.ResponseSuccess(data = users, dataname = "User", message='User Data')
 
     def retrieve(self, request, username=None):
         queryset = AppUser.objects.filter(username=username)
         user = queryset.values_list("id", flat=True)
         #serializer = MainUserSerializer(user)
-        return Response(user)
+        return Axios_response.ResponseSuccess(data = user, dataname = "User", message='User Found')
 
 
 @method_decorator(ensure_csrf_cookie, name='dispatch')
@@ -63,10 +63,10 @@ class UserViewSet(viewsets.ViewSet, mixins.ListModelMixin, mixins.UpdateModelMix
             if isAuthenticated:
                 User.objects.filter(id=user.id).delete()
             else:
-                return Response({'isAuthenticated': 'error'})
-            return Response({'success': 'User deleted successfully'})
+                return Response(Axios_response.Failed('isAuthenticated: error'))
+            return Axios_response.ResponseSuccess(message='User deleted successfully')
         except:
-            return Response({'error': 'Something went wrong when trying to delete user'})
+            return Response(Axios_response.Failed('Something went wrong when trying to delete user'))
 
     # pk is what is passed into the url
     def retrieve(self, request, pk=None):
@@ -75,7 +75,7 @@ class UserViewSet(viewsets.ViewSet, mixins.ListModelMixin, mixins.UpdateModelMix
             if int(user.id) != int(pk):
                 print("PK = ", pk)
                 print("User ID = ", user.id)
-                return Response({"incorrect id"})
+                return Response(Axios_response.Failed('incorrect id'))
 
             isAuthenticated = user.is_authenticated
 
@@ -83,11 +83,11 @@ class UserViewSet(viewsets.ViewSet, mixins.ListModelMixin, mixins.UpdateModelMix
                 queryset = AppUser.objects.filter(id=user.id)
                 user_data = get_object_or_404(queryset, pk=user.id)
                 serializer = MainUserSerializer(user_data)
-                return Response(serializer.data)
+                return Axios_response.ResponseSuccess(data = serializer.data, dataname = "User", message='User Found')
             else:
-                return Response({'isAuthenticated': 'error'})
+                return Response(Axios_response.Failed('Not Authenticated'))
         except:
-            return Response({'error': 'Something went wrong when checking authentication status'})
+            return Response(Axios_response.Failed('Something went wrong when checking authentication status'))
 
     def update(self, request, *args, **kwargs):
         # queryset = AppUser.objects.all()
@@ -103,8 +103,8 @@ class UserViewSet(viewsets.ViewSet, mixins.ListModelMixin, mixins.UpdateModelMix
                 request.user, data=request.data, partial=True)
             serializer.is_valid(raise_exception=True)
             serializer.save()
-            return Response(serializer.data, status=status.HTTP_200_OK)
-        return Response({'profile not updated'})
+            return Axios_response.ResponseSuccess(data = serializer.data, dataname = "User", message='User Updated')
+        return Response(Axios_response.Failed('Profile not updated'))
 
 
 @method_decorator(ensure_csrf_cookie, name='dispatch')
@@ -165,17 +165,17 @@ class UserRegistration(viewsets.ViewSet, generics.GenericAPIView):
         try:
             if password == re_password:
                 if AppUser.objects.filter(username=username).exists():
-                    return Response({'error': 'Username already exists'})
+                    return Response(Axios_response.Failed('Username already exists'))
                 else:
                     if len(password) < 6:
-                        return Response({'error': 'Password must be at least 6 characters'})
+                        return Response(Axios_response.Failed('Password must be at least 6 characters'))
                     else:
                         user = AppUser.objects.create_user(
                             username=username, password=password)
                         serializer = MainUserSerializer(
                             AppUser.objects.get(id=user.id))
-                        return Response(serializer.data)
+                        return Axios_response.ResponseSuccess(data = serializer.data, dataname = "User", message='Registration Success')
             else:
-                return Response({'error': 'Passwords do not match'})
+                return Response(Axios_response.Failed('Passwords do not match'))
         except:
-            return Response({'error': 'Something went wrong when registering account'})
+            return Response(Axios_response.Failed('Something went wrong with registering account'))

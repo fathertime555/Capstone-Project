@@ -18,7 +18,8 @@ class AppUser (AbstractUser):
 	zip_code = models.CharField(max_length = 16,default = "None")
 	phone_number = models.CharField(max_length = 16,default = "None")
 	image_url = models.ImageField(upload_to = user_directory_path, blank = True, null = True)
-
+	favorite_listings = models.CharField(max_length=10000, default = "None")
+	favorite_items = models.CharField(max_length=10000, default = "None")
 
 
 
