@@ -1,5 +1,6 @@
 from django.contrib.auth.models import User
 from .models import AppUser
+from listings.models import Listing, Item
 from django.shortcuts import get_object_or_404
 from rest_framework.views import APIView
 from rest_framework import permissions, status, viewsets, mixins, generics
@@ -9,6 +10,7 @@ from .serializers import MainUserSerializer, UserRegistrationSerializer, LoginSe
 from django.views.decorators.csrf import ensure_csrf_cookie, csrf_protect
 from django.utils.decorators import method_decorator
 from rest_framework import permissions
+import json
 from rest_framework.parsers import MultiPartParser, FormParser
 from SpiffoList.axios import Axios_response
 
@@ -179,3 +181,64 @@ class UserRegistration(viewsets.ViewSet, generics.GenericAPIView):
                 return Response(Axios_response.Failed('Passwords do not match'))
         except:
             return Response(Axios_response.Failed('Something went wrong with registering account'))
+        
+@method_decorator(ensure_csrf_cookie, name='dispatch')
+@method_decorator(csrf_protect, name='dispatch')
+class AddFavoriteListing(generics.GenericAPIView):
+    permission_classes = (permissions.IsAuthenticated,)
+    parser_classes = (MultiPartParser, FormParser)
+    
+    def post(self, request, *args, **kwargs):
+        toFavorite = request.data['pk']
+        if Listing.objects.filter(pk=self.kwargs['pk']).exists():
+            favorites = json.loads(self.request.user.favorite_listings)
+            favorites.append(toFavorite)
+            toSave = json.dumps(favorites)
+            self.request.user.update(favorite_listings = toSave)
+            return Axios_response.ResponseSuccess(data = favorites, dataname = "Favorites",message='Favorite Added')
+        else:
+            return Response(Axios_response.Failed("Given listing does not exist"))
+
+@method_decorator(ensure_csrf_cookie, name='dispatch')
+@method_decorator(csrf_protect, name='dispatch')
+class AddFavoriteItem(generics.GenericAPIView):
+    permission_classes = (permissions.IsAuthenticated,)
+    parser_classes = (MultiPartParser, FormParser)
+    
+    def post(self, request, *args, **kwargs):
+        toFavorite = request.data['pk']
+        if Item.objects.filter(pk=self.kwargs['pk']).exists():
+            favorites = json.loads(self.request.user.favorite_items)
+            favorites.append(toFavorite)
+            toSave = json.dumps(favorites)
+            self.request.user.update(favorite_items = favorites)
+            return Axios_response.ResponseSuccess(data = favorites, dataname = "Favorites",message='Favorite Added')
+        else:
+            return Response(Axios_response.Failed("Given listing does not exist"))
+
+@method_decorator(ensure_csrf_cookie, name='dispatch')
+@method_decorator(csrf_protect, name='dispatch')
+class ListFavoriteListings(generics.GenericAPIView, mixins.ListModelMixin):
+    permission_classes = (permissions.IsAuthenticated,)
+
+    def get(self, request, *args, **kwargs):
+        results = list()
+        favorites = json.loads(self.request.user.favorite_listings)
+        for i in favorites:
+            results.append(Listing.objects.filter(pk=i))
+        return Axios_response.ResponseSuccess(data = results, dataname = "Favorites",message='Favorite Listings')
+            
+@method_decorator(ensure_csrf_cookie, name='dispatch')
+@method_decorator(csrf_protect, name='dispatch')
+class ListFavoriteItems(generics.GenericAPIView, mixins.ListModelMixin):
+    permission_classes = (permissions.IsAuthenticated,)
+
+    def get(self, request, *args, **kwargs):
+        results = list()
+        favorites = json.loads(self.request.user.favorite_items)
+        for i in favorites:
+            results.append(Item.objects.filter(pk=i))
+        return Axios_response.ResponseSuccess(data = results, dataname = "Favorites",message='Favorite Listings')
+            
+
+
