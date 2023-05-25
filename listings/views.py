@@ -31,10 +31,10 @@ class SpecificListing(generics.GenericAPIView):
         for entry in results_list:
             item_type = entry.__class__.__name__.lower()
             if isinstance(entry, Listing):
-                serializer = ListingSerializerPost(entry)
+                serializer = ListingSerializerGet(entry)
                 listing_result.append(serializer.data)
             if isinstance(entry, Item):
-                serializer = ItemSerializerPost(entry)
+                serializer = ItemSerializerGet(entry)
                 item_results.append(serializer.data)
         
         if not listing_result:
@@ -50,7 +50,7 @@ class SpecificListing(generics.GenericAPIView):
 class ListingCreation(generics.GenericAPIView, mixins.CreateModelMixin):
     permission_classes = (permissions.IsAuthenticated, )
     queryset = Listing.objects.all()
-    serializer_class = ListingSerializerGet
+    serializer_class = ListingSerializerPost
 
     def post(self, request, *args, **kwargs):
         reqdata = request.data
@@ -85,7 +85,7 @@ class ListListings(generics.GenericAPIView, mixins.ListModelMixin):
             results_list = list(queryset_a)
             result = list()
             for entry in results_list:
-                result.append(ListingSerializerPost(entry).data)
+                result.append(ListingSerializerGet(entry).data)
             return Axios_response.ResponseSuccess(data = result, dataname = "Listings",message='All Listings')
         else:
             return Response(Axios_response.Failed("User does not exist"))    
@@ -96,7 +96,7 @@ class ListingDelete(generics.GenericAPIView, mixins.DestroyModelMixin, mixins.Re
     permission_classes = (permissions.IsAuthenticated, )
     queryset = Listing.objects.all()
     lookup_field = 'pk'
-    serializer_class = ListingSerializerPost
+    serializer_class = ListingSerializerGet
 
     def get(self, request, *args, **kwargs):
         if self.request.user.pk == Listing.objects.get(pk=self.kwargs['pk']).owner:
@@ -119,7 +119,7 @@ class ListingUpdate(generics.GenericAPIView, mixins.UpdateModelMixin, mixins.Ret
     permission_classes = (permissions.IsAuthenticated,)
     queryset = Listing.objects.all()
     lookup_field = 'pk'
-    serializer_class = ListingSerializerGet
+    serializer_class = ListingSerializerPost
     parser_classes = (MultiPartParser, FormParser)
 
     def get(self, request, *args, **kwargs):
@@ -156,7 +156,7 @@ class ListingUpdate(generics.GenericAPIView, mixins.UpdateModelMixin, mixins.Ret
 class ItemCreation(generics.GenericAPIView, mixins.CreateModelMixin):
     permission_classes = (permissions.IsAuthenticated, )
     queryset = Item.objects.all()
-    serializer_class = ItemSerializerGet
+    serializer_class = ItemSerializerPost
 
     def post(self, request, *args, **kwargs):
         if Listing.objects.filter(pk=self.kwargs['pk']).exists():
@@ -182,7 +182,7 @@ class ItemDelete(generics.GenericAPIView, mixins.DestroyModelMixin, mixins.Retri
     queryset = Item.objects.all()
     lookup_field = 'pk'
     lookup_url_kwarg = 'itempk'
-    serializer_class = ItemSerializerPost
+    serializer_class = ItemSerializerGet
 
     def get(self, request, *args, **kwargs):
         if self.request.user.pk == Listing.objects.get(pk=self.kwargs['listpk']).owner:
@@ -213,7 +213,7 @@ class ItemUpdate(generics.GenericAPIView, mixins.UpdateModelMixin, mixins.Retrie
     queryset = Item.objects.all()
     lookup_field = 'pk'
     lookup_url_kwarg = 'itempk'
-    serializer_class = ItemSerializerGet
+    serializer_class = ItemSerializerPost
     parser_classes = (MultiPartParser, FormParser)
 
     def get(self, request, *args, **kwargs):
@@ -249,7 +249,7 @@ class SpecificItem(generics.GenericAPIView, mixins.RetrieveModelMixin):
     queryset = Item.objects.all()
     lookup_field = 'pk'
     lookup_url_kwarg = 'itempk'
-    serializer_class = ItemSerializerPost
+    serializer_class = ItemSerializerGet
 
     def get(self, request, *args, **kwargs):
         results = {}
