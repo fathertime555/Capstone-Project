@@ -226,7 +226,7 @@ class ItemUpdate(generics.GenericAPIView, mixins.UpdateModelMixin, mixins.Retrie
             return Response(Axios_response.Failed("Not logged into the correct account"))
 
     def post(self, request, *args, **kwargs):
-        item=Item.objects.get(pk=self.kwargs['listpk'])
+        item=Item.objects.get(pk=self.kwargs['itempk'])
         if self.request.user.pk == item.owner:
             reqdata = request.data
             serializer = self.serializer_class(item, data=reqdata, partial=True)
@@ -238,8 +238,8 @@ class ItemUpdate(generics.GenericAPIView, mixins.UpdateModelMixin, mixins.Retrie
             return Response(Axios_response.Failed("Not logged into the correct account"))
     
     def perform_update(self, serializer):
-        serializer.save(listing=self.kwargs['pk'], owner=Listing.objects.get(pk=self.kwargs['pk']).owner, zip_code=Listing.objects.get(pk=self.kwargs['pk']).zip_code, lat=Listing.objects.get(
-            pk=self.kwargs['pk']).lat, lng=Listing.objects.get(pk=self.kwargs['pk']).lng, start_time=Listing.objects.get(pk=self.kwargs['pk']).start_time, end_time=Listing.objects.get(pk=self.kwargs['pk']).end_time)
+        serializer.save(listing=self.kwargs['listpk'], owner=Listing.objects.get(pk=self.kwargs['listpk']).owner, zip_code=Listing.objects.get(pk=self.kwargs['listpk']).zip_code, lat=Listing.objects.get(
+            pk=self.kwargs['listpk']).lat, lng=Listing.objects.get(pk=self.kwargs['listpk']).lng, start_time=Listing.objects.get(pk=self.kwargs['listpk']).start_time, end_time=Listing.objects.get(pk=self.kwargs['listpk']).end_time)
 
 
 @method_decorator(ensure_csrf_cookie, name='dispatch')
