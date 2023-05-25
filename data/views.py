@@ -89,7 +89,7 @@ class SortListings(generics.GenericAPIView, mixins.ListModelMixin):
             for entry in results_list:
                 results.append(ListingSerializerPost(entry).data)
 
-        if (request.query_params["Location"] != ""):
+        if (request.data["Location"] != ""):
             userLat = request.data["Location"]["Lat"]
             userLong = request.data["Location"]["Lng"]
             origin = f'{userLat}, {userLong}'
