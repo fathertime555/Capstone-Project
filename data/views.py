@@ -83,19 +83,19 @@ class SortListings(generics.GenericAPIView, mixins.ListModelMixin):
 
     def get(self, request, *args, **kwargs):
         results = list()
-        if (request.query_params["Theme"] != ""):
-            queryset_a = Listing.objects.filter(theme__icontains=request.query_params["Theme"])
+        if (request.data["Theme"] != ""):
+            queryset_a = Listing.objects.filter(theme__icontains=request.data["Theme"])
             results_list = list(queryset_a)
             for entry in results_list:
                 results.append(ListingSerializerPost(entry).data)
 
         if (request.query_params["Location"] != ""):
-            userLat = request.query_params["Location"]["Lat"]
-            userLong = request.query_params["Location"]["Lng"]
+            userLat = request.data["Location"]["Lat"]
+            userLong = request.data["Location"]["Lng"]
             origin = f'{userLat}, {userLong}'
             toSearch = list()
             if not results:
-                queryset_a = Listing.objects.filter(zip_code=request.query_params["Location"]["Zip Code"])
+                queryset_a = Listing.objects.filter(zip_code=request.data["Location"]["Zip Code"])
                 toSearch = list(queryset_a)
             else:
                 toSearch = results
@@ -118,7 +118,7 @@ class SortListings(generics.GenericAPIView, mixins.ListModelMixin):
                 x = key.split(", ")
                 results.append(ListingSerializerPost(Listing.objects.get(lat=x[0], lng=x[1])).data)
         
-        if (request.query_params["Date"] != ""):
+        if (request.data["Date"] != ""):
             results_list = list()
             if not results:
                 results_list = list(Listing.objects.order_by("end_time"))
@@ -141,32 +141,32 @@ class SortItems(generics.GenericAPIView, mixins.ListModelMixin):
     def get(self, request, *args, **kwargs):
         results = list()
 
-        if(request.query_params["Tag"] != ""):
-            queryset = Item.objects.filter(tags__icontains=request.query_params["Tag"])
+        if(request.data["Tag"] != ""):
+            queryset = Item.objects.filter(tags__icontains=request.data["Tag"])
             results_list = list(queryset)
             for entry in results_list:
                 results.append(ItemSerializerPost(entry).data)
 
-        if(request.query_params["Listing"] != ""):
+        if(request.data["Listing"] != ""):
             queryset = list()
             if not results:
-                queryset = Item.objects.filter(listing=request.query_params["Listing"])
+                queryset = Item.objects.filter(listing=request.data["Listing"])
             else:
                 for entry in results:
-                    if entry.listing == request.query_params["Listing"]:
+                    if entry.listing == request.data["Listing"]:
                         queryset.append(entry)
             results_list = list(queryset)
             results.clear()
             for entry in results_list:
                 results.append(ItemSerializerPost(entry).data)
 
-        if (request.query_params["Location"] != ""):
-            userLat = request.query_params["Location"]["Lat"]
-            userLong = request.query_params["Location"]["Lng"]
+        if (request.data["Location"] != ""):
+            userLat = request.data["Location"]["Lat"]
+            userLong = request.data["Location"]["Lng"]
             origin = f'{userLat}, {userLong}'
             toSearch = list()
             if not results:
-                queryset_a = Item.objects.filter(zip_code=request.query_params["Location"]["Zip Code"])
+                queryset_a = Item.objects.filter(zip_code=request.data["Location"]["Zip Code"])
                 toSearch = list(queryset_a)
             else:
                 toSearch = results
@@ -189,7 +189,7 @@ class SortItems(generics.GenericAPIView, mixins.ListModelMixin):
                 x = key.split(", ")
                 results.append(ItemSerializerPost(Item.objects.get(lat=x[0], lng=x[1])).data)
 
-        if (request.query_params["Date"] != ""):
+        if (request.data["Date"] != ""):
             results_list = list()
             if not results:
                 results_list = list(Item.objects.order_by("end_time"))
