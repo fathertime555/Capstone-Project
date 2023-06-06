@@ -1,12 +1,13 @@
 from django.contrib.auth.models import User
-from .models import AppUser, FavoriteItems, FavoriteListings
-from listings.models import Listing, Item
+from .models import AppUser
+from listings.models import Listing, Item, FavoriteItems, FavoriteListings
 from django.shortcuts import get_object_or_404
 from rest_framework.views import APIView
 from rest_framework import permissions, status, viewsets, mixins, generics
 from django.contrib import auth
 from rest_framework.response import Response
-from .serializers import MainUserSerializer, UserRegistrationSerializer, LoginSerializer, FavoriteItemSerializer, FavoriteListSerializer
+from .serializers import MainUserSerializer, UserRegistrationSerializer, LoginSerializer
+from listings.serializers import FavoriteItemSerializer, FavoriteListSerializer
 from django.views.decorators.csrf import ensure_csrf_cookie, csrf_protect
 from django.utils.decorators import method_decorator
 from rest_framework import permissions

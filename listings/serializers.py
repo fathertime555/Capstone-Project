@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from listings.models import Listing, Item
+from listings.models import Listing, Item, FavoriteListings, FavoriteItems
 
 
 class ListingSerializerPost(serializers.ModelSerializer):
@@ -38,4 +38,20 @@ class ItemSerializerGet(serializers.ModelSerializer):
             'quantity', 
             'price',
             'tags'
+        ]
+
+class FavoriteListSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = FavoriteListings
+        fields = [
+            "user",
+            "listing"
+        ]
+
+class FavoriteItemSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = FavoriteItems
+        fields = [
+            "user",
+            "item"
         ]
