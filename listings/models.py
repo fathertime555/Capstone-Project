@@ -39,3 +39,11 @@ class Item(models.Model):
     lng = models.CharField(max_length=20, default="0")
     start_time = models.DateTimeField(default=datetime.date.today)
     end_time = models.DateTimeField(default=datetime.date.today)
+
+class FavoriteListings (models.Model):
+	user = models.ForeignKey("users.AppUser", on_delete=models.CASCADE)
+	listing = models.ForeignKey("Listing", on_delete=models.CASCADE)
+
+class FavoriteItems (models.Model):
+	user = models.ForeignKey("users.AppUser", on_delete=models.CASCADE)
+	item = models.ForeignKey("Item", on_delete=models.CASCADE)
