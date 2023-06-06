@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
+from listings.models import Listing, Item
 
 
 def user_directory_path (instance, filename):
@@ -18,8 +19,16 @@ class AppUser (AbstractUser):
 	zip_code = models.CharField(max_length = 16,default = "None")
 	phone_number = models.CharField(max_length = 16,default = "None")
 	image_url = models.ImageField(upload_to = user_directory_path, blank = True, null = True)
-	favorite_listings = models.CharField(max_length=10000, default = "None")
-	favorite_items = models.CharField(max_length=10000, default = "None")
+
+class FavoriteListings (models.Model):
+
+	user = models.ForeignKey("AppUser", on_delete=models.CASCADE)
+	listing = models.ForeignKey("Listing", on_delete=models.CASCADE)
+
+class FavoriteItems (models.Model):
+
+	user = models.ForeignKey("AppUser", on_delete=models.CASCADE)
+	item = models.ForeignKey("Item", on_delete=models.CASCADE)
 
 
 

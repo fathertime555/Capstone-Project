@@ -1,12 +1,12 @@
 from django.contrib.auth.models import User
-from .models import AppUser
+from .models import AppUser, FavoriteItems, FavoriteListings
 from listings.models import Listing, Item
 from django.shortcuts import get_object_or_404
 from rest_framework.views import APIView
 from rest_framework import permissions, status, viewsets, mixins, generics
 from django.contrib import auth
 from rest_framework.response import Response
-from .serializers import MainUserSerializer, UserRegistrationSerializer, LoginSerializer
+from .serializers import MainUserSerializer, UserRegistrationSerializer, LoginSerializer, FavoriteItemSerializer, FavoriteListSerializer
 from django.views.decorators.csrf import ensure_csrf_cookie, csrf_protect
 from django.utils.decorators import method_decorator
 from rest_framework import permissions
@@ -187,15 +187,17 @@ class UserRegistration(viewsets.ViewSet, generics.GenericAPIView):
 class AddFavoriteListing(generics.GenericAPIView):
     permission_classes = (permissions.IsAuthenticated,)
     parser_classes = (MultiPartParser, FormParser)
+    serializer_class = FavoriteListSerializer
     
     def post(self, request, *args, **kwargs):
         toFavorite = request.data['pk']
-        if Listing.objects.filter(pk=self.kwargs['pk']).exists():
-            favorites = json.loads(self.request.user.favorite_listings)
-            favorites.append(toFavorite)
-            toSave = json.dumps(favorites)
-            self.request.user.update(favorite_listings = toSave)
-            return Axios_response.ResponseSuccess(data = favorites, dataname = "Favorites",message='Favorite Added')
+        if Listing.objects.filter(pk=toFavorite).exists():
+            deta = []
+            deta["user"] = self.request.user
+            deta["listing"] = Listing.objects.get(pk=toFavorite)
+            serializer = self.serializer_class(data=deta, partial = True)
+            if serializer.is_valid():
+                return Axios_response.ResponseSuccess(data = serializer.data, dataname = "Favorites",message='Favorite Added')
         else:
             return Response(Axios_response.Failed("Given listing does not exist"))
 
@@ -204,15 +206,17 @@ class AddFavoriteListing(generics.GenericAPIView):
 class AddFavoriteItem(generics.GenericAPIView):
     permission_classes = (permissions.IsAuthenticated,)
     parser_classes = (MultiPartParser, FormParser)
+    serializer_class = FavoriteItemSerializer
     
     def post(self, request, *args, **kwargs):
         toFavorite = request.data['pk']
-        if Item.objects.filter(pk=self.kwargs['pk']).exists():
-            favorites = json.loads(self.request.user.favorite_items)
-            favorites.append(toFavorite)
-            toSave = json.dumps(favorites)
-            self.request.user.update(favorite_items = favorites)
-            return Axios_response.ResponseSuccess(data = favorites, dataname = "Favorites",message='Favorite Added')
+        if Item.objects.filter(pk=toFavorite).exists():
+            deta = []
+            deta["user"] = self.request.user
+            deta["item"] = Item.objects.get(pk=toFavorite)
+            serializer = self.serializer_class(data=deta, partial = True)
+            if serializer.is_valid():
+                return Axios_response.ResponseSuccess(data = serializer.data, dataname = "Favorites",message='Favorite Added')
         else:
             return Response(Axios_response.Failed("Given listing does not exist"))
 
@@ -223,9 +227,9 @@ class ListFavoriteListings(generics.GenericAPIView, mixins.ListModelMixin):
 
     def get(self, request, *args, **kwargs):
         results = list()
-        favorites = json.loads(self.request.user.favorite_listings)
+        favorites = FavoriteListings.objects.filter(owner=self.request.user.pk)
         for i in favorites:
-            results.append(Listing.objects.filter(pk=i))
+            results.append(Listing.objects.filter(pk=i.listing))
         return Axios_response.ResponseSuccess(data = results, dataname = "Favorites",message='Favorite Listings')
             
 @method_decorator(ensure_csrf_cookie, name='dispatch')
@@ -235,9 +239,9 @@ class ListFavoriteItems(generics.GenericAPIView, mixins.ListModelMixin):
 
     def get(self, request, *args, **kwargs):
         results = list()
-        favorites = json.loads(self.request.user.favorite_items)
+        favorites = FavoriteItems.objects.filter(owner=self.request.user.pk)
         for i in favorites:
-            results.append(Item.objects.filter(pk=i))
+            results.append(Item.objects.filter(pk=i.item))
         return Axios_response.ResponseSuccess(data = results, dataname = "Favorites",message='Favorite Listings')
             
 

@@ -1,6 +1,5 @@
 from rest_framework import serializers
-from .models import AppUser
-
+from .models import AppUser, FavoriteListings, FavoriteItems
 
 class MainUserSerializer(serializers.ModelSerializer):
 
@@ -49,4 +48,20 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
             "password",
             "re_password",
             'image_url'
+        ]
+
+class FavoriteListSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = FavoriteListings
+        fields = [
+            "user",
+            "listing"
+        ]
+
+class FavoriteItemSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = FavoriteItems
+        fields = [
+            "user",
+            "item"
         ]
