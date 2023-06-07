@@ -12,6 +12,8 @@ from django.utils.decorators import method_decorator
 import requests
 from django.conf import settings
 from SpiffoList.axios import Axios_response
+import geocoder
+import json
 
 @method_decorator(ensure_csrf_cookie, name='dispatch')
 @method_decorator(csrf_protect, name='dispatch')
@@ -83,42 +85,34 @@ class SortListings(generics.GenericAPIView, mixins.ListModelMixin):
 
     def get(self, request, *args, **kwargs):
         results = list()
-        if (request.data["Theme"] != ""):
-            queryset_a = Listing.objects.filter(theme__icontains=request.data["Theme"])
+        if (request.data.get("Theme") != None):
+            queryset_a = Listing.objects.filter(theme__icontains=request.data.get("Theme"))
             results_list = list(queryset_a)
             for entry in results_list:
                 results.append(ListingSerializerPost(entry).data)
 
-        if (request.data["Location"] != ""):
-            userLat = request.data["Location"]["Lat"]
-            userLong = request.data["Location"]["Lng"]
-            origin = f'{userLat}, {userLong}'
+        if (request.data.get("Location") != None):
+            g = geocoder.ip('me')
             toSearch = list()
             if not results:
-                queryset_a = Listing.objects.filter(zip_code=request.data["Location"]["Zip Code"])
+                queryset_a = Listing.objects.all()
                 toSearch = list(queryset_a)
             else:
                 toSearch = results
-            destination = list()
+            destinations = {}
             for entry in toSearch:
-                destLat = entry.lat
-                destLong = entry.lng
-                destination.append(f'{destLat}, {destLong}')
-            result = requests.get('https://maps.googleapis.com/maps/api/distancematrix/json?', params={
-                              'origin': origin, 'destination': destination, 'key': settings.GOOGLE_API_KEY})
-            destinations = result.json()
-            sortedDestinations = {}
-            index = 0
-            for s in destinations["rows"][0]["elements"]:
-                sortedDestinations[destinations["destination_addresses"][index]] = s["distance"]["value"]
-                index = index + 1
-            sortedDestinations = sorted(sortedDestinations.items(), key=lambda item: item[1])
+                url = 'https://maps.googleapis.com/maps/api/distancematrix/json?origins=' + str(g.latlng[0]) + "%2C" + str(g.latlng[1]) + "&destinations=" + entry.lat + "%2C" + entry.lng + "&key=" + settings.GOOGLE_API_KEY
+                payload={}
+                headers={}
+                result = requests.request('GET', url, headers=headers, data=payload)
+                toSave = json.loads(result.text)
+                destinations[entry.pk] = (toSave["rows"][0]["elements"][0]["distance"]["value"])
+            sortedDestinations = sorted(destinations.items(), key=lambda item: item[1])
             results.clear()
             for key in sortedDestinations:
-                x = key.split(", ")
-                results.append(ListingSerializerPost(Listing.objects.get(lat=x[0], lng=x[1])).data)
+                results.append(ListingSerializerPost(Listing.objects.get(pk = key[0])).data)
         
-        if (request.data["Date"] != ""):
+        if (request.data.get("Date") != None):
             results_list = list()
             if not results:
                 results_list = list(Listing.objects.order_by("end_time"))
@@ -141,16 +135,16 @@ class SortItems(generics.GenericAPIView, mixins.ListModelMixin):
     def get(self, request, *args, **kwargs):
         results = list()
 
-        if(request.data["Tag"] != ""):
-            queryset = Item.objects.filter(tags__icontains=request.data["Tag"])
+        if(request.data.get("Tag") != None):
+            queryset = Item.objects.filter(tags__icontains=request.data.get("Tag"))
             results_list = list(queryset)
             for entry in results_list:
                 results.append(ItemSerializerPost(entry).data)
 
-        if(request.data["Listing"] != ""):
+        if(request.data.get("Listing") != None):
             queryset = list()
             if not results:
-                queryset = Item.objects.filter(listing=request.data["Listing"])
+                queryset = Item.objects.filter(listing=request.data.get("Listing"))
             else:
                 for entry in results:
                     if entry.listing == request.data["Listing"]:
@@ -160,36 +154,28 @@ class SortItems(generics.GenericAPIView, mixins.ListModelMixin):
             for entry in results_list:
                 results.append(ItemSerializerPost(entry).data)
 
-        if (request.data["Location"] != ""):
-            userLat = request.data["Location"]["Lat"]
-            userLong = request.data["Location"]["Lng"]
-            origin = f'{userLat}, {userLong}'
+        if (request.data.get("Location") != None):
+            g = geocoder.ip('me')
             toSearch = list()
             if not results:
-                queryset_a = Item.objects.filter(zip_code=request.data["Location"]["Zip Code"])
+                queryset_a = Item.objects.all()
                 toSearch = list(queryset_a)
             else:
                 toSearch = results
-            destination = list()
+            destinations = {}
             for entry in toSearch:
-                destLat = entry.lat
-                destLong = entry.lng
-                destination.append(f'{destLat}, {destLong}')
-            result = requests.get('https://maps.googleapis.com/maps/api/distancematrix/json?', params={
-                              'origin': origin, 'destination': destination, 'key': settings.GOOGLE_API_KEY})
-            destinations = result.json()
-            sortedDestinations = {}
-            index = 0
-            for s in destinations["rows"][0]["elements"][0]:
-                sortedDestinations[destinations["destination_addresses"][index]] = s["distance"]["value"]
-                index = index + 1
-            sortedDestinations = sorted(sortedDestinations.items(), key=lambda item: item[1])
+                url = 'https://maps.googleapis.com/maps/api/distancematrix/json?origins=' + str(g.latlng[0]) + "%2C" + str(g.latlng[1]) + "&destinations=" + entry.lat + "%2C" + entry.lng + "&key=" + settings.GOOGLE_API_KEY
+                payload={}
+                headers={}
+                result = requests.request('GET', url, headers=headers, data=payload)
+                toSave = json.loads(result.text)
+                destinations[entry.pk] = (toSave["rows"][0]["elements"][0]["distance"]["value"])
+            sortedDestinations = sorted(destinations.items(), key=lambda item: item[1])
             results.clear()
             for key in sortedDestinations:
-                x = key.split(", ")
-                results.append(ItemSerializerPost(Item.objects.get(lat=x[0], lng=x[1])).data)
+                results.append(ItemSerializerPost(Item.objects.get(pk = key[0])).data)
 
-        if (request.data["Date"] != ""):
+        if (request.data.get("Date") != None):
             results_list = list()
             if not results:
                 results_list = list(Item.objects.order_by("end_time"))
