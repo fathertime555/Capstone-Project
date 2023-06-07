@@ -85,13 +85,14 @@ class SortListings(generics.GenericAPIView, mixins.ListModelMixin):
 
     def get(self, request, *args, **kwargs):
         results = list()
-        if (request.data.get("Theme") != None):
-            queryset_a = Listing.objects.filter(theme__icontains=request.data.get("Theme"))
+        test = True
+        if (request.query_params.get("Theme") != None):
+            queryset_a = Listing.objects.filter(theme__icontains=request.query_params.get("Theme"))
             results_list = list(queryset_a)
             for entry in results_list:
                 results.append(ListingSerializerPost(entry).data)
 
-        if (request.data.get("Location") != None):
+        if (request.query_params.get("Location") != None):
             g = geocoder.ip('me')
             toSearch = list()
             if not results:
@@ -100,19 +101,26 @@ class SortListings(generics.GenericAPIView, mixins.ListModelMixin):
             else:
                 toSearch = results
             destinations = {}
-            for entry in toSearch:
-                url = 'https://maps.googleapis.com/maps/api/distancematrix/json?origins=' + str(g.latlng[0]) + "%2C" + str(g.latlng[1]) + "&destinations=" + entry.lat + "%2C" + entry.lng + "&key=" + settings.GOOGLE_API_KEY
+            split_list = lambda lst, size: [lst[i:i+size] for i in range(0, len(lst), size)]
+            sublists = split_list(toSearch, 50)
+            for lists in sublists:
+                print(lists)
+                url = 'https://maps.googleapis.com/maps/api/distancematrix/json?origins=' + str(g.latlng[0]) + "%2C" + str(g.latlng[1]) + "&destinations="
+                for entry in lists:
+                    url = url + entry.lat + "%2C" + entry.lng + "%7C"
+                    url = url[:-3] + "&key=" + settings.GOOGLE_API_KEY
                 payload={}
                 headers={}
                 result = requests.request('GET', url, headers=headers, data=payload)
                 toSave = json.loads(result.text)
+                print(toSave)
                 destinations[entry.pk] = (toSave["rows"][0]["elements"][0]["distance"]["value"])
-            sortedDestinations = sorted(destinations.items(), key=lambda item: item[1])
-            results.clear()
-            for key in sortedDestinations:
-                results.append(ListingSerializerPost(Listing.objects.get(pk = key[0])).data)
+                sortedDestinations = sorted(destinations.items(), key=lambda item: item[1])
+                results.clear()
+                for key in sortedDestinations:
+                    results.append(ListingSerializerPost(Listing.objects.get(pk = key[0])).data)
         
-        if (request.data.get("Date") != None):
+        if (request.query_params.get("Date") != None):
             results_list = list()
             if not results:
                 results_list = list(Listing.objects.order_by("end_time"))
@@ -135,26 +143,26 @@ class SortItems(generics.GenericAPIView, mixins.ListModelMixin):
     def get(self, request, *args, **kwargs):
         results = list()
 
-        if(request.data.get("Tag") != None):
-            queryset = Item.objects.filter(tags__icontains=request.data.get("Tag"))
+        if(request.query_params.get("Tag") != None):
+            queryset = Item.objects.filter(tags__icontains=request.query_params.get("Tag"))
             results_list = list(queryset)
             for entry in results_list:
                 results.append(ItemSerializerPost(entry).data)
 
-        if(request.data.get("Listing") != None):
+        if(request.query_params.get("Listing") != None):
             queryset = list()
             if not results:
-                queryset = Item.objects.filter(listing=request.data.get("Listing"))
+                queryset = Item.objects.filter(listing=request.query_params.get("Listing"))
             else:
                 for entry in results:
-                    if entry.listing == request.data["Listing"]:
+                    if entry.listing == request.query_params.get("Listing"):
                         queryset.append(entry)
             results_list = list(queryset)
             results.clear()
             for entry in results_list:
                 results.append(ItemSerializerPost(entry).data)
 
-        if (request.data.get("Location") != None):
+        if (request.query_params.get("Location") != None):
             g = geocoder.ip('me')
             toSearch = list()
             if not results:
@@ -175,7 +183,7 @@ class SortItems(generics.GenericAPIView, mixins.ListModelMixin):
             for key in sortedDestinations:
                 results.append(ItemSerializerPost(Item.objects.get(pk = key[0])).data)
 
-        if (request.data.get("Date") != None):
+        if (request.query_params.get("Date") != None):
             results_list = list()
             if not results:
                 results_list = list(Item.objects.order_by("end_time"))
