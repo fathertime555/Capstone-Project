@@ -170,7 +170,7 @@ CHANNEL_LAYERS = {
     }
 }
 
-GOOGLE_API_KEY = 'AIzaSyBrIdKaE4vk0uAbmKnlVxJm6lcA4XDwjhw'
+GOOGLE_API_KEY = 'AIzaSyASokd8Cr4s5IAZrM1pOPPrd_WusCPwtAk'
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
