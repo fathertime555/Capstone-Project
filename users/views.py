@@ -13,7 +13,7 @@ from django.utils.decorators import method_decorator
 from rest_framework import permissions
 import json
 from rest_framework.parsers import MultiPartParser, FormParser
-from SpiffoList.axios import Axios_response
+from PongosList.axios import Axios_response
 
 
 class CheckAuthenticatedView(APIView):
@@ -125,10 +125,6 @@ class LoginView(generics.GenericAPIView):
                 request, username=username, password=password)
             if user is not None:
                 auth.login(request, user)
-                # queryset = AppUser.objects.filter(id = user.id)
-                # user_data = get_object_or_404(queryset, pk = user.id)
-                # serializer = MainUserSerializer(user_data)
-                # return Response(res.Success(message='login success',serializersdata=MainUserSerializer(user)))
                 return Axios_response.ResponseSuccess(message='login success', serializersdata=MainUserSerializer(user))
 
             else:
@@ -182,7 +178,10 @@ class UserRegistration(viewsets.ViewSet, generics.GenericAPIView):
                 return Response(Axios_response.Failed('Passwords do not match'))
         except:
             return Response(Axios_response.Failed('Something went wrong with registering account'))
-        
+
+
+#API call that, when it recieves a POST request with a valid listing key, creates a new entry in the favorite
+#listings table linking the requesting user to the requested listing
 @method_decorator(ensure_csrf_cookie, name='dispatch')
 @method_decorator(csrf_protect, name='dispatch')
 class AddFavoriteListing(generics.GenericAPIView):
@@ -202,6 +201,9 @@ class AddFavoriteListing(generics.GenericAPIView):
         else:
             return Response(Axios_response.Failed("Given listing does not exist"))
 
+
+#API call that, when it recieves a POST request with a valid item key, creates a new entry in the favorite
+#items table linking the requesting user to the requested item
 @method_decorator(ensure_csrf_cookie, name='dispatch')
 @method_decorator(csrf_protect, name='dispatch')
 class AddFavoriteItem(generics.GenericAPIView):
@@ -221,6 +223,9 @@ class AddFavoriteItem(generics.GenericAPIView):
         else:
             return Response(Axios_response.Failed("Given listing does not exist"))
 
+
+#API call that, when it recieves a GET call, returns a list of all of the listings in the
+#favorite listings table that are associated with the requesting user
 @method_decorator(ensure_csrf_cookie, name='dispatch')
 @method_decorator(csrf_protect, name='dispatch')
 class ListFavoriteListings(generics.GenericAPIView, mixins.ListModelMixin):
@@ -232,7 +237,9 @@ class ListFavoriteListings(generics.GenericAPIView, mixins.ListModelMixin):
         for i in favorites:
             results.append(Listing.objects.filter(pk=i.listing))
         return Axios_response.ResponseSuccess(data = results, dataname = "Favorites",message='Favorite Listings')
-            
+
+#API call that, when it recieves a GET call, returns a list of all of the items in the
+#favorite items table that are associated with the requesting user         
 @method_decorator(ensure_csrf_cookie, name='dispatch')
 @method_decorator(csrf_protect, name='dispatch')
 class ListFavoriteItems(generics.GenericAPIView, mixins.ListModelMixin):

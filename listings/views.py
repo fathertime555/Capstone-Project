@@ -8,9 +8,11 @@ from django.views.decorators.csrf import ensure_csrf_cookie, csrf_protect
 from django.utils.decorators import method_decorator
 import requests
 from django.conf import settings
-from SpiffoList.axios import Axios_response
+from PongosList.axios import Axios_response
 
 
+#API that takes a listing key as a parameter in a GET request and returns the details of the listing and all of the 
+#items in that listing
 @method_decorator(ensure_csrf_cookie, name='dispatch')
 @method_decorator(csrf_protect, name='dispatch')
 class SpecificListing(generics.GenericAPIView):
@@ -45,6 +47,8 @@ class SpecificListing(generics.GenericAPIView):
             return Axios_response.ResponseSuccess(data = daeta, dataname = "Listing",message='')
 
 
+#API call that, when a POST request is made with the correct data to fill in the listing table, saves that data into the table
+#as a new listing. Uses the geocode google api to automatically populate the latitude/longitude/zipcode tuples
 @method_decorator(ensure_csrf_cookie, name='dispatch')
 @method_decorator(csrf_protect, name='dispatch')
 class ListingCreation(generics.GenericAPIView, mixins.CreateModelMixin):
@@ -55,7 +59,7 @@ class ListingCreation(generics.GenericAPIView, mixins.CreateModelMixin):
     def post(self, request, *args, **kwargs):
         reqdata = request.data
         serializer = self.serializer_class(data=reqdata, partial = True)
-        if serializer.is_valid():
+        if serializer.is_valid() and request.data['start_time'] < request.data['end_time']:
             return Axios_response.ResponseSuccess(data = self.create(request, *args, **kwargs).data, dataname = "Listing",message='Listing Created')
         else:
             return Response(Axios_response.Failed("Data is not in valid form"))
@@ -71,6 +75,8 @@ class ListingCreation(generics.GenericAPIView, mixins.CreateModelMixin):
                         ['lat'], lng=location['results'][0]['geometry']['location']['lng'], zip_code=geozipcode)
 
 
+#API that, when it recieves a GET request with the id of the user making the request as a parameter, returns a list of the listings 
+#that that user owns 
 @method_decorator(ensure_csrf_cookie, name='dispatch')
 @method_decorator(csrf_protect, name='dispatch')
 class ListListings(generics.GenericAPIView, mixins.ListModelMixin):
@@ -90,6 +96,9 @@ class ListListings(generics.GenericAPIView, mixins.ListModelMixin):
         else:
             return Response(Axios_response.Failed("User does not exist"))    
 
+
+#API that, on a GET request containing the id of a listing, returns the details of that listing. On a delete request,
+#if that listing exists and is owned by the requesting user, will delete the listing from the database.
 @method_decorator(ensure_csrf_cookie, name='dispatch')
 @method_decorator(csrf_protect, name='dispatch')
 class ListingDelete(generics.GenericAPIView, mixins.DestroyModelMixin, mixins.RetrieveModelMixin):
@@ -113,6 +122,10 @@ class ListingDelete(generics.GenericAPIView, mixins.DestroyModelMixin, mixins.Re
         else:
             return Response(Axios_response.Failed("Not logged in to the correct account"))
 
+
+#API that, on a GET request containing the id of a listing, returns the details of that listing. On a POST request,
+#if that listing exists, is owned by the requesting user, and the data passed with the request is in a valid form,
+#will update the listing in the database with the new information. 
 @method_decorator(ensure_csrf_cookie, name='dispatch')
 @method_decorator(csrf_protect, name='dispatch')
 class ListingUpdate(generics.GenericAPIView, mixins.UpdateModelMixin, mixins.RetrieveModelMixin):
@@ -133,7 +146,7 @@ class ListingUpdate(generics.GenericAPIView, mixins.UpdateModelMixin, mixins.Ret
         if self.request.user.pk == listing.owner:
             reqdata = request.data
             serializer = self.serializer_class(listing, data=reqdata, partial=True)
-            if serializer.is_valid():
+            if serializer.is_valid() and request.data['start_time'] < request.data['end_time']:
                 return Axios_response.ResponseSuccess(data = self.update(request, *args, **kwargs).data, dataname = "Listing",message='Listing Updated')
             else:
                 return Response(Axios_response.Failed("Data not in a valid form"))
@@ -151,6 +164,8 @@ class ListingUpdate(generics.GenericAPIView, mixins.UpdateModelMixin, mixins.Ret
                         ['lat'], lng=location['results'][0]['geometry']['location']['lng'], zip_code=geozipcode)
 
 
+#API call that, when a POST request is made with the correct data to fill in the item table, saves that data into the table
+#as a new item. Uses the latitude/longitude/zipcode/starttime/endtime tuples of its parent listings to fill out its own.
 @method_decorator(ensure_csrf_cookie, name='dispatch')
 @method_decorator(csrf_protect, name='dispatch')
 class ItemCreation(generics.GenericAPIView, mixins.CreateModelMixin):
@@ -171,10 +186,12 @@ class ItemCreation(generics.GenericAPIView, mixins.CreateModelMixin):
             return Response(Axios_response.Failed("Listing does not exist"))
 
     def perform_create(self, serializer):
-        serializer.save(listing=self.kwargs['pk'], owner=Listing.objects.get(pk=self.kwargs['pk']).owner, zip_code=Listing.objects.get(pk=self.kwargs['pk']).zip_code, lat=Listing.objects.get(
+        serializer.save(listing=Listing.objects.get(pk=self.kwargs['pk']), owner=Listing.objects.get(pk=self.kwargs['pk']).owner, zip_code=Listing.objects.get(pk=self.kwargs['pk']).zip_code, lat=Listing.objects.get(
             pk=self.kwargs['pk']).lat, lng=Listing.objects.get(pk=self.kwargs['pk']).lng, start_time=Listing.objects.get(pk=self.kwargs['pk']).start_time, end_time=Listing.objects.get(pk=self.kwargs['pk']).end_time)
 
 
+#API that, on a GET request containing the id of an item, returns the details of that item. On a delete request,
+#if that item exists and is owned by the requesting user, will delete the item from the database.
 @method_decorator(ensure_csrf_cookie, name='dispatch')
 @method_decorator(csrf_protect, name='dispatch')
 class ItemDelete(generics.GenericAPIView, mixins.DestroyModelMixin, mixins.RetrieveModelMixin):
@@ -206,6 +223,9 @@ class ItemDelete(generics.GenericAPIView, mixins.DestroyModelMixin, mixins.Retri
             return Response(Axios_response.Failed("Not logged into the correct account"))
 
 
+#API that, on a GET request containing the id of an item, returns the details of that item. On a POST request,
+#if that item exists, is owned by the requesting user, and the data passed with the request is in a valid form,
+#will update the item in the database with the new information. 
 @method_decorator(ensure_csrf_cookie, name='dispatch')
 @method_decorator(csrf_protect, name='dispatch')
 class ItemUpdate(generics.GenericAPIView, mixins.UpdateModelMixin, mixins.RetrieveModelMixin):
@@ -242,6 +262,7 @@ class ItemUpdate(generics.GenericAPIView, mixins.UpdateModelMixin, mixins.Retrie
             pk=self.kwargs['listpk']).lat, lng=Listing.objects.get(pk=self.kwargs['listpk']).lng, start_time=Listing.objects.get(pk=self.kwargs['listpk']).start_time, end_time=Listing.objects.get(pk=self.kwargs['listpk']).end_time)
 
 
+#API that takes an item key as a parameter in a GET request and returns the details of the item
 @method_decorator(ensure_csrf_cookie, name='dispatch')
 @method_decorator(csrf_protect, name='dispatch')
 class SpecificItem(generics.GenericAPIView, mixins.RetrieveModelMixin):
@@ -252,29 +273,8 @@ class SpecificItem(generics.GenericAPIView, mixins.RetrieveModelMixin):
     serializer_class = ItemSerializerPost
 
     def get(self, request, *args, **kwargs):
-        results = {}
         if Item.objects.get(pk=request.data.get('itemPK')).listing == request.data.get('listingsPK'):
             return Axios_response.ResponseSuccess(data = self.retrieve(request, *args, **kwargs).data, dataname = "Item",message='Item Found')
         else:
             return Response(Axios_response.Failed("Listing does not contain given item"))
 
-# Need to add in caveats for if keys entered into url exist
-# Need to add on cascade delete
-
-# in case the update breaks:
-# def post(self, request, *args, **kwargs):
-#   results = {}
-#   item=Item.objects.get(pk=self.kwargs['listpk'])
-#   if self.request.user.pk == item.owner:
-#       reqdata = request.data
-#       serializer = self.serializer_class(item, data=reqdata, partial=True)
-#       serializer.is_valid(raise_exception=True)
-#       serializer.save()
-#       results["result"] = "pass"
-#       results["data"] = serializer.data
-#       results["message"] = ""
-#   else:
-#       results["result"] = "error"
-#       results["data"] = ""
-#       results["message"] = "Not logged in to the correct account"
-#   return Response(results)

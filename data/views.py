@@ -1,20 +1,17 @@
-from django.contrib.auth.models import User
 from listings.models import Listing, Item
 from users.models import AppUser
 from users.serializers import MainUserSerializer
 from rest_framework import permissions, mixins, generics
-from django.contrib import auth
-from rest_framework.response import Response
 from listings.serializers import ListingSerializerPost, ItemSerializerPost
-from rest_framework.parsers import MultiPartParser, FormParser
 from django.views.decorators.csrf import ensure_csrf_cookie, csrf_protect
 from django.utils.decorators import method_decorator
 import requests
 from django.conf import settings
-from SpiffoList.axios import Axios_response
+from PongosList.axios import Axios_response
 import geocoder
 import json
 
+#API that, when called by the frontend, returns all of the available items in the database (would need to put in restrictions in a real production server to prevent long response times)
 @method_decorator(ensure_csrf_cookie, name='dispatch')
 @method_decorator(csrf_protect, name='dispatch')
 class ListItems(generics.GenericAPIView, mixins.ListModelMixin):
@@ -25,6 +22,7 @@ class ListItems(generics.GenericAPIView, mixins.ListModelMixin):
     def get(self, request, *args, **kwargs):
         return Axios_response.ResponseSuccess(data = self.list(request, *args, **kwargs).data, dataname = "Items",message='All Items')
 
+#API that, when called by the frontend, returns all of the available listings in the database (would need to put in restrictions in a real production server to prevent long response times)
 @method_decorator(ensure_csrf_cookie, name='dispatch')
 @method_decorator(csrf_protect, name='dispatch')
 class ListListings(generics.GenericAPIView, mixins.ListModelMixin):
@@ -36,6 +34,7 @@ class ListListings(generics.GenericAPIView, mixins.ListModelMixin):
     def get(self, request, *args, **kwargs):
         return Axios_response.ResponseSuccess(data = self.list(request, *args, **kwargs).data, dataname = "Listings",message='All Listings')
         
+#API that, when called by the frontend, returns both all of the available listings and all of the available items in the database (would need to put in restrictions in a real production server to prevent long response times)
 @method_decorator(ensure_csrf_cookie, name='dispatch')
 @method_decorator(csrf_protect, name='dispatch')
 class ListBoth(generics.GenericAPIView, mixins.ListModelMixin):
@@ -56,7 +55,6 @@ class ListBoth(generics.GenericAPIView, mixins.ListModelMixin):
         Listing_results = list()
         items_results = list()
         for entry in results_list:
-            item_type = entry.__class__.__name__.lower()
             if isinstance(entry, Listing):
                 Listing_results.append(ListingSerializerPost(entry).data)
             if isinstance(entry, Item):
@@ -75,6 +73,7 @@ class ListBoth(generics.GenericAPIView, mixins.ListModelMixin):
         
         return Axios_response.ResponseSuccess(data = data, dataname = "Both",message='All Items and Listings')
 
+#API that, when called with certain parameters, will return the listings in the database sorted according to those parameters
 @method_decorator(ensure_csrf_cookie, name='dispatch')
 @method_decorator(csrf_protect, name='dispatch')
 class SortListings(generics.GenericAPIView, mixins.ListModelMixin):
@@ -85,13 +84,15 @@ class SortListings(generics.GenericAPIView, mixins.ListModelMixin):
 
     def get(self, request, *args, **kwargs):
         results = list()
-        test = True
+
+        #Filters listings of a certain theme
         if (request.query_params.get("Theme") != ""):
             queryset_a = Listing.objects.filter(theme__icontains=request.query_params.get("Theme"))
             results_list = list(queryset_a)
             for entry in results_list:
                 results.append(ListingSerializerPost(entry).data)
 
+        #Sorts sales by distance from current user location
         if (request.query_params.get("Location") != ""):
             g = geocoder.ip('me')
             toSearch = list()
@@ -119,6 +120,7 @@ class SortListings(generics.GenericAPIView, mixins.ListModelMixin):
                 for key in sortedDestinations:
                     results.append(ListingSerializerPost(Listing.objects.get(pk = key[0])).data)
         
+        #Sorts by sale ending time
         if (request.query_params.get("Date") != ""):
             results_list = list()
             if not results:
@@ -131,6 +133,7 @@ class SortListings(generics.GenericAPIView, mixins.ListModelMixin):
 
         return Axios_response.ResponseSuccess(data = results, dataname = "Listings",message='Sorted Listings')
 
+#API that, when called with certain parameters, will return the items in the database sorted according to those parameters
 @method_decorator(ensure_csrf_cookie, name='dispatch')
 @method_decorator(csrf_protect, name='dispatch')
 class SortItems(generics.GenericAPIView, mixins.ListModelMixin):
@@ -142,12 +145,14 @@ class SortItems(generics.GenericAPIView, mixins.ListModelMixin):
     def get(self, request, *args, **kwargs):
         results = list()
 
+        #Filters items with a specific tag
         if(request.query_params.get("Tag") != ""):
             queryset = Item.objects.filter(tags__icontains=request.query_params.get("Tag"))
             results_list = list(queryset)
             for entry in results_list:
                 results.append(ItemSerializerPost(entry).data)
 
+        #Filters items from a specific listing
         if(request.query_params.get("Listing") != ""):
             queryset = list()
             if not results:
@@ -161,6 +166,7 @@ class SortItems(generics.GenericAPIView, mixins.ListModelMixin):
             for entry in results_list:
                 results.append(ItemSerializerPost(entry).data)
 
+        #Sorts by sale distance from current user location
         if (request.query_params.get("Location") != ""):
             g = geocoder.ip('me')
             toSearch = list()
@@ -188,6 +194,7 @@ class SortItems(generics.GenericAPIView, mixins.ListModelMixin):
                 for key in sortedDestinations:
                     results.append(ItemSerializerPost(Item.objects.get(pk = key[0])).data)
 
+        #Sorts by sale ending time
         if (request.query_params.get("Date") != ""):
             results_list = list()
             if not results:

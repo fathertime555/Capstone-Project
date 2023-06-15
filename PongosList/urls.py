@@ -1,4 +1,4 @@
-"""SpiffoList URL Configuration
+"""PongosList URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/4.1/topics/http/urls/
@@ -74,15 +74,6 @@ urlpatterns = [
     path('api/', render_react),
     path('account/', render_react),
     path('', render_react),
-    # path("chat/", include("chat.urls")), # test dummy chat api
-    # comment the below out to use rest api built in - for backend users testing
-    #re_path(r"^/$", render_react),
-    # re_path(r"^map/$", render_react),
-    # re_path(r"^account/$", render_react),
-
-    # re_path(r"^api/$", render_react),
-    # re_path(r"^chat/$", render_react),
-    # re_path(r"^(?:.*)/?$", render_react),
 
 ]   # for file upload
 
