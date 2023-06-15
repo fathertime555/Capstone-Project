@@ -11,6 +11,7 @@ def item_directory_path(instance, filename):
     # file will be uploaded to MEDIA_ROOT / user_<id>/<filename>
     return 'static/items/item_{0}/{1}'.format(instance.pk, filename)
 
+#Django ORM that tells the database how to construct a listing table
 class Listing(models.Model):
     title = models.CharField(max_length=50)
     listing_main_photo = models.ImageField(upload_to=listing_directory_path,null=True, blank=True)
@@ -24,7 +25,7 @@ class Listing(models.Model):
     start_time = models.DateTimeField(default=datetime.date.today)
     end_time = models.DateTimeField(default=datetime.date.today)
 
-
+#Django ORM that tells the database how to construct an item table
 class Item(models.Model):
     name = models.CharField(max_length=150)
     item_main_photo = models.ImageField(upload_to=item_directory_path,null=True, blank=True)
@@ -32,7 +33,7 @@ class Item(models.Model):
     quantity = models.IntegerField()
     price = models.FloatField()
     owner = models.IntegerField()
-    listing = models.IntegerField()
+    listing = models.ForeignKey("Listing", null = True, blank = True, on_delete=models.CASCADE)
     tags = models.TextField(null=True)
     zip_code = models.IntegerField()
     lat = models.CharField(max_length=20, default="0")
@@ -40,10 +41,12 @@ class Item(models.Model):
     start_time = models.DateTimeField(default=datetime.date.today)
     end_time = models.DateTimeField(default=datetime.date.today)
 
+#Django ORM that tells the database how to construct a favorite listings table
 class FavoriteListings (models.Model):
 	user = models.ForeignKey("users.AppUser", null = True, blank = True, on_delete=models.CASCADE)
 	listing = models.ForeignKey("Listing", null = True, blank = True, on_delete=models.CASCADE)
 
+#Django ORM that tells the database how to construct a favorite items table
 class FavoriteItems (models.Model):
 	user = models.ForeignKey("users.AppUser", null = True, blank = True, on_delete=models.CASCADE)
 	item = models.ForeignKey("Item", null = True, blank = True, on_delete=models.CASCADE)
